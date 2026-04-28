@@ -1,0 +1,38 @@
+/* ======================================= */
+/*    DESIGN TOKENS (Variáveis Globais)    */
+/* =================== =================== */
+:root {
+  /* --- 1. CORES --- */
+  --bg-dark: #1a1a1a;
+  --bg-surface: #1f1f1f;
+  --text-main: rgb(243, 244, 246);
+  --text-muted: #9ca3af;
+  --color-ferrugem: #95190c;
+  --color-laranja: #ff6700;
+  --border-color: #414141;
+
+  --transparent-300: rgba(243, 244, 246, 0.3);
+  --transparent-100: rgba(243, 244, 246, 0.05);
+
+  /* --- 2. TIPOGRAFIA --- */
+  --font-family-mono: "JetBrains Mono", monospace;
+
+  --font-xs: 0.65rem; /* ~10px */
+  --font-sm: 0.75rem; /* ~12px */
+  --font-md: 0.9rem; /* ~14.4px */
+  --font-lg: 1.15rem; /* ~18px */
+  --font-xl: 1.5rem; /* ~24px */
+  --font-xxl: 2.5rem; /* ~40px */
+  --font-3xl: 3.5rem; /* ~56px */
+
+  /* --- 3. ESPAÇAMENTOS --- */
+  --space-xs: 0.5rem; /* 8px */
+  --space-sm: 1rem; /* 16px */
+  --space-md: 1.5rem; /* 24px */
+  --space-lg: 2rem; /* 32px */
+  --space-xl: 3rem; /* 48px */
+
+  /* --- 4. ESTRUTURA DO LAYOUT --- */
+  --header-height: 60px;
+  --sidebar-width: 260px;
+}

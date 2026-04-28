@@ -1,0 +1,160 @@
+/* ================================================ */
+/*    CORE CSS - ESTRUTURA PRINCIPAL DO TEMPLATE    */
+/* ================================================ */
+
+/* --- 1. RESET E CONFIGURAÇÕES BASE --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family-mono);
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* --- 2. LAYOUT GLOBAL --- */
+.layout-wrapper {
+  display: flex;
+  height: calc(100vh - var(--header-height));
+}
+
+/* --- 3. COMPONENTE: HEADER SUPERIOR --- */
+.global-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--space-lg);
+  height: var(--header-height);
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+}
+
+.header-nav {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+.logo-text {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.top-nav {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.nav-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: var(--font-md);
+  padding: 0;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+  color: var(--text-main);
+}
+
+.nav-link.active {
+  color: var(--text-main);
+  border-bottom-color: var(--color-ferrugem);
+}
+
+.icon-buttons button {
+  background: none;
+  border: none;
+  font-size: var(--font-lg);
+  cursor: pointer;
+  margin-left: var(--space-sm);
+  filter: grayscale(100%);
+}
+
+.icon-buttons button:hover {
+  filter: grayscale(0%);
+}
+
+/* --- 4. COMPONENTE: SIDEBAR ESQUERDA --- */
+app-sidebar {
+  border-right: 1px solid var(--border-color);
+}
+
+.sidebar-nav {
+  width: var(--sidebar-width);
+  min-width: var(--sidebar-width);
+  padding: var(--space-md);
+  background-color: var(--bg-surface);
+  height: 100%;
+  overflow-y: auto;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+  width: 4px;
+}
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 4px;
+}
+
+.sidebar-title {
+  font-size: var(--font-sm);
+  color: var(--text-main);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: var(--space-xs);
+}
+
+.sidebar-version {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  margin-bottom: var(--space-lg);
+}
+
+.sidebar-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin: 0 calc(var(--space-md) * -1);
+}
+
+.sidebar-link {
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: var(--font-md);
+  transition: all 0.2s;
+  padding: 0 var(--space-md);
+  height: 40px;
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+  border-left: 2px solid transparent;
+}
+
+.sidebar-link:hover {
+  background-color: var(--transparent-100);
+  color: var(--text-main);
+}
+
+.sidebar-link.active {
+  color: var(--text-main);
+  background-color: var(--transparent-100);
+  border-left-color: var(--color-ferrugem);
+}
+
+.link-icon {
+  filter: grayscale(100%);
+  font-size: var(--font-lg);
+}
+
+.sidebar-link:hover .link-icon,
+.sidebar-link.active .link-icon {
+  filter: grayscale(0%);
+}

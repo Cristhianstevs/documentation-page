@@ -1,16 +1,22 @@
+import { docsConfig } from '../config.js';
+
 class AppHeader extends HTMLElement {
   connectedCallback() {
+    const navLinks = docsConfig
+      .map((section, index) => {
+        const isActive = index === 0 ? 'active' : '';
+        return `<a href="#" class="nav-link ${isActive}" data-section="${section.id}">${section.title}</a>`;
+      })
+      .join('');
+
     this.innerHTML = `
       <header class="global-header">
         <div class="header-nav">
           <div class="logo">
-            <span class="logo-text">STAFF</span>
+            <span class="logo-text">LOGO</span>
           </div>
           <nav class="top-nav">
-            <a href="#" class="nav-link active">Documentação</a>
-            <a href="#" class="nav-link">API</a>
-            <a href="#" class="nav-link">Colaboradores</a>
-            <a href="#" class="nav-link">Grupos</a>
+            ${navLinks}
           </nav>
         </div>
 
