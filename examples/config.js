@@ -1,5 +1,6 @@
 export const appSettings = {
-  version: '1.0.0',
+  siteTitle: 'Documentação',
+  logoText: 'LOGO',
   sidebarTitle: 'GLOBAL_NAV',
 };
 

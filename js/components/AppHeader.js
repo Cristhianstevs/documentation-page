@@ -1,23 +1,12 @@
-import { docsConfig } from '../config.js';
-
 class AppHeader extends HTMLElement {
-  connectedCallback() {
-    const navLinks = docsConfig
-      .map((section, index) => {
-        const isActive = index === 0 ? 'active' : '';
-        return `<a href="#" class="nav-link ${isActive}" data-section="${section.id}">${section.title}</a>`;
-      })
-      .join('');
-
+  render(docsConfig, appSettings) {
     this.innerHTML = `
       <header class="global-header">
         <div class="header-nav">
           <div class="logo">
-            <span class="logo-text">LOGO</span>
+            <span class="logo-text"></span>
           </div>
-          <nav class="top-nav">
-            ${navLinks}
-          </nav>
+          <nav class="top-nav" aria-label="Assuntos"></nav>
         </div>
 
         <div class="header-actions">
@@ -28,6 +17,20 @@ class AppHeader extends HTMLElement {
         </div>
       </header>
     `;
+
+    this.querySelector('.logo-text').textContent = appSettings.logoText;
+    const nav = this.querySelector('.top-nav');
+    for (const section of docsConfig) {
+      const link = document.createElement('a');
+      const firstPage = section.pages[0];
+      link.href = firstPage
+        ? `#${section.id}/${firstPage.file.slice(0, -5)}`
+        : `#${section.id}`;
+      link.className = 'nav-link';
+      link.dataset.section = section.id;
+      link.textContent = section.title;
+      nav.append(link);
+    }
   }
 }
 

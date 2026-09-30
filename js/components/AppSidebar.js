@@ -1,39 +1,44 @@
-import { appSettings, docsConfig } from '../config.js';
-
 class AppSidebar extends HTMLElement {
-  connectedCallback() {
-    this.renderMenu(docsConfig[0].id);
+  configure(docsConfig, appSettings, themeVersion) {
+    this.sections = docsConfig;
+    this.settings = appSettings;
+    this.themeVersion = themeVersion;
   }
 
-  renderMenu(sectionId) {
-    const sectionData = docsConfig.find((sec) => sec.id === sectionId);
-
-    if (!sectionData) return;
-
-    const linksHtml = sectionData.pages
-      .map((page) => {
-        const icon = page.icon ? `<span class="link-icon">${page.icon}</span>` : '';
-        return `
-        <li>
-          <a href="#" class="sidebar-link" data-file="${page.file}">
-            ${icon} ${page.title}
-          </a>
-        </li>
-      `;
-      })
-      .join('');
-
+  renderMenu(sectionId, fileName) {
+    const section = this.sections.find((item) => item.id === sectionId);
     this.innerHTML = `
       <aside class="sidebar-nav">
-        <!-- Puxando os dados do appSettings em vez do sectionData -->
-        <h3 class="sidebar-title">${appSettings.sidebarTitle}</h3>
-        <p class="sidebar-version">V${appSettings.version}</p>
-
-        <ul class="sidebar-list">
-          ${linksHtml}
-        </ul>
+        <h3 class="sidebar-title"></h3>
+        <p class="sidebar-version"></p>
+        <nav aria-label="Páginas"><ul class="sidebar-list"></ul></nav>
       </aside>
     `;
+    this.querySelector('.sidebar-title').textContent = this.settings.sidebarTitle;
+    this.querySelector('.sidebar-version').textContent = `V${this.themeVersion}`;
+    const list = this.querySelector('.sidebar-list');
+
+    for (const page of section?.pages ?? []) {
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = `#${section.id}/${page.file.slice(0, -5)}`;
+      link.className = 'sidebar-link';
+      link.dataset.file = page.file;
+      if (page.file === fileName) {
+        link.classList.add('active');
+        link.setAttribute('aria-current', 'page');
+      }
+      if (page.icon) {
+        const icon = document.createElement('span');
+        icon.className = 'link-icon';
+        icon.setAttribute('aria-hidden', 'true');
+        icon.textContent = page.icon;
+        link.append(icon);
+      }
+      link.append(document.createTextNode(page.title));
+      item.append(link);
+      list.append(item);
+    }
   }
 }
 
