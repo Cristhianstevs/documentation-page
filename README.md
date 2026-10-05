@@ -10,7 +10,7 @@ Projeto em desenvolvimento, feito com HTML, CSS e JavaScript puro, usando ES Mod
 
 O tema carrega `site/config.js` e `site/pages/` quando há uma instalação local. Na ausência de `site/config.js`, usa `examples/`. Cabeçalho e lateral recebem a mesma configuração. Links de página como `#guias/instalacao` são preservados.
 
-O índice de títulos à direita, os links de trechos, o catálogo de estilos e a adaptação completa ao celular ainda precisam ser implementados. Há referências de exemplo a arquivos ausentes e páginas vazias. O [diagnóstico inicial](docs/DIAGNOSTICO.md) registra a base histórica; o [changelog](CHANGELOG.md) registra as entregas posteriores.
+O índice de títulos à direita, os links de trechos, o catálogo de estilos e a adaptação completa ao celular ainda precisam ser implementados. O [diagnóstico inicial](docs/DIAGNOSTICO.md) registra a base histórica; o [changelog](CHANGELOG.md) registra as entregas posteriores.
 
 Esta base estática ainda não oferece controle de acesso para documentos confidenciais.
 
@@ -19,8 +19,8 @@ Esta base estática ainda não oferece controle de acesso para documentos confid
 1. Abrir a pasta do projeto no VS Code.
 2. Servir a pasta por HTTP local, por exemplo com Live Server no `index.html`.
 3. Abrir o endereço informado pelo servidor e selecionar uma página na lateral.
-4. Para criar uma instalação, copiar `examples/` para uma nova pasta `site/`, se ela ainda não existir.
-5. Editar `site/config.js` e `site/pages/`, seguindo o [guia de uso](docs/GUIA-DE-USO.md).
+4. Editar `site/config.js` e criar páginas em `site/pages/`, seguindo o [guia de uso](docs/GUIA-DE-USO.md).
+5. Se preferir partir de uma demonstração preenchida, copiar `examples/` sobre uma nova pasta `site/`.
 
 Não usar `file://`: módulos e carregamento de páginas devem ser executados em um servidor HTTP. Não existem comandos `npm start` ou `npm test`. Com Node.js 24 ativo, os testes da separação são executados por `node --test tests/load-site.test.mjs`.
 

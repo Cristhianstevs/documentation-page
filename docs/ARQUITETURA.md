@@ -141,7 +141,7 @@ Em telas largas, um painel `sticky` acompanha a leitura sem cobrir o texto. Em t
 
 ## 6. Estilos e contrato do HTML
 
-O tema cuida de um único contêiner de leitura. As novas páginas serão fragmentos sem `<html>`, `<head>`, scripts ou contêiner duplicado. Na migração, remover a duplicação das duas páginas existentes.
+O tema cuida de um único contêiner de leitura. As páginas de exemplo são fragmentos sem `<html>`, `<head>`, scripts ou contêiner duplicado. As instalações devem seguir o mesmo contrato.
 
 `css/content.css` deve estilizar títulos, parágrafos, links, listas, citações, código, tabelas, imagens e detalhes expansíveis dentro da área de leitura. Classes de avisos e introduções complementam o HTML semântico. Uma página de exemplos serve de catálogo e teste visual.
 

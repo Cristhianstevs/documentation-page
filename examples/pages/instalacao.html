@@ -1,47 +1,22 @@
-<div class="content-container">
-  <h1>Instalação</h1>
-  <p>
-    Para configurar o ambiente de desenvolvimento local e começar a contribuir com a documentação,
-    siga os passos abaixo.
-  </p>
+<h1>Instalação</h1>
+<p>
+  Sirva esta pasta por HTTP local para abrir a demonstração. O projeto não usa etapa de build.
+</p>
 
-  <h2>Pré-requisitos</h2>
-  <ul>
-    <li>VSCode instalado</li>
-    <li>Navegador Web (Chrome, Edge ou Firefox)</li>
-    <li>Extensão Live Server (opcional, mas recomendado)</li>
-  </ul>
+<h2>Pré-requisitos</h2>
+<ul>
+  <li>Um navegador moderno.</li>
+  <li>Um servidor HTTP local, como a extensão Live Server do VS Code.</li>
+</ul>
 
-  <h2>Clonando o Repositório</h2>
-  <p>
-    Abra o terminal do seu computador e execute o comando abaixo para baixar a versão genérica do
-    nosso template:
-  </p>
+<h2>Abrir localmente</h2>
+<p>Abra a raiz do projeto no VS Code e inicie um servidor HTTP pelo arquivo <code>index.html</code>.</p>
 
-  <div class="code-block">
-    <pre>
-      <code>
-git clone https://github.com/Cristhianstevs/documentation-page.git
-cd documentation-page
-code .
-      </code>
-    </pre>
-  </div>
+<pre><code>http://127.0.0.1:5500/index.html</code></pre>
 
-  <p>
-    Após abrir o projeto no VSCode, basta rodar o Live Server no arquivo
-    <code>index.html</code>
-    .
-  </p>
-
-  <h2>Criando sua instalação</h2>
-  <p>
-    Copie a pasta <code>examples</code>, na mesma pasta do projeto, com o nome <code>site</code>.
-    Depois edite <code>site/config.js</code> e os arquivos em <code>site/pages</code>.
-    O tema passa a usar essa configuração após recarregar a página.
-  </p>
-  <p>
-    Use <code>site/custom.css</code> para personalizar a aparência. A pasta <code>site</code>
-    é ignorada pelo Git do tema e precisa de backup próprio.
-  </p>
-</div>
+<h2>Criando sua instalação</h2>
+<p>
+  A pasta <code>site/</code> contém uma configuração vazia para começar. Cadastre as abas em
+  <code>site/config.js</code>, crie os HTMLs em <code>site/pages/</code> e personalize cores em
+  <code>site/custom.css</code>.
+</p>

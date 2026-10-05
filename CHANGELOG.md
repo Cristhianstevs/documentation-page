@@ -15,6 +15,11 @@ Registra entregas reais. Trabalho futuro fica no [plano do MVP](docs/PLANO-MVP.m
 - Testes nativos para seleção da configuração, validação, caminhos em subpastas e isolamento do conteúdo no Git.
 - Convenções de nomes e migração documentadas no guia de uso.
 
+### Exemplos completos e instalação vazia — 2026-10-05
+
+- A demonstração passou a ter todas as páginas cadastradas, com conteúdo fictício e sem contêineres de leitura duplicados.
+- O guia passou a explicar o esqueleto local vazio de `site/`, com `config.js`, `pages/`, `assets/` e `custom.css`, para iniciar uma instalação sem copiar os exemplos.
+
 Índice de títulos, links de trechos e novo layout continuam pendentes. Os exemplos ausentes/vazios da revisão inicial ainda precisam ser completados. Esta entrada não representa uma release publicada.
 
 ### Documentação — 2026-09-27

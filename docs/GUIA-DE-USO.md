@@ -10,7 +10,7 @@ Sem `site/config.js`, o site mostra o conteúdo de `examples/`. Com esse arquivo
 
 ## Criar sua instalação
 
-Copiar a pasta `examples` para uma nova pasta chamada `site`, na raiz do projeto. Se `site` já existir, editar essa instalação; não copiar por cima.
+Nesta cópia de trabalho, a pasta `site/` foi criada com uma configuração vazia. Ela é ignorada pelo Git e, por isso, não acompanha um clone novo do tema. Em uma cópia nova, crie `site/config.js`, `site/pages/`, `site/assets/` e `site/custom.css` para começar do zero; se preferir uma base preenchida, copie `examples` para `site` somente quando a pasta de destino ainda não existir.
 
 No PowerShell, apenas quando a pasta de destino ainda não existir:
 
@@ -20,7 +20,7 @@ Copy-Item -LiteralPath .\examples -Destination .\site -Recurse
 
 A cópia contém a configuração, páginas e CSS de demonstração. A pasta `assets/` recebe imagens e anexos. O arquivo `.gitkeep` apenas permite guardar essa pasta vazia no Git dos exemplos; pode ser removido da sua cópia local.
 
-A demonstração ainda possui duas páginas vazias e duas referências a arquivos ausentes, herdadas da base inicial. Complete ou remova esses cadastros ao preparar seu conteúdo. A interface informa quando o arquivo está vazio ou não existe.
+A demonstração contém somente páginas fictícias completas. Ela serve como referência de estrutura, não como conteúdo para uma instalação real.
 
 A pasta `site/` é ignorada pelo Git do tema. Ela não será enviada por um commit comum desse tema e precisa de backup próprio. Ignorar no Git não torna os arquivos privados na hospedagem nem impede adição forçada. Para conteúdo empresarial, o controle de acesso continua sendo uma etapa separada.
 
@@ -88,7 +88,7 @@ Criar `site/pages/equipamentos.html`:
 
 Recarregar o navegador. O cabeçalho e a lateral usam essa configuração. Um arquivo sozinho na pasta não se cadastra automaticamente no menu.
 
-A página deve ser um fragmento HTML, sem `html`, `head` ou scripts. O tema já cria o contêiner de leitura. As duas páginas antigas de exemplo ainda têm um contêiner duplicado, a corrigir na etapa de padronização de conteúdo.
+A página deve ser um fragmento HTML, sem `html`, `head`, scripts ou contêiner de leitura próprio. O tema já cria o contêiner de leitura.
 
 ## Links e imagens
 

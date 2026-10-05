@@ -18,6 +18,11 @@ body {
 }
 
 /* --- 2. LAYOUT GLOBAL --- */
+
+main {
+  padding: var(--space-md);
+}
+
 .layout-wrapper {
   display: flex;
   height: calc(100vh - var(--header-height));

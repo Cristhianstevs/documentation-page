@@ -56,8 +56,8 @@ Concluída em 2026-09-30. Evidências: 13 testes nativos e verificação no Edge
 - [ ] Definir `id` estável da página, com compatibilidade para o cadastro atual por `file`.
 - [x] Validar formato, IDs repetidos, campos obrigatórios e associação de página à aba.
 - [x] Tratar configuração vazia e abas vazias.
-- [ ] Completar ou remover as duas páginas inexistentes e as duas vazias da demonstração.
-- [ ] Padronizar HTML como fragmento e eliminar o contêiner duplicado.
+- [x] Completar as duas páginas inexistentes e as duas vazias da demonstração.
+- [x] Padronizar os HTMLs da demonstração como fragmentos e eliminar o contêiner duplicado.
 - [ ] Conferir links, imagens e exemplos de instalação.
 - [x] Definir caminhos de imagens relativos ao documento principal e manter esse contrato no guia.
 
