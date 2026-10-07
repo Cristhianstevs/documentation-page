@@ -1,6 +1,6 @@
 # Arquitetura proposta e atualização das instalações
 
-Status atualizado em 2026-09-30: a separação entre tema, exemplos e instalação está implementada. O carregamento é centralizado em `js/load-site.js`, iniciado por `js/main.js`. URLs de títulos, índice, catálogo visual e integração corporativa continuam como propostas. O [guia de uso](GUIA-DE-USO.md) descreve o comportamento atual e a migração.
+Status atualizado em 2026-10-07: a separação entre tema, exemplos e instalação, as URLs de títulos e o índice automático estão implementados. O carregamento é centralizado em `js/load-site.js`, iniciado por `js/main.js`. Catálogo visual, adaptação completa ao celular e integração corporativa continuam pendentes. O [guia de uso](GUIA-DE-USO.md) descreve o comportamento atual e a migração.
 
 ## 1. Separar responsabilidades
 
@@ -21,7 +21,7 @@ documentacao-page/
 ├── index.html                  # estrutura do tema
 ├── css/                        # estilos mantidos pelo tema
 ├── js/
-│   ├── components/             # header, sidebar e futuro índice
+│   ├── components/             # header, sidebar e índice
 │   ├── main.js                 # inicialização e navegação atual
 │   └── load-site.js            # seleção e validação da configuração
 ├── examples/                   # configuração e páginas fictícias versionadas
@@ -91,7 +91,7 @@ Recomendação: manter fragmentos de URL, compatíveis com hospedagem estática 
 | Página  | `index.html#guias/instalacao`                | Abrir a página e destacar os menus                                                |
 | Título  | `index.html#guias/instalacao/pre-requisitos` | Carregar a página e ir ao título                                                  |
 
-Os exemplos da tabela são especificação futura, exceto o carregamento parcial de página já existente. Usar apenas um `#`, porque ele delimita o fragmento inteiro.
+As quatro formas da tabela estão implementadas. Usar apenas um `#`, porque ele delimita o fragmento inteiro.
 
 “Rastreável” aqui significa que um link consegue reconstruir a seleção e o ponto de leitura. O fragmento não é enviado ao servidor em uma requisição HTTP; indexação por buscadores, auditoria de acessos e analytics são problemas separados. Para uma wiki pública focada em SEO, reavaliar geração estática e URLs por caminho no futuro.
 

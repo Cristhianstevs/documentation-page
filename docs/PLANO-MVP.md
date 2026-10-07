@@ -85,15 +85,17 @@ Concluída em 2026-10-07. Evidências: 26 testes nativos para configuração, ro
 
 ## Etapa 4 — Criar o índice da direita e links de títulos
 
-- [ ] Implementar `AppToc` e registrá-lo.
-- [ ] Extrair `h1`, `h2` e `h3` apenas do conteúdo carregado.
-- [ ] Gerar IDs legíveis, preservando IDs explícitos e evitando colisões.
-- [ ] Representar níveis e ordem corretamente.
-- [ ] Adicionar o segmento de título `#aba/pagina/titulo`.
-- [ ] Ir ao título depois que a página estiver disponível, inclusive no link direto.
-- [ ] Destacar a seção em leitura sem encher o histórico a cada movimento de rolagem.
-- [ ] Tratar página sem títulos e título solicitado que não existe.
-- [ ] Manter navegação de título na mesma página sem buscar o HTML novamente.
+- [x] Implementar `AppToc` e registrá-lo.
+- [x] Extrair `h1`, `h2` e `h3` apenas do conteúdo carregado.
+- [x] Gerar IDs legíveis, preservando IDs explícitos e evitando colisões.
+- [x] Representar níveis e ordem corretamente.
+- [x] Adicionar o segmento de título `#aba/pagina/titulo`.
+- [x] Ir ao título depois que a página estiver disponível, inclusive no link direto.
+- [x] Destacar a seção em leitura sem encher o histórico a cada movimento de rolagem.
+- [x] Tratar página sem títulos e título solicitado que não existe.
+- [x] Manter navegação de título na mesma página sem buscar o HTML novamente.
+
+Concluída em 2026-10-07. Evidências: testes nativos para normalização, acentos, repetições, IDs explícitos, colisões e rotas de título; verificação no Chrome de link direto, F5, Voltar, título inexistente, listas aninhadas, foco e destaque por rolagem. A troca entre títulos manteve uma única requisição ao HTML da página.
 
 **Aceite:** títulos acentuados, repetidos e com ID manual geram destinos válidos. Copiar um link de título, abrir em outra janela e recarregar mantém o ponto correto. Renomear o texto com ID explícito preserva o endereço.
 
@@ -180,4 +182,4 @@ Não precisamos prever hoje cada extensão possível. Primeiro entregar uma base
 
 ## Próxima tarefa recomendada
 
-Criar o índice da direita e os links de títulos na Etapa 4. A primeira mudança pequena é extrair os títulos do conteúdo carregado e gerar IDs legíveis e únicos, preservando IDs explícitos.
+Criar o padrão visual de conteúdo da Etapa 5. A primeira mudança pequena é preencher `content.css` com a tipografia e os elementos semânticos básicos, acompanhados por uma página de catálogo visual.

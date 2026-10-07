@@ -20,7 +20,21 @@ body {
 /* --- 2. LAYOUT GLOBAL --- */
 
 main {
+  flex: 1;
+  min-width: 0;
   padding: var(--space-md);
+  overflow-y: auto;
+}
+
+.content-container {
+  min-height: 100%;
+  padding-bottom: calc(100vh - var(--header-height) - var(--space-lg));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main {
+    scroll-behavior: auto;
+  }
 }
 
 .layout-wrapper {
@@ -162,4 +176,66 @@ app-sidebar {
 .sidebar-link:hover .link-icon,
 .sidebar-link.active .link-icon {
   filter: grayscale(0%);
+}
+
+/* --- 5. COMPONENTE: ÍNDICE DA PÁGINA --- */
+app-toc {
+  width: var(--toc-width);
+  min-width: var(--toc-width);
+  border-left: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+}
+
+app-toc:empty {
+  display: none;
+}
+
+.toc-panel {
+  height: 100%;
+  padding: var(--space-md);
+  overflow-y: auto;
+}
+
+.toc-title {
+  margin-bottom: var(--space-sm);
+  color: var(--text-main);
+  font-size: var(--font-sm);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.toc-list {
+  list-style: none;
+}
+
+.toc-list .toc-list {
+  padding-left: var(--space-sm);
+}
+
+.toc-link {
+  display: block;
+  padding: calc(var(--space-xs) / 2) 0;
+  color: var(--text-muted);
+  font-size: var(--font-sm);
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.toc-link:hover,
+.toc-link.active {
+  color: var(--text-main);
+}
+
+.toc-link.active {
+  border-left: 2px solid var(--color-ferrugem);
+  padding-left: var(--space-xs);
+}
+
+.toc-warning,
+.route-notice {
+  margin-top: var(--space-sm);
+  padding: var(--space-xs);
+  border-left: 2px solid var(--color-laranja);
+  color: var(--text-muted);
+  font-size: var(--font-sm);
 }

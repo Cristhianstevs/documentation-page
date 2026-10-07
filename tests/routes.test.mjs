@@ -20,16 +20,24 @@ test('lê início, aba e página sem depender do navegador', () => {
     type: 'target',
     sectionId: 'guias',
     pageId: undefined,
+    headingId: undefined,
   });
   assert.deepEqual(readRoute('#guias/instalacao'), {
     type: 'target',
     sectionId: 'guias',
     pageId: 'instalacao',
+    headingId: undefined,
+  });
+  assert.deepEqual(readRoute('#guias/instalacao/pr%C3%A9-requisitos'), {
+    type: 'target',
+    sectionId: 'guias',
+    pageId: 'instalacao',
+    headingId: 'pré-requisitos',
   });
 });
 
 test('rejeita segmentos vazios ou além de aba e página', () => {
-  for (const hash of ['#guias/', '#/introducao', '#guias/introducao/extra']) {
+  for (const hash of ['#guias/', '#/introducao', '#guias/introducao/titulo/extra', '#guias/pagina/%']) {
     assert.deepEqual(readRoute(hash), { type: 'invalid' });
   }
 });
@@ -56,6 +64,13 @@ test('preserva uma página válida e rejeita destinos desconhecidos', () => {
 
   assert.equal(resolveRoute(docsConfig, readRoute('#outra')).status, 'invalid');
   assert.equal(resolveRoute(docsConfig, readRoute('#guias/outra')).status, 'invalid');
+});
+
+test('preserva o título solicitado na rota da página', () => {
+  const result = resolveRoute(docsConfig, readRoute('#guias/instalacao/pre-requisitos'));
+  assert.equal(result.status, 'page');
+  assert.equal(result.headingId, 'pre-requisitos');
+  assert.equal(result.canonicalHash, '#guias/instalacao/pre-requisitos');
 });
 
 test('trata configuração e aba sem páginas como estados vazios', () => {

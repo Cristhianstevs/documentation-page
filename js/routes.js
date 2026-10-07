@@ -3,12 +3,23 @@ export function readRoute(hash) {
   if (!value) return { type: 'start' };
 
   const segments = value.split('/');
-  if (segments.length > 2 || segments.some((segment) => !segment)) {
+  if (segments.length > 3 || segments.some((segment) => !segment)) {
     return { type: 'invalid' };
   }
 
-  const [sectionId, pageId] = segments;
-  return { type: 'target', sectionId, pageId };
+  const [sectionId, pageId, encodedHeadingId] = segments;
+  let headingId;
+  try {
+    headingId = encodedHeadingId ? decodeURIComponent(encodedHeadingId) : undefined;
+  } catch {
+    return { type: 'invalid' };
+  }
+  return { type: 'target', sectionId, pageId, headingId };
+}
+
+export function createPageHash(sectionId, pageId, headingId) {
+  const pageHash = `#${sectionId}/${pageId}`;
+  return headingId ? `${pageHash}/${encodeURIComponent(headingId)}` : pageHash;
 }
 
 export function resolveRoute(docsConfig, route) {
@@ -22,7 +33,7 @@ export function resolveRoute(docsConfig, route) {
       status: 'page',
       section,
       page,
-      canonicalHash: `#${section.id}/${page.id}`,
+      canonicalHash: createPageHash(section.id, page.id),
     };
   }
 
@@ -36,7 +47,7 @@ export function resolveRoute(docsConfig, route) {
       status: 'page',
       section,
       page,
-      canonicalHash: `#${section.id}/${page.id}`,
+      canonicalHash: createPageHash(section.id, page.id),
     };
   }
 
@@ -46,6 +57,7 @@ export function resolveRoute(docsConfig, route) {
     status: 'page',
     section,
     page,
-    canonicalHash: `#${section.id}/${page.id}`,
+    headingId: route.headingId,
+    canonicalHash: createPageHash(section.id, page.id, route.headingId),
   };
 }

@@ -35,4 +35,5 @@
   /* --- 4. ESTRUTURA DO LAYOUT --- */
   --header-height: 60px;
   --sidebar-width: 260px;
+  --toc-width: 240px;
 }

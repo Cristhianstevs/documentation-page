@@ -1,6 +1,6 @@
 # Guia de uso e organização
 
-Atualizado em 2026-10-07. A separação entre tema e instalação está implementada. O índice de títulos, links de trechos e o catálogo visual ainda estão no [plano do MVP](PLANO-MVP.md).
+Atualizado em 2026-10-07. A separação entre tema e instalação, a navegação e o índice automático estão implementados. O catálogo visual e a adaptação completa ao celular ainda estão no [plano do MVP](PLANO-MVP.md).
 
 ## Executar
 
@@ -101,7 +101,7 @@ A página deve ser um fragmento HTML, sem `html`, `head`, scripts ou contêiner 
 
 O endereço de página continua no formato `#pesca/equipamentos`. Os links dos menus agora têm esse destino real. Ao abrir o site sem fragmento, o tema procura a primeira página válida da configuração e completa o endereço sem criar uma etapa extra no histórico. Um endereço contendo apenas a aba também abre sua primeira página; uma aba sem páginas mostra um aviso. Link direto, F5, Voltar/Avançar e navegação pelo teclado funcionam para páginas cadastradas.
 
-O endereço depende dos IDs da aba e da página. Mudar o título de exibição ou o arquivo preserva o link; mudar um ID altera o endereço. Links para títulos ainda não foram implementados.
+O endereço depende dos IDs da aba e da página. Mudar o título de exibição ou o arquivo preserva o link; mudar um ID altera o endereço. O índice lê `h1`, `h2` e `h3` e cria links como `#pesca/equipamentos/varas`. Ao selecionar um título, ele é alinhado ao topo da leitura com uma animação suave, exceto quando o sistema pede movimento reduzido. IDs escritos no HTML são preservados; quando não há `id`, o tema gera um endereço legível. Para manter um link compartilhado mesmo após renomear o título, prefira declarar um ID estável, como `<h2 id="varas">Varas para iniciantes</h2>`.
 
 Como o fragmento HTML é inserido em `index.html`, imagens são resolvidas a partir desse documento. Para uma imagem em `site/assets/vara.png`, usar:
 

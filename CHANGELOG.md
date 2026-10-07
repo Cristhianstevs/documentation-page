@@ -22,13 +22,22 @@ Registra entregas reais. Trabalho futuro fica no [plano do MVP](docs/PLANO-MVP.m
 - Páginas passaram a aceitar um `id` estável, independente do arquivo, mantendo compatibilidade com configurações antigas que possuem apenas `file`.
 - O guia agora diferencia explicitamente os modos demonstração e instalação local; clones novos mostram `examples/` sem exigir renomeações.
 - Um teste verifica que todas as páginas cadastradas na demonstração existem, possuem conteúdo e têm um título principal.
+
+### Navegação completa e índice de títulos — 2026-10-07
+
 - Leitura e resolução de URLs foram separadas da renderização e receberam testes unitários.
 - Abrir o site sem fragmento ou entrar somente em uma aba agora seleciona sua primeira página válida e normaliza o endereço sem criar uma etapa extra no histórico.
 - Conteúdo, menus ativos, título do navegador e foco agora seguem o mesmo resultado de rota.
 - Estados de página vazia, arquivo ausente, acesso negado, erro do servidor e falha de rede passaram a ter mensagens distintas.
 - Rotas inválidas oferecem um link real de recuperação; a navegação continua baseada em links nativos, preservando copiar endereço e abrir em nova aba.
+- O índice lê `h1`, `h2` e `h3`, preserva a hierarquia e cria links reais para cada trecho.
+- IDs automáticos tratam acentos, repetições, títulos vazios e colisões; IDs explícitos válidos são preservados.
+- URLs aceitam o formato `#aba/pagina/titulo`, inclusive em link direto, F5 e histórico.
+- Trocar somente de título não busca nem reconstrói o HTML; rolar manualmente atualiza apenas o destaque do índice.
+- Um título solicitado que não existe mantém a página legível e mostra um aviso.
+- Selecionar um título faz uma rolagem suave até alinhá-lo ao topo, com movimento imediato quando essa é a preferência de acessibilidade do sistema.
 
-Índice de títulos, links de trechos e novo layout continuam pendentes. Esta entrada não representa uma release publicada.
+Catálogo visual, adaptação completa ao celular e primeira release continuam pendentes. Esta entrada não representa uma release publicada.
 
 ### Documentação — 2026-09-27
 

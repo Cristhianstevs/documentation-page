@@ -1,8 +1,10 @@
 import './components/AppHeader.js';
 import './components/AppSidebar.js';
+import './components/AppToc.js';
+import { indexContentHeadings } from './headings.js';
 import { loadPage } from './load-page.js';
 import { loadSite } from './load-site.js';
-import { readRoute, resolveRoute } from './routes.js';
+import { createPageHash, readRoute, resolveRoute } from './routes.js';
 
 // A versão pertence ao tema, independentemente do conteúdo de cada instalação.
 const THEME_VERSION = '1.0.0';
@@ -34,6 +36,7 @@ async function start() {
   const site = await loadSite();
   const header = document.querySelector('app-header');
   const sidebar = document.querySelector('app-sidebar');
+  const toc = document.querySelector('app-toc');
 
   document.title = site.appSettings.siteTitle;
   header.render(site.docsConfig, site.appSettings);
@@ -45,6 +48,97 @@ async function start() {
   document.head.append(customStyles);
 
   let navigationId = 0;
+  let renderedPageKey;
+  let currentHeadings = [];
+  let scrollFrame;
+  let pinnedHeadingId;
+  let tocPinned = false;
+
+  function resumeScrollTracking() {
+    tocPinned = false;
+    pinnedHeadingId = undefined;
+  }
+
+  mainContent.addEventListener('wheel', resumeScrollTracking, { passive: true });
+  mainContent.addEventListener('touchstart', resumeScrollTracking, { passive: true });
+  mainContent.addEventListener('pointerdown', resumeScrollTracking);
+  document.addEventListener('keydown', (event) => {
+    if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' '].includes(event.key)) {
+      resumeScrollTracking();
+    }
+  });
+
+  function clearPageState() {
+    renderedPageKey = undefined;
+    currentHeadings = [];
+    resumeScrollTracking();
+    toc.render([], '');
+  }
+
+  function showRouteNotice(message) {
+    document.getElementById('route-notice')?.remove();
+    if (!message) return undefined;
+    const notice = document.createElement('p');
+    notice.id = 'route-notice';
+    notice.className = 'route-notice';
+    notice.setAttribute('role', 'status');
+    notice.setAttribute('tabindex', '-1');
+    notice.textContent = message;
+    mainContent.prepend(notice);
+    return notice;
+  }
+
+  function applyHeadingRoute(route, focusPage = false, animate = false) {
+    showRouteNotice();
+    if (!route.headingId) {
+      resumeScrollTracking();
+      document.title = `${route.page.title} — ${site.appSettings.siteTitle}`;
+      toc.setActive(currentHeadings[0]?.id);
+      if (focusPage) focusContent();
+      return;
+    }
+
+    const entry = currentHeadings.find((heading) => heading.id === route.headingId);
+    if (!entry) {
+      tocPinned = true;
+      pinnedHeadingId = undefined;
+      document.title = `Trecho não encontrado — ${route.page.title} — ${site.appSettings.siteTitle}`;
+      toc.setActive();
+      const notice = showRouteNotice(
+        `O trecho “${route.headingId}” não existe nesta página. O restante do conteúdo continua disponível.`,
+      );
+      notice.focus();
+      return;
+    }
+
+    tocPinned = true;
+    pinnedHeadingId = entry.id;
+    document.title = `${entry.text} — ${route.page.title} — ${site.appSettings.siteTitle}`;
+    toc.setActive(entry.id);
+    entry.element.setAttribute('tabindex', '-1');
+    entry.element.focus({ preventScroll: true });
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    entry.element.scrollIntoView({
+      behavior: animate && !reduceMotion ? 'smooth' : 'auto',
+      block: 'start',
+    });
+  }
+
+  mainContent.addEventListener('scroll', () => {
+    if (scrollFrame || !currentHeadings.length) return;
+    scrollFrame = requestAnimationFrame(() => {
+      scrollFrame = undefined;
+      if (tocPinned) {
+        toc.setActive(pinnedHeadingId);
+        return;
+      }
+      const contentTop = mainContent.getBoundingClientRect().top;
+      const passed = currentHeadings.filter(
+        (heading) => heading.element.getBoundingClientRect().top <= contentTop + 32,
+      );
+      toc.setActive((passed.at(-1) ?? currentHeadings[0]).id);
+    });
+  });
 
   function updateNavigation(route) {
     const { section, page } = route;
@@ -80,6 +174,7 @@ async function start() {
     mainContent.setAttribute('aria-busy', 'false');
 
     if (route.status === 'empty') {
+      clearPageState();
       showMessage(
         section?.title ?? `Bem-vindo a ${site.appSettings.siteTitle}`,
         section ? 'Esta aba está vazia.' : 'Nenhuma aba cadastrada.',
@@ -88,6 +183,7 @@ async function start() {
       return;
     }
     if (route.status === 'invalid') {
+      clearPageState();
       const fallback = resolveRoute(site.docsConfig, { type: 'start' });
       showMessage(
         'Página não encontrada',
@@ -100,6 +196,13 @@ async function start() {
       return;
     }
 
+    const pageKey = `${section.id}/${page.id}`;
+    if (renderedPageKey === pageKey) {
+      applyHeadingRoute(route, false, true);
+      return;
+    }
+
+    clearPageState();
     mainContent.setAttribute('aria-busy', 'true');
     showMessage('Carregando…', page.title);
     try {
@@ -108,6 +211,7 @@ async function start() {
       if (currentNavigation !== navigationId) return;
 
       if (result.status !== 'ready') {
+        clearPageState();
         showMessage(result.title, result.message);
         focusContent();
         return;
@@ -118,9 +222,18 @@ async function start() {
       // Os fragmentos HTML são escritos por autores confiáveis da instalação.
       container.innerHTML = result.html;
       mainContent.replaceChildren(container);
-      focusContent();
+      const indexed = indexContentHeadings(container);
+      currentHeadings = indexed.entries;
+      renderedPageKey = pageKey;
+      toc.render(
+        currentHeadings,
+        createPageHash(section.id, page.id),
+        indexed.issues,
+      );
+      applyHeadingRoute(route, true);
     } catch {
       if (currentNavigation !== navigationId) return;
+      clearPageState();
       showMessage('Erro inesperado', 'A página não pôde ser exibida. Tente novamente.');
       focusContent();
     } finally {
