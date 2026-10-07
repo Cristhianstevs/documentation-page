@@ -166,6 +166,17 @@ test('a demonstração real mantém os identificadores das páginas antigas', as
   assert.match(html, /site\/config.js/);
 });
 
+test('todas as páginas cadastradas na demonstração existem e têm conteúdo', async () => {
+  const demo = validateConfig(await import('../examples/config.js'));
+  for (const section of demo.docsConfig) {
+    for (const page of section.pages) {
+      const html = await readFile(new URL(`../examples/pages/${page.file}`, import.meta.url), 'utf8');
+      assert.ok(html.trim(), `${page.file} não pode estar vazio`);
+      assert.match(html, /<h1(?:\s|>)/i, `${page.file} precisa de um h1`);
+    }
+  }
+});
+
 test('o Git do tema ignora a instalação e não rastreia seu conteúdo', () => {
   const root = new URL('../', import.meta.url);
   const options = { cwd: root, encoding: 'utf8' };

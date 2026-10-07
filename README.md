@@ -18,9 +18,9 @@ Esta base estática ainda não oferece controle de acesso para documentos confid
 
 1. Abrir a pasta do projeto no VS Code.
 2. Servir a pasta por HTTP local, por exemplo com Live Server no `index.html`.
-3. Abrir o endereço informado pelo servidor e selecionar uma página na lateral.
-4. Editar `site/config.js` e criar páginas em `site/pages/`, seguindo o [guia de uso](docs/GUIA-DE-USO.md).
-5. Se preferir partir de uma demonstração preenchida, copiar `examples/` sobre uma nova pasta `site/`.
+3. Abrir o endereço informado pelo servidor; sem `site/config.js`, a demonstração de `examples/` aparece automaticamente.
+4. Para criar uma instalação, criar `site/config.js` e páginas em `site/pages/`, seguindo o [guia de uso](docs/GUIA-DE-USO.md).
+5. Se preferir partir de uma base preenchida, copiar `examples/` para uma nova pasta `site/`.
 
 Não usar `file://`: módulos e carregamento de páginas devem ser executados em um servidor HTTP. Não existem comandos `npm start` ou `npm test`. Com Node.js 24 ativo, os testes da separação são executados por `node --test tests/load-site.test.mjs`.
 

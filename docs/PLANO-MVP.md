@@ -58,7 +58,7 @@ Concluída em 2026-09-30. Evidências: 13 testes nativos e verificação no Edge
 - [x] Tratar configuração vazia e abas vazias.
 - [x] Completar as duas páginas inexistentes e as duas vazias da demonstração.
 - [x] Padronizar os HTMLs da demonstração como fragmentos e eliminar o contêiner duplicado.
-- [ ] Conferir links, imagens e exemplos de instalação.
+- [x] Conferir links, imagens e exemplos de instalação.
 - [x] Definir caminhos de imagens relativos ao documento principal e manter esse contrato no guia.
 
 **Aceite:** nenhuma página anunciada na demonstração termina vazia ou ausente; configuração errada informa o campo problemático; adicionar um assunto não exige escrever seu nome dentro de `main.js`.
@@ -178,4 +178,4 @@ Não precisamos prever hoje cada extensão possível. Primeiro entregar uma base
 
 ## Próxima tarefa recomendada
 
-Conferir links, imagens e exemplos de instalação para encerrar a Etapa 2. Depois, concluir o contrato de navegação antes de criar o índice e os links de títulos. Algumas correções básicas de navegação já foram necessárias na separação, mas a Etapa 3 ainda não está completa.
+Concluir o contrato de navegação da Etapa 3 antes de criar o índice e os links de títulos. A próxima mudança pequena é separar leitura e resolução da rota da renderização, protegendo esse contrato com testes unitários.

@@ -1,6 +1,6 @@
 # Guia de uso e organização
 
-Atualizado em 2026-09-30. A separação entre tema e instalação está implementada. O índice de títulos, links de trechos e o catálogo visual ainda estão no [plano do MVP](PLANO-MVP.md).
+Atualizado em 2026-10-07. A separação entre tema e instalação está implementada. O índice de títulos, links de trechos e o catálogo visual ainda estão no [plano do MVP](PLANO-MVP.md).
 
 ## Executar
 
@@ -8,9 +8,18 @@ Abrir a pasta no VS Code e servir por HTTP local, por exemplo com Live Server no
 
 Sem `site/config.js`, o site mostra o conteúdo de `examples/`. Com esse arquivo, passa a usar a instalação local após recarregar. Somente HTTP 404 na verificação de `site/config.js` ativa os exemplos. Erros de sintaxe, acesso ou conexão aparecem na tela. O servidor precisa devolver 404 para arquivos inexistentes, sem substituir o pedido por `index.html`.
 
+Existem, portanto, dois modos de execução:
+
+| Situação | Resultado |
+| --- | --- |
+| `site/config.js` não existe | Mostra a demonstração de `examples/` |
+| `site/config.js` existe | Mostra a instalação local de `site/`, mesmo quando `docsConfig` está vazio |
+
+Quem baixa ou clona o tema não precisa renomear arquivos para ver a demonstração: `site/` é ignorada pelo Git e não acompanha o repositório. Em uma cópia que já possui uma instalação local, renomear somente `site/config.js` para `site/config.local.js` desativa temporariamente essa instalação. Não é necessário renomear `pages/`, `assets/` ou `custom.css`; ao restaurar o nome `site/config.js`, esses caminhos precisam conservar os nomes definidos pelo contrato.
+
 ## Criar sua instalação
 
-Nesta cópia de trabalho, a pasta `site/` foi criada com uma configuração vazia. Ela é ignorada pelo Git e, por isso, não acompanha um clone novo do tema. Em uma cópia nova, crie `site/config.js`, `site/pages/`, `site/assets/` e `site/custom.css` para começar do zero; se preferir uma base preenchida, copie `examples` para `site` somente quando a pasta de destino ainda não existir.
+Em uma cópia nova, crie `site/config.js`, `site/pages/`, `site/assets/` e `site/custom.css` para começar do zero; se preferir uma base preenchida, copie `examples` para `site` somente quando a pasta de destino ainda não existir.
 
 No PowerShell, apenas quando a pasta de destino ainda não existir:
 
