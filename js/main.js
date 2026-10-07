@@ -1,5 +1,6 @@
 import './components/AppHeader.js';
 import './components/AppSidebar.js';
+import { loadPage } from './load-page.js';
 import { loadSite } from './load-site.js';
 import { readRoute, resolveRoute } from './routes.js';
 
@@ -7,12 +8,26 @@ import { readRoute, resolveRoute } from './routes.js';
 const THEME_VERSION = '1.0.0';
 const mainContent = document.getElementById('main-content');
 
-function showMessage(title, message) {
+function showMessage(title, message, action) {
   const heading = document.createElement('h1');
   const paragraph = document.createElement('p');
   heading.textContent = title;
   paragraph.textContent = message;
-  mainContent.replaceChildren(heading, paragraph);
+  const children = [heading, paragraph];
+  if (action) {
+    const link = document.createElement('a');
+    link.href = action.href;
+    link.textContent = action.label;
+    children.push(link);
+  }
+  mainContent.replaceChildren(...children);
+}
+
+function focusContent() {
+  const heading = mainContent.querySelector('h1');
+  const target = heading ?? mainContent;
+  target.setAttribute('tabindex', '-1');
+  target.focus();
 }
 
 async function start() {
@@ -31,6 +46,27 @@ async function start() {
 
   let navigationId = 0;
 
+  function updateNavigation(route) {
+    const { section, page } = route;
+    sidebar.renderMenu(section?.id, page?.id);
+    for (const link of header.querySelectorAll('.nav-link')) {
+      const active = link.dataset.section === section?.id;
+      link.classList.toggle('active', active);
+      if (active) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    }
+
+    if (route.status === 'page') {
+      document.title = `${page.title} — ${site.appSettings.siteTitle}`;
+    } else if (route.status === 'invalid') {
+      document.title = `Página não encontrada — ${site.appSettings.siteTitle}`;
+    } else if (section) {
+      document.title = `${section.title} — ${site.appSettings.siteTitle}`;
+    } else {
+      document.title = site.appSettings.siteTitle;
+    }
+  }
+
   async function renderRoute() {
     const currentNavigation = ++navigationId;
     const route = resolveRoute(site.docsConfig, readRoute(window.location.hash));
@@ -40,14 +76,7 @@ async function start() {
       window.history.replaceState(null, '', route.canonicalHash);
     }
 
-    sidebar.renderMenu(section?.id, page?.id);
-    for (const link of header.querySelectorAll('.nav-link')) {
-      const active = link.dataset.section === section?.id;
-      link.classList.toggle('active', active);
-      if (active) link.setAttribute('aria-current', 'true');
-      else link.removeAttribute('aria-current');
-    }
-    document.title = site.appSettings.siteTitle;
+    updateNavigation(route);
     mainContent.setAttribute('aria-busy', 'false');
 
     if (route.status === 'empty') {
@@ -55,43 +84,45 @@ async function start() {
         section?.title ?? `Bem-vindo a ${site.appSettings.siteTitle}`,
         section ? 'Esta aba está vazia.' : 'Nenhuma aba cadastrada.',
       );
+      focusContent();
       return;
     }
     if (route.status === 'invalid') {
-      showMessage('Página não encontrada', 'Este endereço não está cadastrado na configuração.');
+      const fallback = resolveRoute(site.docsConfig, { type: 'start' });
+      showMessage(
+        'Página não encontrada',
+        'Este endereço não está cadastrado na configuração.',
+        fallback.status === 'page'
+          ? { href: fallback.canonicalHash, label: 'Ir para a primeira página' }
+          : undefined,
+      );
+      focusContent();
       return;
     }
 
     mainContent.setAttribute('aria-busy', 'true');
     showMessage('Carregando…', page.title);
     try {
-      const response = await fetch(new URL(page.file, site.pagesUrl));
-      if (!response.ok) {
-        if (response.status === 404) throw new Error(`O arquivo ${page.file} não foi encontrado.`);
-        if (response.status === 401 || response.status === 403) {
-          throw new Error('Você não tem acesso a esta página.');
-        }
-        throw new Error(`O servidor respondeu com HTTP ${response.status}.`);
-      }
-      const html = await response.text();
+      const result = await loadPage({ page, pagesUrl: site.pagesUrl });
       // Uma resposta atrasada não pode substituir a última escolha do usuário.
       if (currentNavigation !== navigationId) return;
-      document.title = `${page.title} — ${site.appSettings.siteTitle}`;
-      if (!html.trim()) {
-        showMessage(page.title, 'Esta página ainda não tem conteúdo.');
+
+      if (result.status !== 'ready') {
+        showMessage(result.title, result.message);
+        focusContent();
         return;
       }
+
       const container = document.createElement('div');
       container.className = 'content-container';
       // Os fragmentos HTML são escritos por autores confiáveis da instalação.
-      container.innerHTML = html;
+      container.innerHTML = result.html;
       mainContent.replaceChildren(container);
-    } catch (error) {
+      focusContent();
+    } catch {
       if (currentNavigation !== navigationId) return;
-      showMessage(
-        'Não foi possível carregar a página',
-        error instanceof TypeError ? 'Confira sua conexão com o servidor.' : error.message,
-      );
+      showMessage('Erro inesperado', 'A página não pôde ser exibida. Tente novamente.');
+      focusContent();
     } finally {
       if (currentNavigation === navigationId) mainContent.setAttribute('aria-busy', 'false');
     }
@@ -104,4 +135,5 @@ async function start() {
 
 start().catch((error) => {
   showMessage('Não foi possível iniciar a documentação', error.message);
+  focusContent();
 });

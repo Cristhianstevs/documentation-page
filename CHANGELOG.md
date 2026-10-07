@@ -24,6 +24,9 @@ Registra entregas reais. Trabalho futuro fica no [plano do MVP](docs/PLANO-MVP.m
 - Um teste verifica que todas as páginas cadastradas na demonstração existem, possuem conteúdo e têm um título principal.
 - Leitura e resolução de URLs foram separadas da renderização e receberam testes unitários.
 - Abrir o site sem fragmento ou entrar somente em uma aba agora seleciona sua primeira página válida e normaliza o endereço sem criar uma etapa extra no histórico.
+- Conteúdo, menus ativos, título do navegador e foco agora seguem o mesmo resultado de rota.
+- Estados de página vazia, arquivo ausente, acesso negado, erro do servidor e falha de rede passaram a ter mensagens distintas.
+- Rotas inválidas oferecem um link real de recuperação; a navegação continua baseada em links nativos, preservando copiar endereço e abrir em nova aba.
 
 Índice de títulos, links de trechos e novo layout continuam pendentes. Esta entrada não representa uma release publicada.
 

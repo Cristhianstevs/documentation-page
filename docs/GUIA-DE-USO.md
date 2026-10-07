@@ -142,7 +142,7 @@ Após migrar, conferir `git ls-files site` (sem arquivos) e `git check-ignore -v
 
 ## Validar e atualizar
 
-Com Node.js 24 ativo, executar `node --test tests/load-site.test.mjs tests/routes.test.mjs`. São testes nativos, sem instalar dependências. Ainda não existe `npm test`. Eles verificam seleção da instalação, validação da configuração, isolamento do conteúdo e resolução das rotas, mas não substituem os testes de interface.
+Com Node.js 24 ativo, executar `node --test tests/*.test.mjs`. São testes nativos, sem instalar dependências. Ainda não existe `npm test`. Eles verificam seleção da instalação, validação da configuração, isolamento do conteúdo, resolução das rotas e estados de carregamento, mas não substituem os testes de interface.
 
 Para verificar manualmente: abrir um link antigo, navegar, recarregar e usar Voltar; trocar o nome e o CSS locais; conferir um arquivo ausente e uma configuração inválida. A [matriz do plano](PLANO-MVP.md) contém os cenários das próximas etapas.
 
