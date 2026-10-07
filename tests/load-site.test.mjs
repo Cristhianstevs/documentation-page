@@ -7,7 +7,13 @@ import { loadSite, validateConfig } from '../js/load-site.js';
 const baseUrl = new URL('https://example.test/documentacao/');
 const config = {
   appSettings: { siteTitle: 'Wiki fictícia', logoText: 'WIKI', sidebarTitle: 'Conteúdo' },
-  docsConfig: [{ id: 'pesca', title: 'Pesca', pages: [{ title: 'Varas', file: 'varas.html' }] }],
+  docsConfig: [
+    {
+      id: 'pesca',
+      title: 'Pesca',
+      pages: [{ id: 'equipamentos', title: 'Varas', file: 'varas.html' }],
+    },
+  ],
 };
 
 test('prefere a instalação e mantém todos os caminhos na subpasta', async () => {
@@ -123,11 +129,36 @@ test('rejeita abas e páginas duplicadas', () => {
   assert.throws(() => validateConfig(invalid), /Página repetida/);
 });
 
+test('normaliza o id de página antigo a partir do arquivo', () => {
+  const legacy = structuredClone(config);
+  delete legacy.docsConfig[0].pages[0].id;
+  const validated = validateConfig(legacy);
+  assert.equal(validated.docsConfig[0].pages[0].id, 'varas');
+});
+
+test('valida ids de página explícitos e rejeita repetições na mesma aba', () => {
+  const invalidId = structuredClone(config);
+  invalidId.docsConfig[0].pages[0].id = 'Ação';
+  assert.throws(() => validateConfig(invalidId), /página varas\.html.*id/);
+
+  const duplicate = structuredClone(config);
+  duplicate.docsConfig[0].pages.push({
+    id: 'equipamentos',
+    title: 'Linhas',
+    file: 'linhas.html',
+  });
+  assert.throws(() => validateConfig(duplicate), /ID de página repetido/);
+});
+
 test('a demonstração real mantém os identificadores das páginas antigas', async () => {
   const demo = validateConfig(await import('../examples/config.js'));
   const guias = demo.docsConfig.find((section) => section.id === 'guias');
-  assert.ok(guias.pages.some((page) => page.file === 'introducao.html'));
-  assert.ok(guias.pages.some((page) => page.file === 'instalacao.html'));
+  assert.ok(
+    guias.pages.some((page) => page.id === 'introducao' && page.file === 'introducao.html'),
+  );
+  assert.ok(
+    guias.pages.some((page) => page.id === 'instalacao' && page.file === 'instalacao.html'),
+  );
   const html = await readFile(
     new URL('../examples/pages/instalacao.html', import.meta.url),
     'utf8',

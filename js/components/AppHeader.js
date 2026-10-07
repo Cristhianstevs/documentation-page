@@ -24,7 +24,7 @@ class AppHeader extends HTMLElement {
       const link = document.createElement('a');
       const firstPage = section.pages[0];
       link.href = firstPage
-        ? `#${section.id}/${firstPage.file.slice(0, -5)}`
+        ? `#${section.id}/${firstPage.id}`
         : `#${section.id}`;
       link.className = 'nav-link';
       link.dataset.section = section.id;

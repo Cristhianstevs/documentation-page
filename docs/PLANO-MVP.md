@@ -53,7 +53,7 @@ Concluída em 2026-09-30. Evidências: 13 testes nativos e verificação no Edge
 
 ## Etapa 2 — Tornar configuração e conteúdo previsíveis
 
-- [ ] Definir `id` estável da página, com compatibilidade para o cadastro atual por `file`.
+- [x] Definir `id` estável da página, com compatibilidade para o cadastro atual por `file`.
 - [x] Validar formato, IDs repetidos, campos obrigatórios e associação de página à aba.
 - [x] Tratar configuração vazia e abas vazias.
 - [x] Completar as duas páginas inexistentes e as duas vazias da demonstração.
@@ -178,4 +178,4 @@ Não precisamos prever hoje cada extensão possível. Primeiro entregar uma base
 
 ## Próxima tarefa recomendada
 
-Concluir os exemplos da Etapa 2: resolver as páginas ausentes/vazias e padronizar os fragmentos HTML. Depois, concluir o contrato de navegação antes de criar o índice e os links de títulos. Algumas correções básicas de navegação já foram necessárias na separação, mas as Etapas 2 e 3 ainda não estão completas.
+Conferir links, imagens e exemplos de instalação para encerrar a Etapa 2. Depois, concluir o contrato de navegação antes de criar o índice e os links de títulos. Algumas correções básicas de navegação já foram necessárias na separação, mas a Etapa 3 ainda não está completa.

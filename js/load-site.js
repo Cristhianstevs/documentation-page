@@ -19,6 +19,7 @@ export function validateConfig({ appSettings = {}, docsConfig }) {
   }
 
   const sectionIds = new Set();
+  const normalizedSections = [];
   for (const section of docsConfig) {
     if (
       !section ||
@@ -36,6 +37,8 @@ export function validateConfig({ appSettings = {}, docsConfig }) {
       throw new Error(`A aba ${section.id} precisa de uma lista pages.`);
     }
     const files = new Set();
+    const pageIds = new Set();
+    const normalizedPages = [];
     for (const page of section.pages) {
       if (!page || typeof page.title !== 'string' || !page.title.trim()) {
         throw new Error(`Uma página da aba ${section.id} está sem title.`);
@@ -45,13 +48,25 @@ export function validateConfig({ appSettings = {}, docsConfig }) {
       }
       if (files.has(page.file)) throw new Error(`Página repetida: ${page.file}.`);
       files.add(page.file);
+      const pageId = page.id ?? page.file.slice(0, -5);
+      if (typeof pageId !== 'string' || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(pageId)) {
+        throw new Error(
+          `A página ${page.file} precisa de um id em minúsculas, sem espaços ou acentos.`,
+        );
+      }
+      if (pageIds.has(pageId)) {
+        throw new Error(`ID de página repetido na aba ${section.id}: ${pageId}.`);
+      }
+      pageIds.add(pageId);
       if (page.icon !== undefined && typeof page.icon !== 'string') {
         throw new Error(`O ícone de ${page.file} deve ser um texto.`);
       }
+      normalizedPages.push({ ...page, id: pageId });
     }
+    normalizedSections.push({ ...section, pages: normalizedPages });
   }
 
-  return { appSettings: { ...defaults, ...appSettings }, docsConfig };
+  return { appSettings: { ...defaults, ...appSettings }, docsConfig: normalizedSections };
 }
 
 export async function loadSite({

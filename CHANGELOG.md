@@ -19,8 +19,9 @@ Registra entregas reais. Trabalho futuro fica no [plano do MVP](docs/PLANO-MVP.m
 
 - A demonstração passou a ter todas as páginas cadastradas, com conteúdo fictício e sem contêineres de leitura duplicados.
 - O guia passou a explicar o esqueleto local vazio de `site/`, com `config.js`, `pages/`, `assets/` e `custom.css`, para iniciar uma instalação sem copiar os exemplos.
+- Páginas passaram a aceitar um `id` estável, independente do arquivo, mantendo compatibilidade com configurações antigas que possuem apenas `file`.
 
-Índice de títulos, links de trechos e novo layout continuam pendentes. Os exemplos ausentes/vazios da revisão inicial ainda precisam ser completados. Esta entrada não representa uma release publicada.
+Índice de títulos, links de trechos e novo layout continuam pendentes. Esta entrada não representa uma release publicada.
 
 ### Documentação — 2026-09-27
 

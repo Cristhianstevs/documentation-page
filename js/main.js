@@ -33,13 +33,13 @@ async function start() {
   async function renderRoute() {
     const currentNavigation = ++navigationId;
     const hash = window.location.hash.slice(1);
-    const [sectionId, pageName, ...extra] = hash.split('/');
+    const [sectionId, pageId, ...extra] = hash.split('/');
     const section = hash
       ? site.docsConfig.find((item) => item.id === sectionId)
       : site.docsConfig[0];
-    const page = section?.pages.find((item) => item.file === `${pageName}.html`);
+    const page = section?.pages.find((item) => item.id === pageId);
 
-    sidebar.renderMenu(section?.id, page?.file);
+    sidebar.renderMenu(section?.id, page?.id);
     for (const link of header.querySelectorAll('.nav-link')) {
       const active = link.dataset.section === section?.id;
       link.classList.toggle('active', active);
@@ -58,11 +58,11 @@ async function start() {
       );
       return;
     }
-    if (!section || extra.length || (pageName !== undefined && !page)) {
+    if (!section || extra.length || (pageId !== undefined && !page)) {
       showMessage('Página não encontrada', 'Este endereço não está cadastrado na configuração.');
       return;
     }
-    if (!pageName) {
+    if (!pageId) {
       showMessage(
         section.title,
         section.pages.length ? 'Selecione uma página.' : 'Esta aba está vazia.',

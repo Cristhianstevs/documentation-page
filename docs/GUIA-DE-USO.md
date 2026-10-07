@@ -26,15 +26,15 @@ A pasta `site/` é ignorada pelo Git do tema. Ela não será enviada por um comm
 
 ## O que editar no dia a dia
 
-| Quero alterar | Arquivo ou pasta |
-| --- | --- |
+| Quero alterar                        | Arquivo ou pasta                          |
+| ------------------------------------ | ----------------------------------------- |
 | Nome, marca textual e título lateral | `site/config.js`, dentro de `appSettings` |
-| Abas, páginas e ordem dos menus | `site/config.js`, dentro de `docsConfig` |
-| Texto de uma página | `site/pages/nome-da-pagina.html` |
-| Imagens ou anexos | `site/assets/` |
-| Cores e ajustes locais | `site/custom.css` |
-| Funcionamento compartilhado | Arquivos do tema em `js/` |
-| Estilos padrão compartilhados | Arquivos do tema em `css/` |
+| Abas, páginas e ordem dos menus      | `site/config.js`, dentro de `docsConfig`  |
+| Texto de uma página                  | `site/pages/nome-da-pagina.html`          |
+| Imagens ou anexos                    | `site/assets/`                            |
+| Cores e ajustes locais               | `site/custom.css`                         |
+| Funcionamento compartilhado          | Arquivos do tema em `js/`                 |
+| Estilos padrão compartilhados        | Arquivos do tema em `css/`                |
 
 Os caminhos desta tabela são relativos à raiz do projeto. Mudanças do tema chegam a outra instalação somente quando ela recebe a atualização.
 
@@ -57,25 +57,23 @@ Exemplo de `site/config.js`:
 
 ```js
 export const appSettings = {
-  siteTitle: 'Wiki de pesca',
-  logoText: 'PESCA',
-  sidebarTitle: 'Conteúdo',
+  siteTitle: "Wiki de pesca",
+  logoText: "PESCA",
+  sidebarTitle: "Conteúdo",
 };
 
 export const docsConfig = [
   {
-    id: 'pesca',
-    title: 'Pesca',
-    pages: [
-      { title: 'Equipamentos', file: 'equipamentos.html', icon: '🎣' },
-    ],
+    id: "pesca",
+    title: "Pesca",
+    pages: [{ id: "equipamentos", title: "Equipamentos", file: "equipamentos.html", icon: "🎣" }],
   },
 ];
 ```
 
 `siteTitle` aparece no título do navegador e nas boas-vindas; `logoText` aparece no cabeçalho. A versão exibida pertence ao tema, definida em `js/main.js`, e não precisa ser copiada para a configuração local.
 
-O `id` de aba deve ser único e usar minúsculas, números e hífens. `title` é o texto apresentado. `file` aponta para um arquivo diretamente em `site/pages/`, sem subpastas. `icon` é opcional. Não repetir o mesmo arquivo dentro da mesma aba. Uma lista vazia é aceita e produz um estado vazio.
+Os IDs de aba e de página devem usar minúsculas, números e hífens. O ID da página deve ser único dentro da aba e forma a URL; mantenha-o estável mesmo se o título ou o arquivo mudar. `title` é o texto apresentado. `file` aponta para um arquivo diretamente em `site/pages/`, sem subpastas. `icon` é opcional. Configurações antigas sem `page.id` continuam funcionando: nesse caso, o tema deriva o ID do nome do arquivo. Não repetir o mesmo arquivo dentro da mesma aba. Uma lista vazia é aceita e produz um estado vazio.
 
 Criar `site/pages/equipamentos.html`:
 
@@ -94,7 +92,7 @@ A página deve ser um fragmento HTML, sem `html`, `head`, scripts ou contêiner 
 
 O endereço de página continua no formato `#pesca/equipamentos`. Os links dos menus agora têm esse destino real. O cabeçalho abre a primeira página da aba; uma aba sem páginas mostra um aviso. Link direto, F5, Voltar/Avançar e navegação pelo teclado funcionam para páginas cadastradas.
 
-O endereço depende do `id` da aba e do nome do arquivo sem `.html`. Mudar apenas o título de exibição preserva o link; renomear o arquivo ou o ID muda o endereço. A independência entre ID de página e arquivo será uma melhoria posterior. Links para títulos ainda não foram implementados.
+O endereço depende dos IDs da aba e da página. Mudar o título de exibição ou o arquivo preserva o link; mudar um ID altera o endereço. Links para títulos ainda não foram implementados.
 
 Como o fragmento HTML é inserido em `index.html`, imagens são resolvidas a partir desse documento. Para uma imagem em `site/assets/vara.png`, usar:
 
@@ -120,12 +118,12 @@ Isso permite mudar uma cor da instalação sem alterar `css/variables.css`. O ca
 
 Antes de atualizar uma cópia antiga com conteúdo próprio, fazer backup fora do checkout do tema. Não confiar no Git do tema para guardar conteúdo confidencial.
 
-| Caminho antigo | Destino da instalação |
-| --- | --- |
-| `js/config.js` personalizado | `site/config.js` |
-| `pages/` com conteúdo próprio | `site/pages/` |
-| `css/customization/custom.css` | `site/custom.css` |
-| Imagens e anexos próprios | `site/assets/`, ajustando as referências |
+| Caminho antigo                 | Destino da instalação                    |
+| ------------------------------ | ---------------------------------------- |
+| `js/config.js` personalizado   | `site/config.js`                         |
+| `pages/` com conteúdo próprio  | `site/pages/`                            |
+| `css/customization/custom.css` | `site/custom.css`                        |
+| Imagens e anexos próprios      | `site/assets/`, ajustando as referências |
 
 Preservar os exports `appSettings` e `docsConfig`. Os novos campos de identidade têm valores padrão quando omitidos; `appSettings.version` antigo deixa de controlar a versão do tema. Manter os IDs de abas e nomes de arquivo conserva links como `#guias/instalacao`.
 

@@ -5,7 +5,7 @@ class AppSidebar extends HTMLElement {
     this.themeVersion = themeVersion;
   }
 
-  renderMenu(sectionId, fileName) {
+  renderMenu(sectionId, pageId) {
     const section = this.sections.find((item) => item.id === sectionId);
     this.innerHTML = `
       <aside class="sidebar-nav">
@@ -21,10 +21,10 @@ class AppSidebar extends HTMLElement {
     for (const page of section?.pages ?? []) {
       const item = document.createElement('li');
       const link = document.createElement('a');
-      link.href = `#${section.id}/${page.file.slice(0, -5)}`;
+      link.href = `#${section.id}/${page.id}`;
       link.className = 'sidebar-link';
-      link.dataset.file = page.file;
-      if (page.file === fileName) {
+      link.dataset.page = page.id;
+      if (page.id === pageId) {
         link.classList.add('active');
         link.setAttribute('aria-current', 'page');
       }
