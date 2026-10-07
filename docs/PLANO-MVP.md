@@ -67,9 +67,9 @@ Concluída em 2026-09-30. Evidências: 13 testes nativos e verificação no Edge
 
 ## Etapa 3 — Concluir URLs de abas e páginas
 
-- [ ] Criar leitura e resolução de rota independentes da renderização.
+- [x] Criar leitura e resolução de rota independentes da renderização.
 - [x] Gerar `href` real nos menus.
-- [ ] Definir primeira página ao entrar numa aba e comportamento inicial a partir da configuração.
+- [x] Definir primeira página ao entrar numa aba e comportamento inicial a partir da configuração.
 - [ ] Atualizar conteúdo, menus ativos, título do navegador e foco pela mesma rota.
 - [x] Resolver F5, link direto, mudança manual do fragmento e Voltar/Avançar pela URL.
 - [x] Manter URLs antigas `#aba/pagina` funcionando.
@@ -178,4 +178,4 @@ Não precisamos prever hoje cada extensão possível. Primeiro entregar uma base
 
 ## Próxima tarefa recomendada
 
-Concluir o contrato de navegação da Etapa 3 antes de criar o índice e os links de títulos. A próxima mudança pequena é separar leitura e resolução da rota da renderização, protegendo esse contrato com testes unitários.
+Continuar o contrato de navegação da Etapa 3 antes de criar o índice e os links de títulos. A próxima mudança pequena é fazer conteúdo, menus ativos, título do navegador e foco seguirem o mesmo resultado de rota.

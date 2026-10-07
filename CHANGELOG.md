@@ -22,6 +22,8 @@ Registra entregas reais. Trabalho futuro fica no [plano do MVP](docs/PLANO-MVP.m
 - Páginas passaram a aceitar um `id` estável, independente do arquivo, mantendo compatibilidade com configurações antigas que possuem apenas `file`.
 - O guia agora diferencia explicitamente os modos demonstração e instalação local; clones novos mostram `examples/` sem exigir renomeações.
 - Um teste verifica que todas as páginas cadastradas na demonstração existem, possuem conteúdo e têm um título principal.
+- Leitura e resolução de URLs foram separadas da renderização e receberam testes unitários.
+- Abrir o site sem fragmento ou entrar somente em uma aba agora seleciona sua primeira página válida e normaliza o endereço sem criar uma etapa extra no histórico.
 
 Índice de títulos, links de trechos e novo layout continuam pendentes. Esta entrada não representa uma release publicada.
 

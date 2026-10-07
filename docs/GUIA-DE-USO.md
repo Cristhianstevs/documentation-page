@@ -99,7 +99,7 @@ A página deve ser um fragmento HTML, sem `html`, `head`, scripts ou contêiner 
 
 ## Links e imagens
 
-O endereço de página continua no formato `#pesca/equipamentos`. Os links dos menus agora têm esse destino real. O cabeçalho abre a primeira página da aba; uma aba sem páginas mostra um aviso. Link direto, F5, Voltar/Avançar e navegação pelo teclado funcionam para páginas cadastradas.
+O endereço de página continua no formato `#pesca/equipamentos`. Os links dos menus agora têm esse destino real. Ao abrir o site sem fragmento, o tema procura a primeira página válida da configuração e completa o endereço sem criar uma etapa extra no histórico. Um endereço contendo apenas a aba também abre sua primeira página; uma aba sem páginas mostra um aviso. Link direto, F5, Voltar/Avançar e navegação pelo teclado funcionam para páginas cadastradas.
 
 O endereço depende dos IDs da aba e da página. Mudar o título de exibição ou o arquivo preserva o link; mudar um ID altera o endereço. Links para títulos ainda não foram implementados.
 
@@ -142,7 +142,7 @@ Após migrar, conferir `git ls-files site` (sem arquivos) e `git check-ignore -v
 
 ## Validar e atualizar
 
-Com Node.js 24 ativo, executar `node --test tests/load-site.test.mjs`. São testes nativos, sem instalar dependências. Ainda não existe `npm test`. Eles verificam seleção, validação e isolamento da instalação, não substituem os testes de interface.
+Com Node.js 24 ativo, executar `node --test tests/load-site.test.mjs tests/routes.test.mjs`. São testes nativos, sem instalar dependências. Ainda não existe `npm test`. Eles verificam seleção da instalação, validação da configuração, isolamento do conteúdo e resolução das rotas, mas não substituem os testes de interface.
 
 Para verificar manualmente: abrir um link antigo, navegar, recarregar e usar Voltar; trocar o nome e o CSS locais; conferir um arquivo ausente e uma configuração inválida. A [matriz do plano](PLANO-MVP.md) contém os cenários das próximas etapas.
 

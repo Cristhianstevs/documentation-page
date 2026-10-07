@@ -1,6 +1,7 @@
 import './components/AppHeader.js';
 import './components/AppSidebar.js';
 import { loadSite } from './load-site.js';
+import { readRoute, resolveRoute } from './routes.js';
 
 // A versão pertence ao tema, independentemente do conteúdo de cada instalação.
 const THEME_VERSION = '1.0.0';
@@ -32,12 +33,12 @@ async function start() {
 
   async function renderRoute() {
     const currentNavigation = ++navigationId;
-    const hash = window.location.hash.slice(1);
-    const [sectionId, pageId, ...extra] = hash.split('/');
-    const section = hash
-      ? site.docsConfig.find((item) => item.id === sectionId)
-      : site.docsConfig[0];
-    const page = section?.pages.find((item) => item.id === pageId);
+    const route = resolveRoute(site.docsConfig, readRoute(window.location.hash));
+    const { section, page } = route;
+
+    if (route.status === 'page' && window.location.hash !== route.canonicalHash) {
+      window.history.replaceState(null, '', route.canonicalHash);
+    }
 
     sidebar.renderMenu(section?.id, page?.id);
     for (const link of header.querySelectorAll('.nav-link')) {
@@ -49,24 +50,15 @@ async function start() {
     document.title = site.appSettings.siteTitle;
     mainContent.setAttribute('aria-busy', 'false');
 
-    if (!hash) {
+    if (route.status === 'empty') {
       showMessage(
-        `Bem-vindo a ${site.appSettings.siteTitle}`,
-        site.docsConfig.length
-          ? 'Selecione uma página no menu ao lado.'
-          : 'Nenhuma aba cadastrada.',
+        section?.title ?? `Bem-vindo a ${site.appSettings.siteTitle}`,
+        section ? 'Esta aba está vazia.' : 'Nenhuma aba cadastrada.',
       );
       return;
     }
-    if (!section || extra.length || (pageId !== undefined && !page)) {
+    if (route.status === 'invalid') {
       showMessage('Página não encontrada', 'Este endereço não está cadastrado na configuração.');
-      return;
-    }
-    if (!pageId) {
-      showMessage(
-        section.title,
-        section.pages.length ? 'Selecione uma página.' : 'Esta aba está vazia.',
-      );
       return;
     }
 
