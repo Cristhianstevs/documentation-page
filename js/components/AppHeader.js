@@ -10,10 +10,15 @@ class AppHeader extends HTMLElement {
         </div>
 
         <div class="header-actions">
-          <div class="icon-buttons">
-            <button aria-label="Configurações">⚙️</button>
-            <button aria-label="Alternar Tema">🌙</button>
-          </div>
+          <button
+            class="sidebar-toggle"
+            type="button"
+            aria-controls="documentation-sidebar"
+            aria-expanded="false"
+            aria-label="Abrir menu de páginas"
+          >
+            ☰
+          </button>
         </div>
       </header>
     `;
@@ -31,6 +36,17 @@ class AppHeader extends HTMLElement {
       link.textContent = section.title;
       nav.append(link);
     }
+
+    this.querySelector('.sidebar-toggle').addEventListener('click', () => {
+      this.dispatchEvent(new CustomEvent('sidebar-toggle'));
+    });
+  }
+
+  setSidebarExpanded(expanded) {
+    const button = this.querySelector('.sidebar-toggle');
+    if (!button) return;
+    button.setAttribute('aria-expanded', String(expanded));
+    button.setAttribute('aria-label', expanded ? 'Fechar menu de páginas' : 'Abrir menu de páginas');
   }
 }
 

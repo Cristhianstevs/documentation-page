@@ -13,9 +13,16 @@
 
   --transparent-300: rgba(243, 244, 246, 0.3);
   --transparent-100: rgba(243, 244, 246, 0.05);
+  --bg-code: #111827;
+  --link-color: #ff9f5a;
+  --link-hover-color: #ffc08f;
+  --color-info: #60a5fa;
+  --color-warning: #fbbf24;
+  --color-danger: #f87171;
+  --focus-color: #93c5fd;
 
   /* --- 2. TIPOGRAFIA --- */
-  --font-family-mono: "JetBrains Mono", monospace;
+  --font-family-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
 
   --font-xs: 0.65rem; /* ~10px */
   --font-sm: 0.75rem; /* ~12px */

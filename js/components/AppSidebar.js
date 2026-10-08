@@ -8,7 +8,7 @@ class AppSidebar extends HTMLElement {
   renderMenu(sectionId, pageId) {
     const section = this.sections.find((item) => item.id === sectionId);
     this.innerHTML = `
-      <aside class="sidebar-nav">
+      <aside class="sidebar-nav" id="documentation-sidebar">
         <h3 class="sidebar-title"></h3>
         <p class="sidebar-version"></p>
         <nav aria-label="Páginas"><ul class="sidebar-list"></ul></nav>

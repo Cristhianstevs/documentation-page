@@ -103,14 +103,16 @@ Concluída em 2026-10-07. Evidências: testes nativos para normalização, acent
 
 ## Etapa 5 — Criar o padrão visual de conteúdo
 
-- [ ] Preencher `content.css` com títulos, parágrafos, listas, links, citações e divisórias.
-- [ ] Estilizar código em linha e blocos de código, tabelas, imagens e legendas.
-- [ ] Criar avisos de informação, atenção e perigo com texto/ícone, sem depender apenas da cor.
-- [ ] Criar uma página de catálogo que mostre todos os padrões suportados.
-- [ ] Definir largura de leitura, espaçamento e contraste.
-- [ ] Tornar cabeçalho e lateral utilizáveis no celular; índice recolhível em tela estreita.
-- [ ] Verificar foco visível, navegação por teclado, nomes acessíveis e movimento reduzido.
-- [ ] Remover ou implementar os botões sem ação; não deixar uma função anunciada como pronta quando não está.
+- [x] Preencher `content.css` com títulos, parágrafos, listas, links, citações e divisórias.
+- [x] Estilizar código em linha e blocos de código, tabelas, imagens e legendas.
+- [x] Criar avisos de informação, atenção e perigo com texto/ícone, sem depender apenas da cor.
+- [x] Criar uma página de catálogo que mostre todos os padrões suportados.
+- [x] Definir largura de leitura, espaçamento e contraste.
+- [x] Tornar cabeçalho e lateral utilizáveis no celular; índice recolhível em tela estreita.
+- [x] Verificar foco visível, navegação por teclado, nomes acessíveis e movimento reduzido.
+- [x] Remover ou implementar os botões sem ação; não deixar uma função anunciada como pronta quando não está.
+
+Concluída em 2026-10-07. Evidências: 33 testes nativos, incluindo a estrutura e as referências do catálogo; verificação no Chrome em 1424 × 805 e 390 × 844. Em tela estreita não houve corte horizontal, o menu abriu e fechou com estado acessível e `Esc`, o índice recolheu e expandiu, o foco permaneceu visível e a preferência por movimento reduzido foi respeitada. Em tela ampla, a leitura ficou limitada a 820 px; tabelas, imagens e avisos permaneceram contidos.
 
 **Aceite:** ler e navegar em 390 px e numa tela ampla sem conteúdo cortado; tabelas/código podem ter rolagem própria; menus acessíveis por teclado; alterações de CSS local não exigem editar o tema.
 
@@ -120,7 +122,7 @@ Concluída em 2026-10-07. Evidências: testes nativos para normalização, acent
 
 - [ ] Criar comandos reproduzíveis para servir, formatar e validar, fixando versões se forem adicionadas ferramentas locais.
 - [ ] Simplificar as recomendações de editor para as ferramentas realmente usadas.
-- [ ] Adicionar testes de interpretação de rotas, validação do catálogo e geração de IDs.
+- [x] Adicionar testes de interpretação de rotas, validação do catálogo e geração de IDs.
 - [ ] Automatizar os fluxos críticos de navegador quando a navegação estiver consolidada.
 - [ ] Executar a matriz manual abaixo com o amigo e registrar resultados.
 - [ ] Simular atualização em duas instalações fictícias, com conteúdo e CSS diferentes.
@@ -182,4 +184,4 @@ Não precisamos prever hoje cada extensão possível. Primeiro entregar uma base
 
 ## Próxima tarefa recomendada
 
-Criar o padrão visual de conteúdo da Etapa 5. A primeira mudança pequena é preencher `content.css` com a tipografia e os elementos semânticos básicos, acompanhados por uma página de catálogo visual.
+Iniciar a Etapa 6 com comandos reproduzíveis para servir, formatar e validar o projeto. Depois, executar a matriz manual com uma segunda pessoa e simular uma atualização entre duas instalações fictícias antes da primeira release.

@@ -1,6 +1,6 @@
 # Arquitetura proposta e atualização das instalações
 
-Status atualizado em 2026-10-07: a separação entre tema, exemplos e instalação, as URLs de títulos e o índice automático estão implementados. O carregamento é centralizado em `js/load-site.js`, iniciado por `js/main.js`. Catálogo visual, adaptação completa ao celular e integração corporativa continuam pendentes. O [guia de uso](GUIA-DE-USO.md) descreve o comportamento atual e a migração.
+Status atualizado em 2026-10-07: a separação entre tema, exemplos e instalação, a navegação, o índice automático, o catálogo visual e a adaptação ao celular estão implementados. O carregamento é centralizado em `js/load-site.js`, iniciado por `js/main.js`. A primeira release e a integração corporativa continuam pendentes. O [guia de uso](GUIA-DE-USO.md) descreve o comportamento atual e a migração.
 
 ## 1. Separar responsabilidades
 
@@ -57,7 +57,7 @@ No MVP estático, o navegador não tem uma API geral para descobrir todos os arq
 
 Se futuramente quisermos “jogar um arquivo na pasta e pronto”, um script de geração ou backend deverá produzir esse catálogo. Isso é outra etapa, não uma capacidade implícita do navegador.
 
-Contrato proposto, ainda não implementado:
+Contrato implementado:
 
 ```js
 export const appSettings = {
@@ -143,7 +143,7 @@ Em telas largas, um painel `sticky` acompanha a leitura sem cobrir o texto. Em t
 
 O tema cuida de um único contêiner de leitura. As páginas de exemplo são fragmentos sem `<html>`, `<head>`, scripts ou contêiner duplicado. As instalações devem seguir o mesmo contrato.
 
-`css/content.css` deve estilizar títulos, parágrafos, links, listas, citações, código, tabelas, imagens e detalhes expansíveis dentro da área de leitura. Classes de avisos e introduções complementam o HTML semântico. Uma página de exemplos serve de catálogo e teste visual.
+`css/content.css` estiliza títulos, parágrafos, links, listas, citações, código, tabelas, imagens e detalhes expansíveis dentro da área de leitura. As classes públicas `lead`, `callout`, `callout-info`, `callout-warning`, `callout-danger`, `callout-icon` e `callout-title` complementam o HTML semântico. A página **Catálogo de estilos** serve de referência e teste visual.
 
 Carregar o CSS da instalação depois do CSS do tema, usando variáveis para personalizações frequentes. Isso reduz conflitos de Git, mas ainda requer compatibilidade: renomear uma classe usada pelo CSS local pode quebrar o visual sem causar conflito textual. Documentar as classes e variáveis consideradas públicas.
 

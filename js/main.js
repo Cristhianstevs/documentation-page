@@ -42,6 +42,27 @@ async function start() {
   header.render(site.docsConfig, site.appSettings);
   sidebar.configure(site.docsConfig, site.appSettings, THEME_VERSION);
 
+  const mobileLayout = window.matchMedia('(max-width: 800px)');
+
+  function setSidebarOpen(open) {
+    const expanded = mobileLayout.matches && open;
+    sidebar.toggleAttribute('open', expanded);
+    sidebar.toggleAttribute('inert', mobileLayout.matches && !expanded);
+    header.setSidebarExpanded(expanded);
+  }
+
+  header.addEventListener('sidebar-toggle', () => {
+    setSidebarOpen(!sidebar.hasAttribute('open'));
+  });
+  sidebar.addEventListener('click', (event) => {
+    if (event.target.closest('.sidebar-link')) setSidebarOpen(false);
+  });
+  mobileLayout.addEventListener('change', () => setSidebarOpen(false));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') setSidebarOpen(false);
+  });
+  setSidebarOpen(false);
+
   const customStyles = document.createElement('link');
   customStyles.rel = 'stylesheet';
   customStyles.href = site.customCssUrl.href;
@@ -242,7 +263,11 @@ async function start() {
   }
 
   // Os links nativos preservam copiar endereço, nova aba e histórico.
-  window.addEventListener('hashchange', renderRoute);
+  window.addEventListener('hashchange', () => {
+    setSidebarOpen(false);
+    if (mobileLayout.matches) toc.collapse();
+    renderRoute();
+  });
   await renderRoute();
 }
 

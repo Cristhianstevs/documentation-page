@@ -1,0 +1,92 @@
+<h1>Catálogo de conteúdo</h1>
+<p class="lead">
+  Esta página fictícia reúne os padrões visuais que uma instalação pode usar sem alterar o tema.
+</p>
+
+<h2>Texto e links</h2>
+<p>
+  Parágrafos têm uma largura confortável para leitura. Um
+  <a href="#referencia/core-concepts">link interno real</a>
+  preserva o comportamento do navegador.
+</p>
+<ul>
+  <li>Lista sem ordem para itens equivalentes.</li>
+  <li>Um segundo item mostra o espaçamento vertical.</li>
+</ul>
+<ol>
+  <li>Primeiro passo de um procedimento.</li>
+  <li>Segundo passo de um procedimento.</li>
+</ol>
+<blockquote>
+  <p>Uma citação ou princípio importante pode receber destaque sem parecer um aviso.</p>
+</blockquote>
+<hr />
+
+<h2>Código</h2>
+<p>Use <code>site/config.js</code> para a configuração local.</p>
+<pre><code>export const docsConfig = [
+  { id: 'exemplo', title: 'Exemplo', pages: [] },
+];</code></pre>
+
+<h2>Tabela</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Estado</th>
+      <th>Significado</th>
+      <th>Ação recomendada</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Rascunho</td>
+      <td>Conteúdo em preparação</td>
+      <td>Solicitar revisão</td>
+    </tr>
+    <tr>
+      <td>Publicado</td>
+      <td>Conteúdo aprovado</td>
+      <td>Revisar periodicamente</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Imagem e legenda</h2>
+<figure>
+  <img
+    src="./examples/assets/documentation-flow.svg"
+    alt="Fluxo fictício entre tema, instalação e página publicada"
+    width="720"
+    height="260"
+  />
+  <figcaption>Exemplo de imagem responsiva com descrição e legenda.</figcaption>
+</figure>
+
+<h2>Avisos</h2>
+<aside class="callout callout-info" aria-label="Informação">
+  <span class="callout-icon" aria-hidden="true">ℹ️</span>
+  <div>
+    <strong class="callout-title">Informação</strong>
+    <p>Use este aviso para oferecer contexto adicional.</p>
+  </div>
+</aside>
+<aside class="callout callout-warning" aria-label="Atenção">
+  <span class="callout-icon" aria-hidden="true">⚠️</span>
+  <div>
+    <strong class="callout-title">Atenção</strong>
+    <p>Use este aviso quando uma decisão exigir cuidado.</p>
+  </div>
+</aside>
+<aside class="callout callout-danger" aria-label="Perigo">
+  <span class="callout-icon" aria-hidden="true">⛔</span>
+  <div>
+    <strong class="callout-title">Perigo</strong>
+    <p>Use este aviso para indicar risco de perda, exposição ou interrupção.</p>
+  </div>
+</aside>
+
+<h2>Detalhes expansíveis</h2>
+<details>
+  <summary>Mostrar orientação complementar</summary>
+  <p>Este conteúdo fica disponível por teclado e pode ser aberto somente quando necessário.</p>
+</details>

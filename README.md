@@ -10,7 +10,7 @@ Projeto em desenvolvimento, feito com HTML, CSS e JavaScript puro, usando ES Mod
 
 O tema carrega `site/config.js` e `site/pages/` quando há uma instalação local. Na ausência de `site/config.js`, usa `examples/`. Cabeçalho e lateral recebem a mesma configuração. Links de página como `#guias/instalacao` são preservados.
 
-O índice automático à direita e os links de trechos estão implementados. O catálogo de estilos e a adaptação completa ao celular ainda precisam ser concluídos. O [diagnóstico inicial](docs/DIAGNOSTICO.md) registra a base histórica; o [changelog](CHANGELOG.md) registra as entregas posteriores.
+O índice automático, os links de trechos, o catálogo de estilos e a navegação adaptada ao celular estão implementados. O [diagnóstico inicial](docs/DIAGNOSTICO.md) registra a base histórica; o [changelog](CHANGELOG.md) registra as entregas posteriores.
 
 Esta base estática ainda não oferece controle de acesso para documentos confidenciais.
 

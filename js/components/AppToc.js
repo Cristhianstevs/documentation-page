@@ -40,19 +40,28 @@ class AppToc extends HTMLElement {
 
     const aside = document.createElement('aside');
     aside.className = 'toc-panel';
-    const title = document.createElement('h2');
-    title.className = 'toc-title';
-    title.textContent = 'Nesta página';
+    const details = document.createElement('details');
+    details.className = 'toc-details';
+    details.open = !window.matchMedia('(max-width: 800px)').matches;
+    const summary = document.createElement('summary');
+    summary.className = 'toc-title';
+    summary.textContent = 'Nesta página';
     const nav = document.createElement('nav');
     nav.setAttribute('aria-label', 'Nesta página');
     nav.append(createList(createTree(entries), pageHash));
-    aside.append(title, nav);
+    nav.addEventListener('click', (event) => {
+      if (event.target.closest('.toc-link') && window.matchMedia('(max-width: 800px)').matches) {
+        details.open = false;
+      }
+    });
+    details.append(summary, nav);
+    aside.append(details);
 
     if (issues.length) {
       const warning = document.createElement('p');
       warning.className = 'toc-warning';
       warning.textContent = 'Alguns títulos tinham IDs repetidos ou estavam vazios e foram ajustados.';
-      aside.append(warning);
+      details.append(warning);
     }
 
     this.append(aside);
@@ -65,6 +74,11 @@ class AppToc extends HTMLElement {
       if (active) link.setAttribute('aria-current', 'location');
       else link.removeAttribute('aria-current');
     }
+  }
+
+  collapse() {
+    const details = this.querySelector('.toc-details');
+    if (details) details.open = false;
   }
 }
 

@@ -19,6 +19,7 @@ export const docsConfig = [
     pages: [
       { id: 'core-concepts', title: 'Core Concepts', file: 'core-concepts.html', icon: '📚' },
       { id: 'api-base', title: 'API Base', file: 'api-base.html', icon: '⚙️' },
+      { id: 'estilos', title: 'Catálogo de estilos', file: 'style-catalog.html', icon: '🎨' },
     ],
   },
   {

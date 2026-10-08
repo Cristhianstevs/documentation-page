@@ -37,7 +37,18 @@ Registra entregas reais. Trabalho futuro fica no [plano do MVP](docs/PLANO-MVP.m
 - Um título solicitado que não existe mantém a página legível e mostra um aviso.
 - Selecionar um título faz uma rolagem suave até alinhá-lo ao topo, com movimento imediato quando essa é a preferência de acessibilidade do sistema.
 
-Catálogo visual, adaptação completa ao celular e primeira release continuam pendentes. Esta entrada não representa uma release publicada.
+### Padrão visual, celular e acessibilidade — 2026-10-07
+
+- `content.css` passou a definir tipografia, links, listas, citações, código, tabelas, imagens, legendas e detalhes expansíveis.
+- Avisos de informação, atenção e perigo usam rótulo textual e ícone, sem comunicar significado somente pela cor.
+- A demonstração ganhou o **Catálogo de estilos**, com referências locais verificadas por teste.
+- A área de leitura recebeu largura confortável; tabelas e código largos usam rolagem própria e imagens são responsivas.
+- Em telas estreitas, a lateral abre por um botão com estado acessível, fecha com `Esc` e o índice da página é recolhível.
+- Foco visível e preferência por movimento reduzido passaram a fazer parte do padrão do tema.
+- Os botões sem ação de configurações e tema foram removidos até que essas funções existam.
+- Corrigido o destino dos links de título no celular: o título agora fica abaixo do índice fixo, sem ser encoberto.
+
+A preparação da primeira release continua pendente. Esta entrada não representa uma release publicada.
 
 ### Documentação — 2026-09-27
 

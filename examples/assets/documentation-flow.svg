@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="260" viewBox="0 0 720 260" role="img" aria-labelledby="title desc">
+  <title id="title">Fluxo de uma instalação de documentação</title>
+  <desc id="desc">Três blocos conectam o tema genérico, a instalação local e a página publicada.</desc>
+  <rect width="720" height="260" rx="16" fill="#111827"/>
+  <g font-family="ui-monospace, monospace" font-size="18" text-anchor="middle">
+    <rect x="40" y="85" width="180" height="90" rx="10" fill="#1f1f1f" stroke="#60a5fa" stroke-width="3"/>
+    <text x="130" y="125" fill="#f3f4f6">Tema genérico</text>
+    <text x="130" y="150" fill="#9ca3af" font-size="14">HTML, CSS e JS</text>
+    <rect x="270" y="85" width="180" height="90" rx="10" fill="#1f1f1f" stroke="#fbbf24" stroke-width="3"/>
+    <text x="360" y="125" fill="#f3f4f6">Instalação</text>
+    <text x="360" y="150" fill="#9ca3af" font-size="14">config + páginas</text>
+    <rect x="500" y="85" width="180" height="90" rx="10" fill="#1f1f1f" stroke="#f87171" stroke-width="3"/>
+    <text x="590" y="125" fill="#f3f4f6">Publicação</text>
+    <text x="590" y="150" fill="#9ca3af" font-size="14">servidor autorizado</text>
+    <path d="M220 130h50M450 130h50" stroke="#f3f4f6" stroke-width="3"/>
+    <path d="m260 120 10 10-10 10M490 120l10 10-10 10" fill="none" stroke="#f3f4f6" stroke-width="3"/>
+  </g>
+</svg>

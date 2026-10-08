@@ -1,6 +1,6 @@
 # Guia de uso e organização
 
-Atualizado em 2026-10-07. A separação entre tema e instalação, a navegação e o índice automático estão implementados. O catálogo visual e a adaptação completa ao celular ainda estão no [plano do MVP](PLANO-MVP.md).
+Atualizado em 2026-10-07. A separação entre tema e instalação, a navegação, o índice automático, o catálogo visual e a adaptação ao celular estão implementados. A preparação da primeira release continua no [plano do MVP](PLANO-MVP.md).
 
 ## Executar
 
@@ -121,7 +121,11 @@ Links e imagens dos exemplos que mencionem `examples/assets/` devem ser ajustado
 }
 ```
 
-Isso permite mudar uma cor da instalação sem alterar `css/variables.css`. O catálogo de conteúdo em `content.css` ainda está pendente. Login corporativo, responsividade completa e os botões de tema/configurações também permanecem pendentes.
+Isso permite mudar uma cor da instalação sem alterar `css/variables.css`. A página fictícia **Referência → Catálogo de estilos** demonstra os elementos suportados por `content.css`: títulos, texto, links, listas, citação, divisória, código, tabela, imagem com legenda, detalhes e avisos.
+
+Para uma introdução destacada, usar `class="lead"` em um parágrafo. Os avisos públicos são `callout callout-info`, `callout callout-warning` e `callout callout-danger`; cada aviso deve incluir um rótulo textual e pode usar `callout-icon` e `callout-title`. Cor e ícone sozinhos não substituem o texto.
+
+Tabelas e blocos de código largos ganham rolagem horizontal própria. Imagens respeitam a largura da leitura. Em telas de até 800 px, o botão “Abrir menu de páginas” controla a lateral, `Esc` a fecha e “Nesta página” se torna recolhível. Ao abrir um link de título, o trecho é posicionado abaixo desse índice fixo. Os antigos botões de tema e configurações foram removidos porque ainda não possuíam função. Login corporativo continua sendo uma etapa separada.
 
 ## Migrar uma cópia anterior
 
