@@ -31,7 +31,9 @@ A definição de hospedagem/login pode ser estudada desde o início pelo respons
 - [x] Verificar o fluxo básico e falhas de navegação no navegador.
 - [x] Registrar diagnóstico, arquitetura proposta, guia de uso e histórico de alterações.
 - [x] Criar orientações de trabalho em `AGENTS.md`.
-- [ ] Escolher licença e política inicial de versões antes de distribuir o tema.
+- [x] Escolher licença e política inicial de versões antes de distribuir o tema.
+
+Licença MIT e SemVer em fase `0.x` definidos em 2026-10-09. A versão preparada é `0.1.0`; publicação e tag ainda exigem aprovação do mantenedor.
 
 **Aprendizado:** requisito é uma necessidade; critério de aceite é uma forma observável de provar que ela foi atendida.
 
@@ -120,16 +122,18 @@ Concluída em 2026-10-07. Evidências: 33 testes nativos, incluindo a estrutura 
 
 ## Etapa 6 — Garantir qualidade e preparar distribuição
 
-- [ ] Criar comandos reproduzíveis para servir, formatar e validar, fixando versões se forem adicionadas ferramentas locais.
-- [ ] Simplificar as recomendações de editor para as ferramentas realmente usadas.
+- [x] Criar comandos reproduzíveis para servir, formatar e validar, fixando versões se forem adicionadas ferramentas locais.
+- [x] Simplificar as recomendações de editor para as ferramentas realmente usadas.
 - [x] Adicionar testes de interpretação de rotas, validação do catálogo e geração de IDs.
-- [ ] Automatizar os fluxos críticos de navegador quando a navegação estiver consolidada.
+- [x] Automatizar os fluxos críticos de navegador quando a navegação estiver consolidada.
 - [ ] Executar a matriz manual abaixo com o amigo e registrar resultados.
-- [ ] Simular atualização em duas instalações fictícias, com conteúdo e CSS diferentes.
-- [ ] Confirmar conteúdo preservado e links antigos válidos após a atualização.
-- [ ] Ensaiar backup, migração e reversão usando somente dados fictícios.
+- [x] Simular atualização em duas instalações fictícias, com conteúdo e CSS diferentes.
+- [x] Confirmar conteúdo preservado e links antigos válidos após a atualização.
+- [x] Ensaiar backup, migração e reversão usando somente dados fictícios.
 - [ ] Registrar changelog, guia de uso/migração e uma revisão publicada identificável.
-- [ ] Configurar verificações automáticas no repositório quando os comandos locais existirem.
+- [x] Configurar verificações automáticas no repositório quando os comandos locais existirem.
+
+Progresso em 2026-10-09: 35 testes nativos e 11 cenários de navegador passaram. As instalações fictícias `pesca` e `culinaria` preservaram conteúdo, CSS e URLs durante atualização e restauração. O relatório detalhado está em [RELATORIO-VALIDACAO-MVP.md](RELATORIO-VALIDACAO-MVP.md). Restam a revisão manual por uma segunda pessoa e a publicação/tag da versão preparada.
 
 **Aceite:** uma pessoa seguindo o guia consegue instalar, cadastrar conteúdo, receber a atualização e recuperar a versão anterior. Sem referência quebrada na demonstração e sem regressão nos fluxos críticos.
 
@@ -184,4 +188,4 @@ Não precisamos prever hoje cada extensão possível. Primeiro entregar uma base
 
 ## Próxima tarefa recomendada
 
-Iniciar a Etapa 6 com comandos reproduzíveis para servir, formatar e validar o projeto. Depois, executar a matriz manual com uma segunda pessoa e simular uma atualização entre duas instalações fictícias antes da primeira release.
+Pedir a uma segunda pessoa que execute a matriz usando o guia, registrar o resultado e corrigir eventuais dúvidas. Depois, revisar as mudanças preparadas e publicar/taguear `v0.1.0`. Somente então marcar a Etapa 6 como concluída.

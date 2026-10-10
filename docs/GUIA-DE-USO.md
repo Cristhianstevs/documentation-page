@@ -1,19 +1,26 @@
 # Guia de uso e organização
 
-Atualizado em 2026-10-07. A separação entre tema e instalação, a navegação, o índice automático, o catálogo visual e a adaptação ao celular estão implementados. A preparação da primeira release continua no [plano do MVP](PLANO-MVP.md).
+Atualizado em 2026-10-09. A separação entre tema e instalação, a navegação, o índice automático, o catálogo visual e a adaptação ao celular estão implementados. A versão `0.1.0` está preparada para validação independente antes da publicação.
 
 ## Executar
 
-Abrir a pasta no VS Code e servir por HTTP local, por exemplo com Live Server no `index.html`. Não abrir por `file://`, porque o projeto usa módulos e carregamento de arquivos por HTTP. Não existe etapa de build nem `npm start`.
+Com Node.js 24 instalado, execute:
+
+```sh
+npm ci
+npm start
+```
+
+Abra `http://127.0.0.1:4173`. A opção Live Server continua válida, mas o comando do projeto garante que todas as pessoas usem o mesmo servidor. Não abrir por `file://`, porque o projeto usa módulos e carregamento de arquivos por HTTP. Não existe etapa de build.
 
 Sem `site/config.js`, o site mostra o conteúdo de `examples/`. Com esse arquivo, passa a usar a instalação local após recarregar. Somente HTTP 404 na verificação de `site/config.js` ativa os exemplos. Erros de sintaxe, acesso ou conexão aparecem na tela. O servidor precisa devolver 404 para arquivos inexistentes, sem substituir o pedido por `index.html`.
 
 Existem, portanto, dois modos de execução:
 
-| Situação | Resultado |
-| --- | --- |
-| `site/config.js` não existe | Mostra a demonstração de `examples/` |
-| `site/config.js` existe | Mostra a instalação local de `site/`, mesmo quando `docsConfig` está vazio |
+| Situação                    | Resultado                                                                  |
+| --------------------------- | -------------------------------------------------------------------------- |
+| `site/config.js` não existe | Mostra a demonstração de `examples/`                                       |
+| `site/config.js` existe     | Mostra a instalação local de `site/`, mesmo quando `docsConfig` está vazio |
 
 Quem baixa ou clona o tema não precisa renomear arquivos para ver a demonstração: `site/` é ignorada pelo Git e não acompanha o repositório. Em uma cópia que já possui uma instalação local, renomear somente `site/config.js` para `site/config.local.js` desativa temporariamente essa instalação. Não é necessário renomear `pages/`, `assets/` ou `custom.css`; ao restaurar o nome `site/config.js`, esses caminhos precisam conservar os nomes definidos pelo contrato.
 
@@ -101,7 +108,7 @@ A página deve ser um fragmento HTML, sem `html`, `head`, scripts ou contêiner 
 
 O endereço de página continua no formato `#pesca/equipamentos`. Os links dos menus agora têm esse destino real. Ao abrir o site sem fragmento, o tema procura a primeira página válida da configuração e completa o endereço sem criar uma etapa extra no histórico. Um endereço contendo apenas a aba também abre sua primeira página; uma aba sem páginas mostra um aviso. Link direto, F5, Voltar/Avançar e navegação pelo teclado funcionam para páginas cadastradas.
 
-O endereço depende dos IDs da aba e da página. Mudar o título de exibição ou o arquivo preserva o link; mudar um ID altera o endereço. O índice lê `h1`, `h2` e `h3` e cria links como `#pesca/equipamentos/varas`. Ao selecionar um título, ele é alinhado ao topo da leitura com uma animação suave, exceto quando o sistema pede movimento reduzido. IDs escritos no HTML são preservados; quando não há `id`, o tema gera um endereço legível. Para manter um link compartilhado mesmo após renomear o título, prefira declarar um ID estável, como `<h2 id="varas">Varas para iniciantes</h2>`.
+O endereço depende dos IDs da aba e da página. Mudar o título de exibição ou o arquivo preserva o link; mudar um ID altera o endereço. O índice lê `h1`, `h2` e `h3` e cria links como `#pesca/equipamentos/varas`. Ao selecionar um título, a rolagem para no início do espaço superior definido pelo título, em vez de colá-lo no topo da leitura. O movimento é suave, exceto quando o sistema pede movimento reduzido. IDs escritos no HTML são preservados; quando não há `id`, o tema gera um endereço legível. Para manter um link compartilhado mesmo após renomear o título, prefira declarar um ID estável, como `<h2 id="varas">Varas para iniciantes</h2>`.
 
 Como o fragmento HTML é inserido em `index.html`, imagens são resolvidas a partir desse documento. Para uma imagem em `site/assets/vara.png`, usar:
 
@@ -146,7 +153,15 @@ Após migrar, conferir `git ls-files site` (sem arquivos) e `git check-ignore -v
 
 ## Validar e atualizar
 
-Com Node.js 24 ativo, executar `node --test tests/*.test.mjs`. São testes nativos, sem instalar dependências. Ainda não existe `npm test`. Eles verificam seleção da instalação, validação da configuração, isolamento do conteúdo, resolução das rotas e estados de carregamento, mas não substituem os testes de interface.
+Com Node.js 24 ativo e `npm ci` concluído:
+
+```sh
+npm test
+npm run test:browser
+npm run validate
+```
+
+`npm test` verifica configuração, rotas, carregamento, títulos e atualização de duas instalações fictícias. `npm run test:browser` verifica as jornadas críticas em tamanhos desktop e móvel. `npm run validate` também confere Biome, Prettier e espaços inválidos no diff. Na primeira execução dos testes de navegador, instale o Chromium com `npx playwright install chromium`.
 
 Para verificar manualmente: abrir um link antigo, navegar, recarregar e usar Voltar; trocar o nome e o CSS locais; conferir um arquivo ausente e uma configuração inválida. A [matriz do plano](PLANO-MVP.md) contém os cenários das próximas etapas.
 

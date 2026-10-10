@@ -37,7 +37,12 @@ test('lê início, aba e página sem depender do navegador', () => {
 });
 
 test('rejeita segmentos vazios ou além de aba e página', () => {
-  for (const hash of ['#guias/', '#/introducao', '#guias/introducao/titulo/extra', '#guias/pagina/%']) {
+  for (const hash of [
+    '#guias/',
+    '#/introducao',
+    '#guias/introducao/titulo/extra',
+    '#guias/pagina/%',
+  ]) {
     assert.deepEqual(readRoute(hash), { type: 'invalid' });
   }
 });

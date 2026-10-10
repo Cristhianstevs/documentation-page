@@ -1,2 +1,5 @@
 # Conteúdo e personalização exclusivos desta instalação.
 /site/
+/node_modules/
+/playwright-report/
+/test-results/

@@ -6,7 +6,7 @@ A proposta é usar o mesmo tema em instalações diferentes, como uma base de co
 
 ## Estado atual
 
-Projeto em desenvolvimento, feito com HTML, CSS e JavaScript puro, usando ES Modules e Web Components em Light DOM. Não há backend, banco de dados, build ou dependências de aplicação configurados.
+Projeto em desenvolvimento, feito com HTML, CSS e JavaScript puro, usando ES Modules e Web Components em Light DOM. Não há backend, banco de dados nem etapa de build. As dependências instaladas são somente ferramentas de desenvolvimento e não são enviadas ao navegador.
 
 O tema carrega `site/config.js` e `site/pages/` quando há uma instalação local. Na ausência de `site/config.js`, usa `examples/`. Cabeçalho e lateral recebem a mesma configuração. Links de página como `#guias/instalacao` são preservados.
 
@@ -16,13 +16,14 @@ Esta base estática ainda não oferece controle de acesso para documentos confid
 
 ## Começar
 
-1. Abrir a pasta do projeto no VS Code.
-2. Servir a pasta por HTTP local, por exemplo com Live Server no `index.html`.
-3. Abrir o endereço informado pelo servidor; sem `site/config.js`, a demonstração de `examples/` aparece automaticamente.
-4. Para criar uma instalação, criar `site/config.js` e páginas em `site/pages/`, seguindo o [guia de uso](docs/GUIA-DE-USO.md).
-5. Se preferir partir de uma base preenchida, copiar `examples/` para uma nova pasta `site/`.
+1. Instalar o Node.js 24.
+2. Executar `npm ci` para instalar as versões fixadas das ferramentas.
+3. Executar `npm start` e abrir `http://127.0.0.1:4173`.
+4. Sem `site/config.js`, a demonstração de `examples/` aparece automaticamente.
+5. Para criar uma instalação, criar `site/config.js` e páginas em `site/pages/`, seguindo o [guia de uso](docs/GUIA-DE-USO.md).
+6. Se preferir partir de uma base preenchida, copiar `examples/` para uma nova pasta `site/`.
 
-Não usar `file://`: módulos e carregamento de páginas devem ser executados em um servidor HTTP. Não existem comandos `npm start` ou `npm test`. Com Node.js 24 ativo, os testes são executados por `node --test tests/*.test.mjs`.
+Não usar `file://`: módulos e carregamento de páginas devem ser executados por HTTP. `npm test` executa os testes nativos; `npm run test:browser` executa os fluxos no Chromium; `npm run validate` reúne formatação, testes e `git diff --check`.
 
 ## Documentação
 
@@ -34,6 +35,7 @@ Não usar `file://`: módulos e carregamento de páginas devem ser executados em
 | Criar páginas e adotar mudanças                 | [Guia de uso](docs/GUIA-DE-USO.md)                       |
 | Aprender a trabalhar com Codex no VS Code       | [Desenvolvimento com IA](docs/DESENVOLVIMENTO-COM-IA.md) |
 | Conferir o que foi entregue                     | [Changelog](CHANGELOG.md)                                |
+| Consultar as evidências da validação            | [Relatório do MVP](docs/RELATORIO-VALIDACAO-MVP.md)      |
 | Consultar instruções para o agente              | [AGENTS.md](AGENTS.md)                                   |
 | Rever as anotações do README anterior           | [Notas iniciais](docs/NOTAS-INICIAIS.md)                 |
 
@@ -62,12 +64,15 @@ documentacao-page/
 │   ├── pages/
 │   ├── assets/
 │   └── custom.css
-├── tests/load-site.test.mjs     # testes nativos, sem dependências
+├── tests/                       # testes nativos, de navegador e instalações fictícias
+├── tools/                       # servidor HTTP local
 ├── docs/                       # documentação do desenvolvimento do tema
 ├── .gitattributes
 ├── .gitignore
 ├── .prettierrc
 ├── biome.jsonc
+├── package.json                 # comandos e ferramentas fixadas
+├── playwright.config.mjs       # matriz de navegador
 ├── favicon.ico
 ├── index.html
 ├── AGENTS.md
@@ -83,4 +88,4 @@ Configuração, páginas e CSS próprios ficam em `site/`. Os arquivos fora dess
 
 O tema deve conter apenas exemplos públicos/fictícios. Autenticação empresarial, documentos internos e backups pertencem ao ambiente autorizado da empresa. Uma tela de login no navegador não protege, sozinha, arquivos servidos publicamente.
 
-Trabalhar com mudanças pequenas, critérios de aceite e verificações reproduzíveis. O roadmap contém propostas; o changelog registra entregas. A escolha de licença está pendente antes da primeira distribuição formal.
+Trabalhar com mudanças pequenas, critérios de aceite e verificações reproduzíveis. O roadmap contém propostas; o changelog registra entregas. O código e os exemplos usam a licença MIT; versões seguem SemVer durante a fase `0.x`.

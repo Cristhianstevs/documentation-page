@@ -36,6 +36,15 @@ main {
   padding-bottom: calc(100vh - var(--header-height) - var(--space-lg));
 }
 
+/* Faz a rolagem parar no início do espaço visual que antecede cada título. */
+.content-container h2 {
+  scroll-margin-top: var(--space-xl);
+}
+
+.content-container h3 {
+  scroll-margin-top: var(--space-lg);
+}
+
 .layout-wrapper {
   display: flex;
   height: calc(100vh - var(--header-height));
@@ -319,8 +328,16 @@ app-toc:empty {
     padding: var(--space-xs) var(--space-sm);
   }
 
-  .content-container :is(h1, h2, h3) {
+  .content-container h1 {
     scroll-margin-top: var(--toc-mobile-height);
+  }
+
+  .content-container h2 {
+    scroll-margin-top: calc(var(--toc-mobile-height) + var(--space-xl));
+  }
+
+  .content-container h3 {
+    scroll-margin-top: calc(var(--toc-mobile-height) + var(--space-lg));
   }
 
   .toc-details[open] nav {

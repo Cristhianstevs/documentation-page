@@ -4,6 +4,17 @@ Registra entregas reais. Trabalho futuro fica no [plano do MVP](docs/PLANO-MVP.m
 
 ## Não lançado
 
+### Preparação da versão 0.1.0 — 2026-10-09
+
+- Adicionados comandos reproduzíveis para servidor local, formatação, testes e validação completa.
+- Biome, Prettier e Playwright foram fixados como dependências de desenvolvimento; o site continua sem dependência de aplicação ou etapa de build.
+- Criada uma matriz automatizada de navegador para desktop e celular, com link direto, F5, histórico, erros, concorrência de requisições e navegação móvel.
+- Duas instalações fictícias passaram a validar atualização, preservação de conteúdo e CSS, backup e reversão.
+- Adicionado workflow de CI para executar formatação, 35 testes nativos e os testes de navegador.
+- Recomendações de Tailwind e ESLint foram removidas porque essas ferramentas não pertencem ao projeto.
+- Títulos acessados pelo índice agora param no início de sua margem superior; no celular, o deslocamento também considera o índice fixo.
+- Licença MIT e política SemVer `0.x` registradas. A tag/release `v0.1.0` ainda não foi publicada.
+
 ### Separação das instalações e organização — 2026-09-30
 
 - Configuração, páginas de demonstração e CSS personalizado movidos para `examples/`.

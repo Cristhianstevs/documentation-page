@@ -16,9 +16,10 @@ function uniqueId(base, unavailable) {
 
 export function buildHeadingEntries(headings, { reservedIds: externalIds = [] } = {}) {
   const externalIdSet = new Set(externalIds);
-  const reservedIds = new Set(
-    [...externalIdSet, ...headings.map((heading) => heading.id?.trim()).filter(Boolean)],
-  );
+  const reservedIds = new Set([
+    ...externalIdSet,
+    ...headings.map((heading) => heading.id?.trim()).filter(Boolean),
+  ]);
   const usedIds = new Set();
   const issues = [];
 

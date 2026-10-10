@@ -28,9 +28,7 @@ class AppHeader extends HTMLElement {
     for (const section of docsConfig) {
       const link = document.createElement('a');
       const firstPage = section.pages[0];
-      link.href = firstPage
-        ? `#${section.id}/${firstPage.id}`
-        : `#${section.id}`;
+      link.href = firstPage ? `#${section.id}/${firstPage.id}` : `#${section.id}`;
       link.className = 'nav-link';
       link.dataset.section = section.id;
       link.textContent = section.title;
@@ -46,7 +44,10 @@ class AppHeader extends HTMLElement {
     const button = this.querySelector('.sidebar-toggle');
     if (!button) return;
     button.setAttribute('aria-expanded', String(expanded));
-    button.setAttribute('aria-label', expanded ? 'Fechar menu de páginas' : 'Abrir menu de páginas');
+    button.setAttribute(
+      'aria-label',
+      expanded ? 'Fechar menu de páginas' : 'Abrir menu de páginas',
+    );
   }
 }
 

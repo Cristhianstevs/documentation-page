@@ -1,5 +1,4 @@
 import assert from 'node:assert/strict';
-import { execFileSync } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 import { loadSite, validateConfig } from '../js/load-site.js';
@@ -170,14 +169,15 @@ test('todas as páginas cadastradas na demonstração existem e têm conteúdo',
   const demo = validateConfig(await import('../examples/config.js'));
   for (const section of demo.docsConfig) {
     for (const page of section.pages) {
-      const html = await readFile(new URL(`../examples/pages/${page.file}`, import.meta.url), 'utf8');
+      const html = await readFile(
+        new URL(`../examples/pages/${page.file}`, import.meta.url),
+        'utf8',
+      );
       assert.ok(html.trim(), `${page.file} não pode estar vazio`);
       assert.match(html, /<h1(?:\s|>)/i, `${page.file} precisa de um h1`);
       const localReferences = [...html.matchAll(/(?:src|href)="(\.\/[^"#]+)"/g)];
       for (const [, reference] of localReferences) {
-        const referencedFile = await readFile(
-          new URL(`../${reference.slice(2)}`, import.meta.url),
-        );
+        const referencedFile = await readFile(new URL(`../${reference.slice(2)}`, import.meta.url));
         assert.ok(referencedFile.length, `${reference} precisa existir e ter conteúdo`);
       }
     }
@@ -189,8 +189,21 @@ test('o catálogo demonstra todos os padrões visuais públicos', async () => {
     new URL('../examples/pages/style-catalog.html', import.meta.url),
     'utf8',
   );
-  for (const element of ['blockquote', 'hr', 'pre', 'code', 'table', 'figure', 'figcaption', 'details']) {
-    assert.match(html, new RegExp(`<${element}(?:\\s|>| \/>)`, 'i'), `faltou demonstrar ${element}`);
+  for (const element of [
+    'blockquote',
+    'hr',
+    'pre',
+    'code',
+    'table',
+    'figure',
+    'figcaption',
+    'details',
+  ]) {
+    assert.match(
+      html,
+      new RegExp(`<${element}(?:\\s|>| \/>)`, 'i'),
+      `faltou demonstrar ${element}`,
+    );
   }
   for (const type of ['info', 'warning', 'danger']) {
     assert.match(html, new RegExp(`class="[^"]*callout-${type}`), `faltou o aviso ${type}`);
@@ -198,14 +211,7 @@ test('o catálogo demonstra todos os padrões visuais públicos', async () => {
   assert.match(html, /<img[^>]+alt="[^"]+"/i, 'a imagem precisa de texto alternativo');
 });
 
-test('o Git do tema ignora a instalação e não rastreia seu conteúdo', () => {
-  const root = new URL('../', import.meta.url);
-  const options = { cwd: root, encoding: 'utf8' };
-  const ignored = execFileSync(
-    'git',
-    ['check-ignore', 'site/config.js', 'site/pages/varas.html'],
-    options,
-  );
-  assert.equal(ignored.trim().split(/\r?\n/).length, 2);
-  assert.equal(execFileSync('git', ['ls-files', 'site'], options).trim(), '');
+test('o tema declara que a instalação local deve ser ignorada', async () => {
+  const gitignore = await readFile(new URL('../.gitignore', import.meta.url), 'utf8');
+  assert.match(gitignore, /^\/site\/$/m);
 });

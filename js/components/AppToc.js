@@ -60,7 +60,8 @@ class AppToc extends HTMLElement {
     if (issues.length) {
       const warning = document.createElement('p');
       warning.className = 'toc-warning';
-      warning.textContent = 'Alguns títulos tinham IDs repetidos ou estavam vazios e foram ajustados.';
+      warning.textContent =
+        'Alguns títulos tinham IDs repetidos ou estavam vazios e foram ajustados.';
       details.append(warning);
     }
 

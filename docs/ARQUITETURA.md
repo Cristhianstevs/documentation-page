@@ -219,3 +219,9 @@ Manter a integração corporativa fora dos componentes genéricos reduz conflito
 - Na empresa: responsáveis por conteúdo, revisão periódica e controle de acesso.
 
 Essas decisões podem ser registradas aqui com data e justificativa. Quando houver muitas, separar registros curtos de decisão; não é necessário criar uma estrutura complexa agora.
+
+### Decisões registradas em 2026-10-09
+
+- **Licença:** MIT para o código e os exemplos fictícios, permitindo reutilização com preservação do aviso de licença.
+- **Versões:** SemVer. Enquanto a API pública ainda amadurece, usar `0.x`; correções incrementam o patch e funcionalidades compatíveis incrementam o minor. Uma quebra de contrato deve ser documentada como migração e incrementar o minor durante `0.x`.
+- **Primeira versão preparada:** `0.1.0`. Ela só será considerada publicada após revisão independente e criação de uma tag/release identificável.

@@ -7,7 +7,7 @@ import { loadSite } from './load-site.js';
 import { createPageHash, readRoute, resolveRoute } from './routes.js';
 
 // A versão pertence ao tema, independentemente do conteúdo de cada instalação.
-const THEME_VERSION = '1.0.0';
+const THEME_VERSION = '0.1.0';
 const mainContent = document.getElementById('main-content');
 
 function showMessage(title, message, action) {
@@ -246,11 +246,7 @@ async function start() {
       const indexed = indexContentHeadings(container);
       currentHeadings = indexed.entries;
       renderedPageKey = pageKey;
-      toc.render(
-        currentHeadings,
-        createPageHash(section.id, page.id),
-        indexed.issues,
-      );
+      toc.render(currentHeadings, createPageHash(section.id, page.id), indexed.issues);
       applyHeadingRoute(route, true);
     } catch {
       if (currentNavigation !== navigationId) return;

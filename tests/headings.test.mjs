@@ -38,10 +38,9 @@ test('evita colisões entre IDs automáticos, repetidos e explícitos', () => {
 });
 
 test('não reutiliza IDs reservados por outros elementos do conteúdo', () => {
-  const result = buildHeadingEntries(
-    [{ text: 'Exemplo', id: '', level: 2 }],
-    { reservedIds: ['exemplo'] },
-  );
+  const result = buildHeadingEntries([{ text: 'Exemplo', id: '', level: 2 }], {
+    reservedIds: ['exemplo'],
+  });
   assert.equal(result.entries[0].id, 'exemplo-2');
 });
 
