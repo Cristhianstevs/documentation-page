@@ -4,6 +4,15 @@ Registra entregas reais. Trabalho futuro fica no [plano do MVP](docs/PLANO-MVP.m
 
 ## Não lançado
 
+### Documentação para validação externa — 2026-10-12
+
+- README e guia de uso passaram a separar o caminho leve para experimentar do caminho completo para desenvolver e validar.
+- Corrigidas instruções antigas sobre `package.json`, testes, índice e criação da pasta local `site/`.
+- Adicionado um teste de aceite curto para a primeira pessoa que receber uma cópia do tema.
+- Adicionado um teste automático para links locais dos documentos Markdown.
+- Revisadas as páginas de exemplo para explicar IDs estáveis, instalação local, ferramentas de desenvolvimento e limites do MVP.
+- Documentos históricos agora avisam claramente que não devem ser usados como tutorial atual.
+
 ### Preparação da versão 0.1.0 — 2026-10-09
 
 - Adicionados comandos reproduzíveis para servidor local, formatação, testes e validação completa.

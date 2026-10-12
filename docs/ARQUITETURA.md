@@ -1,6 +1,6 @@
 # Arquitetura proposta e atualização das instalações
 
-Status atualizado em 2026-10-07: a separação entre tema, exemplos e instalação, a navegação, o índice automático, o catálogo visual e a adaptação ao celular estão implementados. O carregamento é centralizado em `js/load-site.js`, iniciado por `js/main.js`. A primeira release e a integração corporativa continuam pendentes. O [guia de uso](GUIA-DE-USO.md) descreve o comportamento atual e a migração.
+Status atualizado em 2026-10-12: a arquitetura do MVP público está implementada. Isso inclui a separação entre tema e conteúdo, navegação, índice automático, catálogo visual e adaptação ao celular. `js/main.js` inicia o tema e `js/load-site.js` escolhe e valida uma única configuração. A primeira publicação e a integração corporativa continuam sendo marcos separados. O [guia de uso](GUIA-DE-USO.md) mostra o passo a passo atual.
 
 ## 1. Separar responsabilidades
 
@@ -82,7 +82,7 @@ A versão do tema deve ter origem no tema, separada da identidade de cada instal
 
 ## 4. Contrato de URLs
 
-Recomendação: manter fragmentos de URL, compatíveis com hospedagem estática e com a base atual.
+O MVP usa fragmentos de URL. Essa escolha funciona em hospedagem estática e preserva os links da base inicial.
 
 | Destino | Exemplo proposto                             | Comportamento                                                                     |
 | ------- | -------------------------------------------- | --------------------------------------------------------------------------------- |
@@ -95,7 +95,7 @@ As quatro formas da tabela estão implementadas. Usar apenas um `#`, porque ele 
 
 “Rastreável” aqui significa que um link consegue reconstruir a seleção e o ponto de leitura. O fragmento não é enviado ao servidor em uma requisição HTTP; indexação por buscadores, auditoria de acessos e analytics são problemas separados. Para uma wiki pública focada em SEO, reavaliar geração estática e URLs por caminho no futuro.
 
-Fluxo proposto:
+Fluxo implementado:
 
 ```mermaid
 flowchart LR
@@ -107,7 +107,7 @@ flowchart LR
     F --> G[Ir ao título solicitado]
 ```
 
-Uma função de navegação deve coordenar essa sequência. Separar leitura da URL, resolução no catálogo e atualização da tela deixa o código testável sem criar muitas abstrações.
+A navegação coordena essa sequência. A leitura da URL, a resolução no catálogo e a atualização da tela ficam separadas para que cada regra possa ser testada.
 
 Regras de comportamento:
 

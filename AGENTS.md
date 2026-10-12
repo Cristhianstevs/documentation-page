@@ -12,7 +12,7 @@
 
 - Ler o README e os documentos relacionados à tarefa em `docs/`.
 - Consultar `docs/DIAGNOSTICO.md` para a revisão inicial e `docs/PLANO-MVP.md` para prioridades.
-- Distinguir código existente de propostas em `docs/ARQUITETURA.md`. A separação `examples/` e `site/` está implementada; URLs de títulos e o índice ainda estão pendentes.
+- Distinguir código existente de propostas em `docs/ARQUITETURA.md`. A separação entre `examples/` e `site/`, as URLs de títulos e o índice já estão implementados. A publicação da primeira versão e o piloto corporativo continuam separados.
 - Conferir `git status` e preservar alterações do usuário.
 
 ## Arquitetura e código
@@ -42,7 +42,8 @@
 
 ## Validação e entrega
 
-- Não existe `package.json` nem comando `npm test`. Os testes nativos da separação são executados com Node.js 24: `node --test tests/load-site.test.mjs`.
+- O site não tem dependências de produção nem etapa de build. `package.json` contém somente o servidor local e as ferramentas de desenvolvimento.
+- Para uma verificação rápida, executar `npm test`. Para a validação completa, executar `npm run validate` depois de `npm ci` e da instalação do Chromium do Playwright.
 - Servir por HTTP local para verificar o site; `file://` não é o fluxo de execução suportado.
 - Para navegação: conferir link direto, recarregar, voltar/avançar, rota inválida, página ausente e clique rápido entre páginas.
 - Para interface: conferir teclado, tela estreita e o fluxo afetado no navegador.

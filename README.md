@@ -4,26 +4,46 @@ Tema genérico para centralizar documentação, wikis e anotações com a organi
 
 A proposta é usar o mesmo tema em instalações diferentes, como uma base de conhecimento de equipe e uma wiki pessoal. Cada instalação terá seu conteúdo e poderá adotar melhorias do tema.
 
-## Estado atual
+## O que este projeto faz
 
-Projeto em desenvolvimento, feito com HTML, CSS e JavaScript puro, usando ES Modules e Web Components em Light DOM. Não há backend, banco de dados nem etapa de build. As dependências instaladas são somente ferramentas de desenvolvimento e não são enviadas ao navegador.
+Este projeto é um tema estático para documentação. A pessoa cria abas, cadastra páginas e escreve títulos. O tema monta automaticamente a navegação no formato **Abas → Páginas → Títulos**.
+
+Ele é feito com HTML, CSS e JavaScript puro. Não há backend, banco de dados nem etapa de build. Os pacotes do `node_modules` servem apenas para desenvolvimento e testes; eles não são enviados ao navegador nem precisam ser publicados com o site.
 
 O tema carrega `site/config.js` e `site/pages/` quando há uma instalação local. Na ausência de `site/config.js`, usa `examples/`. Cabeçalho e lateral recebem a mesma configuração. Links de página como `#guias/instalacao` são preservados.
 
-O índice automático, os links de trechos, o catálogo de estilos e a navegação adaptada ao celular estão implementados. O [diagnóstico inicial](docs/DIAGNOSTICO.md) registra a base histórica; o [changelog](CHANGELOG.md) registra as entregas posteriores.
+O índice automático, os links de trechos, o catálogo de estilos e a navegação para celular estão implementados. A versão `0.1.0` está pronta para o teste independente que antecede a primeira publicação. O [diagnóstico inicial](docs/DIAGNOSTICO.md) registra como o projeto começou; o [changelog](CHANGELOG.md) registra o que foi entregue depois.
 
 Esta base estática ainda não oferece controle de acesso para documentos confidenciais.
 
-## Começar
+## Experimentar sem instalar dependências
 
 1. Instalar o Node.js 24.
-2. Executar `npm ci` para instalar as versões fixadas das ferramentas.
-3. Executar `npm start` e abrir `http://127.0.0.1:4173`.
-4. Sem `site/config.js`, a demonstração de `examples/` aparece automaticamente.
-5. Para criar uma instalação, criar `site/config.js` e páginas em `site/pages/`, seguindo o [guia de uso](docs/GUIA-DE-USO.md).
-6. Se preferir partir de uma base preenchida, copiar `examples/` para uma nova pasta `site/`.
+2. Executar `node tools/serve.mjs`.
+3. Abrir `http://127.0.0.1:4173`.
 
-Não usar `file://`: módulos e carregamento de páginas devem ser executados por HTTP. `npm test` executa os testes nativos; `npm run test:browser` executa os fluxos no Chromium; `npm run validate` reúne formatação, testes e `git diff --check`.
+Esse caminho não cria `node_modules`. Sem `site/config.js`, a demonstração de `examples/` aparece automaticamente.
+
+## Criar sua documentação
+
+1. Copiar `examples/` para uma nova pasta `site/` ou criar `site/` do zero.
+2. Editar `site/config.js` para definir o nome, as abas e as páginas.
+3. Criar os textos em `site/pages/`.
+4. Recarregar o navegador.
+
+O passo a passo completo está no [guia de uso](docs/GUIA-DE-USO.md).
+
+## Desenvolver e validar o tema
+
+Quem vai alterar o tema deve instalar as ferramentas fixadas:
+
+```sh
+npm ci
+npx playwright install chromium
+npm run validate
+```
+
+Não usar `file://`: os módulos e as páginas precisam ser carregados por HTTP.
 
 ## Documentação
 
@@ -36,6 +56,7 @@ Não usar `file://`: módulos e carregamento de páginas devem ser executados po
 | Aprender a trabalhar com Codex no VS Code       | [Desenvolvimento com IA](docs/DESENVOLVIMENTO-COM-IA.md) |
 | Conferir o que foi entregue                     | [Changelog](CHANGELOG.md)                                |
 | Consultar as evidências da validação            | [Relatório do MVP](docs/RELATORIO-VALIDACAO-MVP.md)      |
+| Testar uma cópia como novo usuário              | [Teste de aceite](docs/TESTE-DE-ACEITE.md)               |
 | Consultar instruções para o agente              | [AGENTS.md](AGENTS.md)                                   |
 | Rever as anotações do README anterior           | [Notas iniciais](docs/NOTAS-INICIAIS.md)                 |
 
@@ -47,11 +68,12 @@ documentacao-page/
 ├── css/
 │   ├── variables.css           # cores, fontes e espaçamentos
 │   ├── core.css                # estrutura do layout
-│   └── content.css             # reservado para estilos de conteúdo
+│   └── content.css             # estilos públicos do conteúdo
 ├── js/
 │   ├── components/
 │   │   ├── AppHeader.js
-│   │   └── AppSidebar.js
+│   │   ├── AppSidebar.js
+│   │   └── AppToc.js
 │   ├── load-site.js            # seleção e validação da configuração
 │   └── main.js                 # inicialização e navegação
 ├── examples/                   # demonstração versionada pelo tema

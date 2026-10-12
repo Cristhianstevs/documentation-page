@@ -1,6 +1,8 @@
 # Diagnóstico inicial do projeto
 
-Revisão em 2026-09-27. Base: commit local `ac23d27` (`Update page loads`), branch `main`, sem alterações locais no início da revisão. Este documento é um retrato dessa base, não uma lista automaticamente atualizada de defeitos. A separação de instalações e ajustes de navegação entregues em 2026-09-30 estão no [changelog](../CHANGELOG.md); os caminhos abaixo são os da base histórica.
+Revisão em 2026-09-27. Base: commit local `ac23d27` (`Update page loads`), branch `main`, sem alterações locais no início da revisão.
+
+> **Documento histórico:** os problemas abaixo descrevem a versão inicial e já foram tratados no MVP. Para saber o estado atual, leia o [README](../README.md), o [plano](PLANO-MVP.md) e o [relatório de validação](RELATORIO-VALIDACAO-MVP.md). Os caminhos antigos foram mantidos aqui para mostrar a evolução do projeto.
 
 ## O que foi verificado
 

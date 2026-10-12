@@ -1,6 +1,6 @@
 # Plano para concluir o MVP
 
-Criado em 2026-09-27 a partir da [revisão do projeto](DIAGNOSTICO.md). Este documento é uma fila de entregas, não uma promessa de prazo. Caixas marcadas indicam somente trabalho já concluído.
+Criado em 2026-09-27 a partir da [revisão do projeto](DIAGNOSTICO.md) e atualizado em 2026-10-12. Este documento mostra o que foi concluído e o que ainda bloqueia a primeira publicação. Uma caixa marcada representa trabalho concluído com alguma evidência.
 
 ## Resultado que queremos
 
@@ -133,7 +133,7 @@ Concluída em 2026-10-07. Evidências: 33 testes nativos, incluindo a estrutura 
 - [ ] Registrar changelog, guia de uso/migração e uma revisão publicada identificável.
 - [x] Configurar verificações automáticas no repositório quando os comandos locais existirem.
 
-Progresso em 2026-10-09: 35 testes nativos e 11 cenários de navegador passaram. As instalações fictícias `pesca` e `culinaria` preservaram conteúdo, CSS e URLs durante atualização e restauração. O relatório detalhado está em [RELATORIO-VALIDACAO-MVP.md](RELATORIO-VALIDACAO-MVP.md). Restam a revisão manual por uma segunda pessoa e a publicação/tag da versão preparada.
+Progresso em 2026-10-12: 36 testes nativos e 11 cenários aplicáveis de navegador passaram. As instalações fictícias `pesca` e `culinaria` preservaram conteúdo, CSS e URLs durante atualização e restauração. Toda a documentação e as páginas de exemplo foram revisadas para o primeiro teste externo. O relatório detalhado está em [RELATORIO-VALIDACAO-MVP.md](RELATORIO-VALIDACAO-MVP.md). Restam a execução do [teste de aceite](TESTE-DE-ACEITE.md) por uma segunda pessoa, a confirmação da CI remota e a publicação/tag da versão preparada.
 
 **Aceite:** uma pessoa seguindo o guia consegue instalar, cadastrar conteúdo, receber a atualização e recuperar a versão anterior. Sem referência quebrada na demonstração e sem regressão nos fluxos críticos.
 
@@ -188,4 +188,4 @@ Não precisamos prever hoje cada extensão possível. Primeiro entregar uma base
 
 ## Próxima tarefa recomendada
 
-Pedir a uma segunda pessoa que execute a matriz usando o guia, registrar o resultado e corrigir eventuais dúvidas. Depois, revisar as mudanças preparadas e publicar/taguear `v0.1.0`. Somente então marcar a Etapa 6 como concluída.
+Entregar uma cópia limpa para uma segunda pessoa e pedir que ela siga o [teste de aceite](TESTE-DE-ACEITE.md) sem ajuda. Registrar o resultado e corrigir somente os problemas encontrados. Depois, confirmar a CI e publicar/taguear `v0.1.0`. Somente então marcar a Etapa 6 como concluída.

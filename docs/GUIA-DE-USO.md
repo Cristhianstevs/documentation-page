@@ -1,17 +1,18 @@
 # Guia de uso e organização
 
-Atualizado em 2026-10-09. A separação entre tema e instalação, a navegação, o índice automático, o catálogo visual e a adaptação ao celular estão implementados. A versão `0.1.0` está preparada para validação independente antes da publicação.
+Atualizado em 2026-10-12. Este guia ensina a abrir o tema, criar uma instalação e validar uma mudança. A versão `0.1.0` está pronta para validação independente antes da publicação.
 
-## Executar
+## 1. Abrir a demonstração
 
-Com Node.js 24 instalado, execute:
+Para apenas abrir e experimentar o tema, não é necessário instalar `node_modules`. Com Node.js 24 instalado, execute:
 
 ```sh
-npm ci
-npm start
+node tools/serve.mjs
 ```
 
-Abra `http://127.0.0.1:4173`. A opção Live Server continua válida, mas o comando do projeto garante que todas as pessoas usem o mesmo servidor. Não abrir por `file://`, porque o projeto usa módulos e carregamento de arquivos por HTTP. Não existe etapa de build.
+Abra `http://127.0.0.1:4173`. Para parar o servidor, volte ao terminal e pressione `Ctrl+C`.
+
+Também é possível usar `npm start`; esse comando chama o mesmo servidor e não exige os pacotes de desenvolvimento. A opção Live Server continua válida. Não abra o projeto por `file://`, porque os módulos e as páginas precisam de um servidor HTTP. Não existe etapa de build.
 
 Sem `site/config.js`, o site mostra o conteúdo de `examples/`. Com esse arquivo, passa a usar a instalação local após recarregar. Somente HTTP 404 na verificação de `site/config.js` ativa os exemplos. Erros de sintaxe, acesso ou conexão aparecem na tela. O servidor precisa devolver 404 para arquivos inexistentes, sem substituir o pedido por `index.html`.
 
@@ -24,9 +25,9 @@ Existem, portanto, dois modos de execução:
 
 Quem baixa ou clona o tema não precisa renomear arquivos para ver a demonstração: `site/` é ignorada pelo Git e não acompanha o repositório. Em uma cópia que já possui uma instalação local, renomear somente `site/config.js` para `site/config.local.js` desativa temporariamente essa instalação. Não é necessário renomear `pages/`, `assets/` ou `custom.css`; ao restaurar o nome `site/config.js`, esses caminhos precisam conservar os nomes definidos pelo contrato.
 
-## Criar sua instalação
+## 2. Criar sua instalação
 
-Em uma cópia nova, crie `site/config.js`, `site/pages/`, `site/assets/` e `site/custom.css` para começar do zero; se preferir uma base preenchida, copie `examples` para `site` somente quando a pasta de destino ainda não existir.
+O caminho mais simples é copiar a demonstração. Faça isso somente quando a pasta `site/` ainda não existir:
 
 No PowerShell, apenas quando a pasta de destino ainda não existir:
 
@@ -34,13 +35,15 @@ No PowerShell, apenas quando a pasta de destino ainda não existir:
 Copy-Item -LiteralPath .\examples -Destination .\site -Recurse
 ```
 
-A cópia contém a configuração, páginas e CSS de demonstração. A pasta `assets/` recebe imagens e anexos. O arquivo `.gitkeep` apenas permite guardar essa pasta vazia no Git dos exemplos; pode ser removido da sua cópia local.
+A cópia cria `site/config.js`, `site/pages/`, `site/assets/` e `site/custom.css`. Depois, substitua os textos fictícios pelos seus.
+
+Se preferir começar vazio, crie essas quatro estruturas manualmente. O arquivo `site/config.js` é obrigatório; as outras pastas e o CSS são usados conforme a necessidade.
 
 A demonstração contém somente páginas fictícias completas. Ela serve como referência de estrutura, não como conteúdo para uma instalação real.
 
 A pasta `site/` é ignorada pelo Git do tema. Ela não será enviada por um commit comum desse tema e precisa de backup próprio. Ignorar no Git não torna os arquivos privados na hospedagem nem impede adição forçada. Para conteúdo empresarial, o controle de acesso continua sendo uma etapa separada.
 
-## O que editar no dia a dia
+## 3. Saber o que editar
 
 | Quero alterar                        | Arquivo ou pasta                          |
 | ------------------------------------ | ----------------------------------------- |
@@ -54,7 +57,7 @@ A pasta `site/` é ignorada pelo Git do tema. Ela não será enviada por um comm
 
 Os caminhos desta tabela são relativos à raiz do projeto. Mudanças do tema chegam a outra instalação somente quando ela recebe a atualização.
 
-## Convenção de nomes
+## 4. Dar nomes aos arquivos e IDs
 
 Não existe uma única convenção obrigatória para todo projeto. Aqui adotamos:
 
@@ -67,7 +70,7 @@ Não existe uma única convenção obrigatória para todo projeto. Aqui adotamos
 
 `main.js` é o ponto de entrada: inicia a aplicação. `load-site.js` escolhe e valida a configuração. `config.js` continua sendo um nome adequado dentro de cada pasta de conteúdo.
 
-## Configurar e adicionar páginas
+## 5. Configurar e adicionar páginas
 
 Exemplo de `site/config.js`:
 
@@ -104,7 +107,7 @@ Recarregar o navegador. O cabeçalho e a lateral usam essa configuração. Um ar
 
 A página deve ser um fragmento HTML, sem `html`, `head`, scripts ou contêiner de leitura próprio. O tema já cria o contêiner de leitura.
 
-## Links e imagens
+## 6. Usar links e imagens
 
 O endereço de página continua no formato `#pesca/equipamentos`. Os links dos menus agora têm esse destino real. Ao abrir o site sem fragmento, o tema procura a primeira página válida da configuração e completa o endereço sem criar uma etapa extra no histórico. Um endereço contendo apenas a aba também abre sua primeira página; uma aba sem páginas mostra um aviso. Link direto, F5, Voltar/Avançar e navegação pelo teclado funcionam para páginas cadastradas.
 
@@ -118,7 +121,7 @@ Como o fragmento HTML é inserido em `index.html`, imagens são resolvidas a par
 
 Links e imagens dos exemplos que mencionem `examples/assets/` devem ser ajustados para `site/assets/` ao copiar o conteúdo. Não há reescrita automática desses caminhos.
 
-## Personalizar a aparência
+## 7. Personalizar a aparência
 
 `site/custom.css` é carregado depois dos estilos do tema. Manter esse arquivo, mesmo vazio. Exemplo:
 
@@ -134,7 +137,7 @@ Para uma introdução destacada, usar `class="lead"` em um parágrafo. Os avisos
 
 Tabelas e blocos de código largos ganham rolagem horizontal própria. Imagens respeitam a largura da leitura. Em telas de até 800 px, o botão “Abrir menu de páginas” controla a lateral, `Esc` a fecha e “Nesta página” se torna recolhível. Ao abrir um link de título, o trecho é posicionado abaixo desse índice fixo. Os antigos botões de tema e configurações foram removidos porque ainda não possuíam função. Login corporativo continua sendo uma etapa separada.
 
-## Migrar uma cópia anterior
+## 8. Migrar uma cópia anterior
 
 Antes de atualizar uma cópia antiga com conteúdo próprio, fazer backup fora do checkout do tema. Não confiar no Git do tema para guardar conteúdo confidencial.
 
@@ -151,9 +154,16 @@ No código do tema, `js/script.js` virou `js/main.js`, e o `index.html` já refe
 
 Após migrar, conferir `git ls-files site` (sem arquivos) e `git check-ignore -v site/config.js` (regra encontrada). Arquivos que já foram rastreados ou enviados não saem do histórico apenas por ganharem uma regra de ignore. Atualizar uma cópia antiga pode ainda exigir resolver suas alterações rastreadas; os novos caminhos não eliminam divergências anteriores.
 
-## Validar e atualizar
+## 9. Validar o tema
 
-Com Node.js 24 ativo e `npm ci` concluído:
+Esta parte é para quem altera os arquivos do tema. Instale as ferramentas uma vez:
+
+```sh
+npm ci
+npx playwright install chromium
+```
+
+Depois execute:
 
 ```sh
 npm test
@@ -161,8 +171,17 @@ npm run test:browser
 npm run validate
 ```
 
-`npm test` verifica configuração, rotas, carregamento, títulos e atualização de duas instalações fictícias. `npm run test:browser` verifica as jornadas críticas em tamanhos desktop e móvel. `npm run validate` também confere Biome, Prettier e espaços inválidos no diff. Na primeira execução dos testes de navegador, instale o Chromium com `npx playwright install chromium`.
+`npm test` verifica regras isoladas e a atualização de duas instalações fictícias. `npm run test:browser` abre o Chromium e verifica as jornadas principais em desktop e celular. `npm run validate` executa todas as verificações.
 
 Para verificar manualmente: abrir um link antigo, navegar, recarregar e usar Voltar; trocar o nome e o CSS locais; conferir um arquivo ausente e uma configuração inválida. A [matriz do plano](PLANO-MVP.md) contém os cenários das próximas etapas.
 
-Ler o [changelog](../CHANGELOG.md), fazer backup da instalação e testar atualizações em uma cópia. O [fluxo de atualização](ARQUITETURA.md) explica como receber mudanças sem editar os arquivos do tema em cada instalação.
+## 10. Atualizar com segurança
+
+1. Fazer backup de `site/` fora da pasta do tema.
+2. Ler o [changelog](../CHANGELOG.md).
+3. Receber a atualização em uma cópia de teste.
+4. Executar `npm run validate`.
+5. Abrir sua instalação e conferir os links, o índice e o CSS local.
+6. Somente depois usar a versão atualizada no ambiente principal.
+
+O [fluxo de atualização](ARQUITETURA.md) explica os comandos e o processo de reversão.

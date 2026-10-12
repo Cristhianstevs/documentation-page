@@ -1,6 +1,7 @@
 # Relatório de validação do MVP
 
-Data: 2026-10-09  
+Última validação local: 2026-10-12
+
 Versão preparada: `0.1.0`
 
 ## História validada
@@ -9,15 +10,16 @@ Uma instalação define abas e páginas, o navegador valida a URL, carrega o fra
 
 ## Evidências automatizadas
 
-| Camada                                 | Situação  | Evidência                                                                                        |
-| -------------------------------------- | --------- | ------------------------------------------------------------------------------------------------ |
-| Configuração, rotas, páginas e títulos | Aprovada  | 33 testes existentes mais 2 testes de atualização/reversão; total de 35                          |
-| Navegador desktop                      | Aprovada  | Link direto, F5, histórico, rota/título inválidos, 404 e resposta atrasada                       |
-| Navegador móvel                        | Aprovada  | Mesmos fluxos, menu por teclado, índice recolhível e ausência de corte horizontal                |
-| Atualização                            | Aprovada  | Instalações fictícias `pesca` e `culinaria` mantiveram configuração, páginas e CSS               |
-| Backup e reversão                      | Aprovada  | Cópia restaurada recuperou exatamente a impressão digital SHA-256 do conteúdo original           |
-| Formatação                             | Aprovada  | Biome e Prettier sem divergências; `git diff --check` sem erros                                  |
-| CI                                     | Preparada | Workflow em `.github/workflows/validate.yml`; execução remota ocorrerá após envio ao repositório |
+| Camada                  | Situação | Evidência                                                                                     |
+| ----------------------- | -------- | --------------------------------------------------------------------------------------------- |
+| Testes nativos          | Aprovada | 36 testes para documentação, configuração, rotas, páginas, títulos, atualização e reversão    |
+| Navegador desktop       | Aprovada | Link direto, F5, histórico, rota/título inválidos, 404 e resposta atrasada                    |
+| Navegador móvel         | Aprovada | Mesmos fluxos, menu por teclado, índice recolhível e ausência de corte horizontal             |
+| Atualização             | Aprovada | Instalações fictícias `pesca` e `culinaria` mantiveram configuração, páginas e CSS            |
+| Backup e reversão       | Aprovada | Cópia restaurada recuperou exatamente a impressão digital SHA-256 do conteúdo original        |
+| Formatação              | Aprovada | Biome e Prettier sem divergências; `git diff --check` sem erros                               |
+| CI                      | Pendente | Workflow em `.github/workflows/validate.yml`; ainda falta registrar uma execução remota verde |
+| Documentação e exemplos | Aprovada | Arquivos Markdown e páginas de exemplo revisados; referências locais verificadas              |
 
 O teste da âncora mede a posição do `h2`: no desktop, a borda do título fica afastada do topo pelo mesmo valor de `margin-top`; no celular, soma-se a altura do índice fixo.
 
@@ -43,6 +45,6 @@ Foram revisadas capturas em `1424 × 805` e no perfil Pixel 5. O título “Pré
 
 ## Pendências externas
 
-- Uma segunda pessoa ainda precisa seguir o guia sem ajuda e registrar dúvidas ou falhas. Automação não substitui essa avaliação de clareza.
+- Uma segunda pessoa ainda precisa seguir o [teste de aceite](TESTE-DE-ACEITE.md) sem ajuda e registrar dúvidas ou falhas. Automação não substitui essa avaliação de clareza.
 - A versão `0.1.0` está preparada, mas não publicada. Criar commit, tag e release é uma ação externa do mantenedor.
 - O workflow de CI só terá evidência remota depois que estes arquivos forem enviados ao repositório.

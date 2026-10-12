@@ -1,6 +1,6 @@
 # Desenvolver com IA e aprender com o projeto
 
-Guia inicial em 2026-09-27. As orientações de produto foram conferidas na documentação oficial do OpenAI. Os exemplos de trabalho são recomendações para este repositório.
+Atualizado em 2026-10-12. As orientações sobre Codex foram conferidas na documentação oficial da OpenAI. Os exemplos de trabalho são recomendações para este repositório.
 
 ## O que significa “vibe coding” aqui
 
@@ -13,7 +13,7 @@ Exemplo: “crie o índice” é amplo. Um pedido verificável é “leia os h2/
 ## Usar Codex no VS Code
 
 1. Abrir a pasta completa deste projeto no VS Code.
-2. Na área de extensões, instalar a extensão oficial Codex da OpenAI, seguindo o link de instalação na [documentação oficial da extensão](https://learn.chatgpt.com/docs/codex/ide). Isso evita escolher uma extensão de nome parecido.
+2. Na área de extensões, instalar a extensão oficial Codex da OpenAI, seguindo a [documentação oficial da extensão](https://learn.chatgpt.com/docs/codex/ide). Isso evita escolher uma extensão de nome parecido.
 3. Abrir o ícone do Codex. Se não aparecer, usar a paleta de comandos e procurar `Codex: Open Codex Sidebar`.
 4. Entrar com a conta apropriada pelo fluxo da extensão. Para usar a assinatura do ChatGPT, escolher o acesso com ChatGPT quando oferecido; não é necessário criar uma chave de API para esse fluxo. O acesso e os limites dependem da conta. [Autenticação oficial](https://learn.chatgpt.com/docs/auth).
 5. Começar com uma tarefa pequena, mencionando os arquivos relevantes. Pedir ao Codex que resuma as instruções do `AGENTS.md` ajuda a conferir o contexto.
@@ -105,4 +105,4 @@ Alguns ajustes às explicações antigas: `data-*` é visível no navegador e n�
 
 Você deve conseguir explicar: o que mudou, por que mudou, onde está a regra, como comprovar que funciona e como recuperar a versão anterior. Não é necessário decorar todas as linhas, mas é necessário entender as partes das quais depende a manutenção.
 
-O próximo exercício recomendado é acompanhar a separação entre configuração do tema e conteúdo da instalação. Depois, explicar com suas próprias palavras por que alterar o mesmo `config.js` em várias cópias dificultava o `pull`.
+Um bom exercício é explicar com suas próprias palavras por que o tema fica fora de `site/` e por que essa separação facilita receber atualizações sem substituir o conteúdo local.

@@ -1,6 +1,8 @@
 # Notas iniciais de estudo
 
-Registro do README anterior, preservado em 2026-09-27 para manter o histórico de aprendizado. O texto abaixo não é o guia atual: menciona estruturas e comportamentos que ainda não estavam implementados. Para caminhos e instruções corretos, usar o [guia de uso](GUIA-DE-USO.md), o [diagnóstico](DIAGNOSTICO.md) e as correções conceituais no [guia de desenvolvimento com IA](DESENVOLVIMENTO-COM-IA.md).
+Registro do README anterior, preservado em 2026-09-27 para manter o histórico de aprendizado.
+
+> **Não siga este arquivo como tutorial.** Ele contém nomes, caminhos e comportamentos antigos. Para usar o projeto hoje, siga somente o [README](../README.md) e o [guia de uso](GUIA-DE-USO.md). Este texto existe para mostrar o que mudou durante o aprendizado.
 
 ---
 

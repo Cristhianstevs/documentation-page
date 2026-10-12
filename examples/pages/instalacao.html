@@ -1,30 +1,43 @@
 <h1>Instalação</h1>
-<p>Sirva esta pasta por HTTP local para abrir a demonstração. O projeto não usa etapa de build.</p>
+<p>Abra o tema por um servidor HTTP local. O projeto não usa etapa de build.</p>
 
 <h2>Pré-requisitos</h2>
 <ul>
   <li>Um navegador moderno.</li>
-  <li>Um servidor HTTP local, como a extensão Live Server do VS Code.</li>
+  <li>Node.js 24 para usar o servidor que acompanha o projeto.</li>
 </ul>
 
 <h2>Abrir localmente</h2>
+<p>Abra um terminal na raiz do projeto e execute:</p>
+
+<pre><code>node tools/serve.mjs</code></pre>
+
 <p>
-  Abra a raiz do projeto no VS Code e inicie um servidor HTTP pelo arquivo
-  <code>index.html</code>
-  .
+  Depois, abra o endereço
+  <code>http://127.0.0.1:4173</code>
+  pelo navegador. Não use o endereço iniciado por
+  <code>file://</code>
+  porque ele não oferece o servidor HTTP necessário.
 </p>
 
-<pre><code>http://127.0.0.1:5500/index.html</code></pre>
+<h2>Criar sua instalação</h2>
+<p>
+  Comece copiando a pasta
+  <code>examples/</code>
+  e dê à cópia o nome
+  <code>site/</code>
+  antes de continuar. Depois, cadastre suas abas e páginas em
+  <code>site/config.js</code>
+  e escreva os HTMLs dentro de
+  <code>site/pages/</code>
+  antes de recarregar a página. O arquivo
+  <code>site/custom.css</code>
+  serve para personalizar as cores.
+</p>
 
-<h2>Criando sua instalação</h2>
+<h2>Ferramentas de desenvolvimento</h2>
 <p>
   A pasta
-  <code>site/</code>
-  contém uma configuração vazia para começar. Cadastre as abas em
-  <code>site/config.js</code>
-  , crie os HTMLs em
-  <code>site/pages/</code>
-  e personalize cores em
-  <code>site/custom.css</code>
-  .
+  <code>node_modules/</code>
+  só é necessária para formatar e testar mudanças no tema. Ela não faz parte do site publicado.
 </p>
