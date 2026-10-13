@@ -4,6 +4,12 @@ Registra entregas reais. Trabalho futuro fica no [plano do MVP](docs/PLANO-MVP.m
 
 ## Não lançado
 
+### Elementos HTML nativos — 2026-10-12
+
+- Ampliados os estilos globais de conteúdo para títulos `h4`–`h6`, ênfases de texto, termos e definições, teclado/saída de terminal, mídia e partes de tabelas.
+- Adicionado comportamento responsivo para listas de definição em telas estreitas.
+- A instalação local de teste ganhou um catálogo temporário de elementos HTML; esse conteúdo continua fora da distribuição do tema.
+
 ### Documentação para validação externa — 2026-10-12
 
 - README e guia de uso passaram a separar o caminho leve para experimentar do caminho completo para desenvolver e validar.

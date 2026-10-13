@@ -131,7 +131,7 @@ Links e imagens dos exemplos que mencionem `examples/assets/` devem ser ajustado
 }
 ```
 
-Isso permite mudar uma cor da instalação sem alterar `css/variables.css`. A página fictícia **Referência → Catálogo de estilos** demonstra os elementos suportados por `content.css`: títulos, texto, links, listas, citação, divisória, código, tabela, imagem com legenda, detalhes e avisos.
+Isso permite mudar uma cor da instalação sem alterar `css/variables.css`. `content.css` oferece uma base visual para títulos `h1`–`h6`, texto, links, ênfases, citações, código, listas, termos e definições, tabelas, imagens, vídeo, áudio e detalhes expansíveis. A página fictícia **Referência → Catálogo de estilos** mostra os padrões principais. Uma instalação pode criar uma página própria para testar outros elementos antes de adotá-los no conteúdo real.
 
 Para uma introdução destacada, usar `class="lead"` em um parágrafo. Os avisos públicos são `callout callout-info`, `callout callout-warning` e `callout callout-danger`; cada aviso deve incluir um rótulo textual e pode usar `callout-icon` e `callout-title`. Cor e ícone sozinhos não substituem o texto.
 
