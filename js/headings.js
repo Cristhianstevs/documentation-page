@@ -22,6 +22,10 @@ export function buildHeadingEntries(headings, { reservedIds: externalIds = [] } 
   ]);
   const usedIds = new Set();
   const issues = [];
+  const h1Count = headings.filter((heading) => heading.level === 1).length;
+  if (h1Count > 1) {
+    issues.push(`A página deve ter apenas um h1. Foram encontrados ${h1Count}.`);
+  }
 
   const entries = headings.map((heading, index) => {
     const text = heading.text.trim();

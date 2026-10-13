@@ -50,3 +50,11 @@ test('gera destino e aviso para título vazio', () => {
   assert.equal(result.entries[0].text, 'Seção sem título');
   assert.match(result.issues.join(' '), /Título vazio/);
 });
+
+test('avisa quando a página possui mais de um h1', () => {
+  const result = buildHeadingEntries([
+    { text: 'Primeiro título', id: '', level: 1 },
+    { text: 'Segundo título', id: '', level: 1 },
+  ]);
+  assert.match(result.issues.join(' '), /apenas um h1.*2/);
+});

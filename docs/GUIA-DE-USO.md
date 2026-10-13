@@ -105,13 +105,15 @@ Criar `site/pages/equipamentos.html`:
 
 Recarregar o navegador. O cabeçalho e a lateral usam essa configuração. Um arquivo sozinho na pasta não se cadastra automaticamente no menu.
 
-A página deve ser um fragmento HTML, sem `html`, `head`, scripts ou contêiner de leitura próprio. O tema já cria o contêiner de leitura.
+A página deve ser um fragmento HTML, sem `html`, `head`, scripts ou contêiner de leitura próprio. O tema já cria o contêiner de leitura. Use exatamente um `h1` por página. Se houver mais de um, o tema mantém a página legível, mas mostra um aviso para o autor corrigir a hierarquia.
 
 ## 6. Usar links e imagens
 
 O endereço de página continua no formato `#pesca/equipamentos`. Os links dos menus agora têm esse destino real. Ao abrir o site sem fragmento, o tema procura a primeira página válida da configuração e completa o endereço sem criar uma etapa extra no histórico. Um endereço contendo apenas a aba também abre sua primeira página; uma aba sem páginas mostra um aviso. Link direto, F5, Voltar/Avançar e navegação pelo teclado funcionam para páginas cadastradas.
 
 O endereço depende dos IDs da aba e da página. Mudar o título de exibição ou o arquivo preserva o link; mudar um ID altera o endereço. O índice lê `h1`, `h2` e `h3` e cria links como `#pesca/equipamentos/varas`. Ao selecionar um título, a rolagem para no início do espaço superior definido pelo título, em vez de colá-lo no topo da leitura. O movimento é suave, exceto quando o sistema pede movimento reduzido. IDs escritos no HTML são preservados; quando não há `id`, o tema gera um endereço legível. Para manter um link compartilhado mesmo após renomear o título, prefira declarar um ID estável, como `<h2 id="varas">Varas para iniciantes</h2>`.
+
+Ao rolar manualmente, o índice e o endereço acompanham a seção atual. Essa atualização substitui somente o trecho da URL e não cria uma nova entrada no histórico a cada movimento. Selecionar o `h1` no índice volta ao início da página.
 
 Como o fragmento HTML é inserido em `index.html`, imagens são resolvidas a partir desse documento. Para uma imagem em `site/assets/vara.png`, usar:
 
@@ -131,11 +133,15 @@ Links e imagens dos exemplos que mencionem `examples/assets/` devem ser ajustado
 }
 ```
 
-Isso permite mudar uma cor da instalação sem alterar `css/variables.css`. `content.css` oferece uma base visual para títulos `h1`–`h6`, texto, links, ênfases, citações, código, listas, termos e definições, tabelas, imagens, vídeo, áudio e detalhes expansíveis. A página fictícia **Referência → Catálogo de estilos** mostra os padrões principais. Uma instalação pode criar uma página própria para testar outros elementos antes de adotá-los no conteúdo real.
+Isso permite mudar uma cor da instalação sem alterar `css/variables.css`. `content.css` oferece uma base visual para títulos `h1`–`h6`, texto, links, ênfases, citações, código, listas, termos e definições, tabelas, imagens, vídeo, áudio e detalhes expansíveis. A página fictícia **Referência → Catálogo de estilos** mostra os padrões principais. **Guias → Exemplos práticos** mostra como escrever cada padrão.
+
+Em blocos `<pre><code>`, use `data-language="HTML"` para mostrar a linguagem no canto superior. `title="HTML"` também é aceito por compatibilidade, mas `data-language` é preferível porque descreve diretamente uma informação usada pelo tema.
 
 Para uma introdução destacada, usar `class="lead"` em um parágrafo. Os avisos públicos são `callout callout-info`, `callout callout-warning` e `callout callout-danger`; cada aviso deve incluir um rótulo textual e pode usar `callout-icon` e `callout-title`. Cor e ícone sozinhos não substituem o texto.
 
 Tabelas e blocos de código largos ganham rolagem horizontal própria. Imagens respeitam a largura da leitura. Em telas de até 800 px, o botão “Abrir menu de páginas” controla a lateral, `Esc` a fecha e “Nesta página” se torna recolhível. Ao abrir um link de título, o trecho é posicionado abaixo desse índice fixo. Os antigos botões de tema e configurações foram removidos porque ainda não possuíam função. Login corporativo continua sendo uma etapa separada.
+
+No desktop, os painéis laterais podem ser recolhidos pelos botões das bordas. A divisória ao lado de cada painel pode ser arrastada. Pelo teclado, selecione a divisória com `Tab` e use as setas esquerda/direita. A largura fica limitada para não ocupar toda a leitura.
 
 ## 8. Migrar uma cópia anterior
 

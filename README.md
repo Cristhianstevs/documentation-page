@@ -12,7 +12,7 @@ Ele é feito com HTML, CSS e JavaScript puro. Não há backend, banco de dados n
 
 O tema carrega `site/config.js` e `site/pages/` quando há uma instalação local. Na ausência de `site/config.js`, usa `examples/`. Cabeçalho e lateral recebem a mesma configuração. Links de página como `#guias/instalacao` são preservados.
 
-O índice automático, os links de trechos, o catálogo de estilos e a navegação para celular estão implementados. A versão `0.1.0` está pronta para o teste independente que antecede a primeira publicação. O [diagnóstico inicial](docs/DIAGNOSTICO.md) registra como o projeto começou; o [changelog](CHANGELOG.md) registra o que foi entregue depois.
+O índice automático, os links de trechos, os painéis laterais ajustáveis, os exemplos práticos e a navegação para celular estão implementados. A versão `0.1.0` está pronta para o teste independente que antecede a primeira publicação. O [diagnóstico inicial](docs/DIAGNOSTICO.md) registra como o projeto começou; o [changelog](CHANGELOG.md) registra o que foi entregue depois.
 
 Esta base estática ainda não oferece controle de acesso para documentos confidenciais.
 

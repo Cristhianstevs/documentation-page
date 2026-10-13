@@ -9,6 +9,31 @@
   box-sizing: border-box;
 }
 
+html {
+  color-scheme: dark;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 2px solid var(--scrollbar-track);
+  border-radius: 999px;
+  background: var(--scrollbar-thumb);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
 body {
   font-family: var(--font-family-mono);
   background-color: var(--bg-dark);
@@ -109,24 +134,25 @@ main {
 
 /* --- 4. COMPONENTE: SIDEBAR ESQUERDA --- */
 app-sidebar {
+  position: relative;
+  display: block;
+  width: var(--panel-current-width, var(--sidebar-width));
+  min-width: var(--panel-current-width, var(--sidebar-width));
   border-right: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+  transition:
+    width 0.2s ease,
+    min-width 0.2s ease;
 }
 
 .sidebar-nav {
-  width: var(--sidebar-width);
-  min-width: var(--sidebar-width);
+  position: relative;
+  width: 100%;
+  min-width: 0;
   padding: var(--space-md);
   background-color: var(--bg-surface);
   height: 100%;
   overflow-y: auto;
-}
-
-.sidebar-nav::-webkit-scrollbar {
-  width: 4px;
-}
-.sidebar-nav::-webkit-scrollbar-thumb {
-  background-color: var(--border-color);
-  border-radius: 4px;
 }
 
 .sidebar-title {
@@ -186,10 +212,15 @@ app-sidebar {
 
 /* --- 5. COMPONENTE: ÍNDICE DA PÁGINA --- */
 app-toc {
-  width: var(--toc-width);
-  min-width: var(--toc-width);
+  position: relative;
+  display: block;
+  width: var(--panel-current-width, var(--toc-width));
+  min-width: var(--panel-current-width, var(--toc-width));
   border-left: 1px solid var(--border-color);
   background-color: var(--bg-surface);
+  transition:
+    width 0.2s ease,
+    min-width 0.2s ease;
 }
 
 app-toc:empty {
@@ -197,6 +228,7 @@ app-toc:empty {
 }
 
 .toc-panel {
+  position: relative;
   height: 100%;
   padding: var(--space-md);
   overflow-y: auto;
@@ -233,6 +265,22 @@ app-toc:empty {
   text-decoration: none;
 }
 
+.toc-link[data-level="1"] {
+  color: var(--text-main);
+  font-size: var(--font-sm);
+  font-weight: 700;
+}
+
+.toc-link[data-level="2"] {
+  color: color-mix(in srgb, var(--text-main) 72%, var(--text-muted));
+  font-size: 0.7rem;
+}
+
+.toc-link[data-level="3"] {
+  color: var(--text-muted);
+  font-size: var(--font-xs);
+}
+
 .toc-link:hover,
 .toc-link.active {
   color: var(--text-main);
@@ -244,12 +292,89 @@ app-toc:empty {
 }
 
 .toc-warning,
-.route-notice {
+.route-notice,
+.content-warning {
   margin-top: var(--space-sm);
   padding: var(--space-xs);
   border-left: 2px solid var(--color-laranja);
   color: var(--text-muted);
   font-size: var(--font-sm);
+}
+
+.content-warning {
+  margin-bottom: var(--space-md);
+}
+
+.panel-collapse-button {
+  position: absolute;
+  z-index: 2;
+  top: var(--space-xs);
+  right: var(--space-xs);
+  display: grid;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-dark);
+  color: var(--text-main);
+  cursor: pointer;
+  font: inherit;
+  place-items: center;
+}
+
+.panel-collapse-button:hover {
+  border-color: var(--text-muted);
+  background: var(--transparent-100);
+}
+
+.panel-resizer {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  right: -4px;
+  bottom: 0;
+  width: 8px;
+  cursor: col-resize;
+  touch-action: none;
+}
+
+app-toc .panel-resizer {
+  right: auto;
+  left: -4px;
+}
+
+app-toc .panel-collapse-button {
+  right: auto;
+  left: var(--space-xs);
+}
+
+@media (min-width: 801px) {
+  app-sidebar[collapsed],
+  app-toc[collapsed] {
+    width: 44px;
+    min-width: 44px;
+  }
+
+  app-sidebar[collapsed] .panel-content,
+  app-toc[collapsed] .panel-content,
+  app-sidebar[collapsed] .panel-resizer,
+  app-toc[collapsed] .panel-resizer {
+    display: none;
+  }
+
+  app-sidebar[collapsed] .sidebar-nav,
+  app-toc[collapsed] .toc-panel {
+    padding: 0;
+    overflow: visible;
+  }
+
+  app-sidebar[collapsed] .panel-collapse-button,
+  app-toc[collapsed] .panel-collapse-button {
+    top: var(--space-xs);
+    right: 7px;
+    left: 7px;
+  }
 }
 
 @media (max-width: 800px) {
@@ -299,6 +424,8 @@ app-toc:empty {
     left: 0;
     transform: translateX(-100%);
     transition: transform 0.2s ease;
+    width: auto;
+    min-width: 0;
   }
 
   app-sidebar[open] {
@@ -321,6 +448,11 @@ app-toc:empty {
     min-width: 0;
     border-bottom: 1px solid var(--border-color);
     border-left: 0;
+  }
+
+  .panel-collapse-button,
+  .panel-resizer {
+    display: none;
   }
 
   .toc-panel {

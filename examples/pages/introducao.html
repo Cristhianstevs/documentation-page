@@ -1,26 +1,41 @@
-<h1>Introdução</h1>
-<p>
-  Esta é uma demonstração fictícia do tema. Cada instalação define suas próprias abas, páginas e
-  estilos, sem alterar o código compartilhado.
+<h1>Comece por aqui</h1>
+<p class="lead">
+  Este tema transforma arquivos HTML simples em uma documentação organizada por abas, páginas e
+  títulos.
 </p>
 
-<h2>Como a navegação é organizada</h2>
+<h2>O que aparece na tela</h2>
+<ul>
+  <li>As abas ficam no cabeçalho.</li>
+  <li>As páginas da aba escolhida ficam no menu esquerdo.</li>
+  <li>Os títulos da página formam o índice “Nesta página”.</li>
+  <li>O conteúdo fica na área central.</li>
+</ul>
+
+<h2>O que você precisa editar</h2>
 <p>
-  A barra superior mostra as abas. A lateral mostra as páginas da aba selecionada. Os títulos deste
-  conteúdo formam automaticamente o índice da direita.
+  Sua instalação fica na pasta <code>site/</code>. Use <code>site/config.js</code> para cadastrar
+  abas e páginas, <code>site/pages/</code> para escrever o conteúdo e
+  <code>site/custom.css</code> para personalizar o visual.
 </p>
 
-<h2>Onde criar conteúdo</h2>
+<h2>Como os links funcionam</h2>
+<p>Um endereço identifica a aba, a página e, quando necessário, um título:</p>
+<pre data-language="URL"><code>#guias/instalacao/pre-requisitos</code></pre>
 <p>
-  Para começar uma documentação nova, use
-  <code>site/config.js</code>
-  para cadastrar abas e páginas e crie os arquivos HTML em
-  <code>site/pages/</code>
-  .
+  Você pode copiar esse endereço, abrir em outra aba, recarregar a página e usar Voltar ou Avançar
+  normalmente.
 </p>
 
-<h2>O que o tema não faz</h2>
+<h2>Próximo passo</h2>
 <p>
-  O tema não oferece login, banco de dados ou editor visual. Documentos confidenciais precisam de
-  proteção no servidor que publica os arquivos.
+  Abra a página <a href="#guias/instalacao">Instalação</a> e siga o primeiro teste passo a passo.
 </p>
+
+<aside class="callout callout-warning" aria-label="Atenção">
+  <span class="callout-icon" aria-hidden="true">⚠️</span>
+  <div>
+    <strong class="callout-title">Conteúdo confidencial exige proteção no servidor</strong>
+    <p>Ocultar um link com JavaScript não impede o acesso direto ao arquivo.</p>
+  </div>
+</aside>

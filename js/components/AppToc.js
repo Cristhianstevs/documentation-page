@@ -23,6 +23,7 @@ function createList(nodes, pageHash) {
     const link = document.createElement('a');
     link.className = 'toc-link';
     link.dataset.heading = node.entry.id;
+    link.dataset.level = String(node.entry.level);
     link.href = `${pageHash}/${encodeURIComponent(node.entry.id)}`;
     link.textContent = node.entry.text;
     item.append(link);
@@ -40,6 +41,13 @@ class AppToc extends HTMLElement {
 
     const aside = document.createElement('aside');
     aside.className = 'toc-panel';
+    const collapseButton = document.createElement('button');
+    collapseButton.className = 'panel-collapse-button';
+    collapseButton.type = 'button';
+    collapseButton.dataset.panel = 'toc';
+    collapseButton.setAttribute('aria-label', 'Recolher índice da página');
+    collapseButton.title = 'Recolher índice da página';
+    collapseButton.textContent = '›';
     const details = document.createElement('details');
     details.className = 'toc-details';
     details.open = !window.matchMedia('(max-width: 800px)').matches;
@@ -55,17 +63,28 @@ class AppToc extends HTMLElement {
       }
     });
     details.append(summary, nav);
-    aside.append(details);
+    const content = document.createElement('div');
+    content.className = 'panel-content';
+    content.append(details);
+    aside.append(content);
 
     if (issues.length) {
       const warning = document.createElement('p');
       warning.className = 'toc-warning';
-      warning.textContent =
-        'Alguns títulos tinham IDs repetidos ou estavam vazios e foram ajustados.';
+      warning.textContent = issues.join(' ');
       details.append(warning);
     }
 
-    this.append(aside);
+    const resizer = document.createElement('div');
+    resizer.className = 'panel-resizer';
+    resizer.dataset.panel = 'toc';
+    resizer.setAttribute('role', 'separator');
+    resizer.setAttribute('aria-label', 'Redimensionar índice da página');
+    resizer.setAttribute('aria-orientation', 'vertical');
+    resizer.setAttribute('aria-valuemin', '180');
+    resizer.setAttribute('aria-valuemax', '420');
+    resizer.tabIndex = 0;
+    this.append(collapseButton, aside, resizer);
   }
 
   setActive(headingId) {

@@ -1,30 +1,61 @@
-<h1>Referência de configuração</h1>
-<p>O tema usa um arquivo JavaScript simples para montar os menus.</p>
+<h1>Configuração</h1>
+<p class="lead">O arquivo <code>site/config.js</code> é o catálogo das abas e páginas.</p>
 
-<h2>Uma aba</h2>
-<pre><code>{
-  id: 'guias',
-  title: 'Guias',
-  pages: []
-}</code></pre>
+<h2>Identidade do site</h2>
+<pre data-language="JavaScript"><code>export const appSettings = {
+  siteTitle: 'Minha documentação',
+  logoText: 'MINHA WIKI',
+  sidebarTitle: 'Conteúdo',
+};</code></pre>
+<dl>
+  <dt><code>siteTitle</code></dt>
+  <dd>Nome usado no título da aba do navegador.</dd>
+  <dt><code>logoText</code></dt>
+  <dd>Texto curto mostrado no cabeçalho.</dd>
+  <dt><code>sidebarTitle</code></dt>
+  <dd>Título mostrado acima da lista de páginas.</dd>
+</dl>
 
-<h2>Uma página</h2>
-<pre><code>{
-  id: 'introducao',
-  title: 'Introdução',
-  file: 'introducao.html',
-  icon: '📘'
-}</code></pre>
+<h2>Cadastrar uma aba e uma página</h2>
+<pre data-language="JavaScript"><code>export const docsConfig = [
+  {
+    id: 'guias',
+    title: 'Guias',
+    pages: [
+      {
+        id: 'primeiros-passos',
+        title: 'Primeiros passos',
+        file: 'primeiros-passos.html',
+        icon: '📘',
+      },
+    ],
+  },
+];</code></pre>
 
-<p>
-  <code>id</code>
-  forma a URL e deve permanecer estável.
-  <code>title</code>
-  é o texto mostrado na tela.
-  <code>file</code>
-  aponta para um arquivo dentro de
-  <code>site/pages/</code>
-  e o campo
-  <code>icon</code>
-  é opcional.
-</p>
+<h2>Significado dos campos</h2>
+<dl>
+  <dt><code>id</code></dt>
+  <dd>Forma a URL. Use letras minúsculas, números e hífens. Não altere sem necessidade.</dd>
+  <dt><code>title</code></dt>
+  <dd>Texto mostrado para quem lê. Pode ter espaços e acentos.</dd>
+  <dt><code>file</code></dt>
+  <dd>Nome exato do arquivo dentro de <code>site/pages/</code>.</dd>
+  <dt><code>icon</code></dt>
+  <dd>Ícone opcional mostrado antes do nome da página.</dd>
+</dl>
+
+<h2>Adicionar outra página</h2>
+<ol>
+  <li>Crie o arquivo HTML em <code>site/pages/</code>.</li>
+  <li>Adicione um objeto à lista <code>pages</code>.</li>
+  <li>Recarregue o navegador.</li>
+  <li>Abra o link novo e confira o endereço.</li>
+</ol>
+
+<aside class="callout callout-warning" aria-label="Atenção">
+  <span class="callout-icon" aria-hidden="true">⚠️</span>
+  <div>
+    <strong class="callout-title">Configuração não é segurança</strong>
+    <p>A lista de páginas organiza a navegação, mas não protege arquivos contra acesso direto.</p>
+  </div>
+</aside>

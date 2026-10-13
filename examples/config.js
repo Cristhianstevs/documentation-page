@@ -11,14 +11,25 @@ export const docsConfig = [
     pages: [
       { id: 'introducao', title: 'Introdução', file: 'introducao.html', icon: '📘' },
       { id: 'instalacao', title: 'Instalação', file: 'instalacao.html', icon: '🛠️' },
+      {
+        id: 'exemplos-praticos',
+        title: 'Exemplos práticos',
+        file: 'exemplos-praticos.html',
+        icon: '🧩',
+      },
     ],
   },
   {
     id: 'referencia',
     title: 'Referência',
     pages: [
-      { id: 'core-concepts', title: 'Core Concepts', file: 'core-concepts.html', icon: '📚' },
-      { id: 'api-base', title: 'API Base', file: 'api-base.html', icon: '⚙️' },
+      {
+        id: 'core-concepts',
+        title: 'Como o tema funciona',
+        file: 'core-concepts.html',
+        icon: '📚',
+      },
+      { id: 'api-base', title: 'Configuração', file: 'api-base.html', icon: '⚙️' },
       { id: 'estilos', title: 'Catálogo de estilos', file: 'style-catalog.html', icon: '🎨' },
     ],
   },
@@ -27,7 +38,7 @@ export const docsConfig = [
     title: 'Comunidade',
     pages: [
       { id: 'colaboradores', title: 'Colaboradores', file: 'colaboradores.html', icon: '👥' },
-      { id: 'sobre', title: 'Sobre o Setor', file: 'sobre.html', icon: '🏢' },
+      { id: 'sobre', title: 'Sobre o tema', file: 'sobre.html', icon: '🏠' },
     ],
   },
 ];

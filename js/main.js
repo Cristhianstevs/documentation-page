@@ -37,12 +37,74 @@ async function start() {
   const header = document.querySelector('app-header');
   const sidebar = document.querySelector('app-sidebar');
   const toc = document.querySelector('app-toc');
+  const layout = document.querySelector('.layout-wrapper');
 
   document.title = site.appSettings.siteTitle;
   header.render(site.docsConfig, site.appSettings);
   sidebar.configure(site.docsConfig, site.appSettings, THEME_VERSION);
-
   const mobileLayout = window.matchMedia('(max-width: 800px)');
+
+  function syncPanelButton(panel) {
+    const button = panel.querySelector('.panel-collapse-button');
+    if (!button) return;
+    const collapsed = panel.hasAttribute('collapsed');
+    const isSidebar = panel === sidebar;
+    button.textContent = isSidebar === collapsed ? '›' : '‹';
+    button.setAttribute('aria-expanded', String(!collapsed));
+    const action = collapsed ? 'Expandir' : 'Recolher';
+    const name = isSidebar ? 'menu de páginas' : 'índice da página';
+    button.setAttribute('aria-label', `${action} ${name}`);
+    button.title = `${action} ${name}`;
+  }
+
+  function setPanelWidth(panel, width) {
+    const nextWidth = Math.min(420, Math.max(180, Math.round(width)));
+    panel.style.setProperty('--panel-current-width', `${nextWidth}px`);
+    panel.querySelector('.panel-resizer')?.setAttribute('aria-valuenow', String(nextWidth));
+  }
+
+  layout.addEventListener('click', (event) => {
+    const button = event.target.closest('.panel-collapse-button');
+    if (!button || mobileLayout.matches) return;
+    const panel = button.dataset.panel === 'sidebar' ? sidebar : toc;
+    panel.toggleAttribute('collapsed');
+    syncPanelButton(panel);
+  });
+
+  layout.addEventListener('keydown', (event) => {
+    const resizer = event.target.closest('.panel-resizer');
+    if (!resizer || mobileLayout.matches || !['ArrowLeft', 'ArrowRight'].includes(event.key)) {
+      return;
+    }
+    event.preventDefault();
+    const panel = resizer.dataset.panel === 'sidebar' ? sidebar : toc;
+    const direction = event.key === 'ArrowRight' ? 1 : -1;
+    const orientation = panel === sidebar ? 1 : -1;
+    setPanelWidth(panel, panel.getBoundingClientRect().width + direction * orientation * 16);
+  });
+
+  layout.addEventListener('pointerdown', (event) => {
+    const resizer = event.target.closest('.panel-resizer');
+    if (!resizer || mobileLayout.matches) return;
+    event.preventDefault();
+    const panel = resizer.dataset.panel === 'sidebar' ? sidebar : toc;
+    const startX = event.clientX;
+    const startWidth = panel.getBoundingClientRect().width;
+    const orientation = panel === sidebar ? 1 : -1;
+    resizer.setPointerCapture(event.pointerId);
+
+    const move = (moveEvent) => {
+      setPanelWidth(panel, startWidth + (moveEvent.clientX - startX) * orientation);
+    };
+    const finish = () => {
+      resizer.removeEventListener('pointermove', move);
+      resizer.removeEventListener('pointerup', finish);
+      resizer.removeEventListener('pointercancel', finish);
+    };
+    resizer.addEventListener('pointermove', move);
+    resizer.addEventListener('pointerup', finish);
+    resizer.addEventListener('pointercancel', finish);
+  });
 
   function setSidebarOpen(open) {
     const expanded = mobileLayout.matches && open;
@@ -74,10 +136,18 @@ async function start() {
   let scrollFrame;
   let pinnedHeadingId;
   let tocPinned = false;
+  let scrollRoutingEnabled = false;
 
   function resumeScrollTracking() {
     tocPinned = false;
     pinnedHeadingId = undefined;
+    scrollRoutingEnabled = true;
+  }
+
+  function resetScrollTracking() {
+    tocPinned = false;
+    pinnedHeadingId = undefined;
+    scrollRoutingEnabled = false;
   }
 
   mainContent.addEventListener('wheel', resumeScrollTracking, { passive: true });
@@ -92,7 +162,7 @@ async function start() {
   function clearPageState() {
     renderedPageKey = undefined;
     currentHeadings = [];
-    resumeScrollTracking();
+    resetScrollTracking();
     toc.render([], '');
   }
 
@@ -112,7 +182,7 @@ async function start() {
   function applyHeadingRoute(route, focusPage = false, animate = false) {
     showRouteNotice();
     if (!route.headingId) {
-      resumeScrollTracking();
+      resetScrollTracking();
       document.title = `${route.page.title} — ${site.appSettings.siteTitle}`;
       toc.setActive(currentHeadings[0]?.id);
       if (focusPage) focusContent();
@@ -134,15 +204,15 @@ async function start() {
 
     tocPinned = true;
     pinnedHeadingId = entry.id;
+    scrollRoutingEnabled = false;
     document.title = `${entry.text} — ${route.page.title} — ${site.appSettings.siteTitle}`;
     toc.setActive(entry.id);
     entry.element.setAttribute('tabindex', '-1');
     entry.element.focus({ preventScroll: true });
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    entry.element.scrollIntoView({
-      behavior: animate && !reduceMotion ? 'smooth' : 'auto',
-      block: 'start',
-    });
+    const behavior = animate && !reduceMotion ? 'smooth' : 'auto';
+    if (entry.level === 1) mainContent.scrollTo({ top: 0, behavior });
+    else entry.element.scrollIntoView({ behavior, block: 'start' });
   }
 
   mainContent.addEventListener('scroll', () => {
@@ -154,16 +224,26 @@ async function start() {
         return;
       }
       const contentTop = mainContent.getBoundingClientRect().top;
+      const activationOffset = Math.min(120, mainContent.clientHeight * 0.2);
       const passed = currentHeadings.filter(
-        (heading) => heading.element.getBoundingClientRect().top <= contentTop + 32,
+        (heading) => heading.element.getBoundingClientRect().top <= contentTop + activationOffset,
       );
-      toc.setActive((passed.at(-1) ?? currentHeadings[0]).id);
+      const activeHeading = passed.at(-1) ?? currentHeadings[0];
+      toc.setActive(activeHeading.id);
+      if (scrollRoutingEnabled) {
+        const route = resolveRoute(site.docsConfig, readRoute(window.location.hash));
+        if (route.status === 'page') {
+          const nextHash = createPageHash(route.section.id, route.page.id, activeHeading.id);
+          if (window.location.hash !== nextHash) window.history.replaceState(null, '', nextHash);
+        }
+      }
     });
   });
 
   function updateNavigation(route) {
     const { section, page } = route;
     sidebar.renderMenu(section?.id, page?.id);
+    syncPanelButton(sidebar);
     for (const link of header.querySelectorAll('.nav-link')) {
       const active = link.dataset.section === section?.id;
       link.classList.toggle('active', active);
@@ -247,6 +327,14 @@ async function start() {
       currentHeadings = indexed.entries;
       renderedPageKey = pageKey;
       toc.render(currentHeadings, createPageHash(section.id, page.id), indexed.issues);
+      syncPanelButton(toc);
+      if (indexed.issues.length) {
+        const warning = document.createElement('p');
+        warning.className = 'content-warning';
+        warning.setAttribute('role', 'status');
+        warning.textContent = indexed.issues.join(' ');
+        container.prepend(warning);
+      }
       applyHeadingRoute(route, true);
     } catch {
       if (currentNavigation !== navigationId) return;

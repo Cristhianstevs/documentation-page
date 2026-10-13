@@ -41,7 +41,7 @@ test('normaliza início e permite Voltar e Avançar entre páginas', async ({ pa
   await page.goto('/');
   await expect(page).toHaveURL(/#guias\/introducao$/);
   await openMobileSidebar(page);
-  await page.getByRole('link', { name: /Instalação/ }).click();
+  await page.locator('.sidebar-link[data-page="instalacao"]').click();
   await expect(page).toHaveURL(/#guias\/instalacao$/);
   await page.goBack();
   await expect(page).toHaveURL(/#guias\/introducao$/);
@@ -59,7 +59,7 @@ test('mantém recuperação para rota e título inexistentes', async ({ page }) 
 
   await page.goto('/#guias/introducao/titulo-inexistente');
   await expect(page.getByRole('status')).toContainText('não existe nesta página');
-  await expect(page.getByRole('heading', { name: 'Introdução', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Comece por aqui', exact: true })).toBeVisible();
 });
 
 test('diferencia arquivo ausente sem manter conteúdo antigo', async ({ page }) => {
@@ -80,13 +80,13 @@ test('a última página clicada vence uma resposta anterior atrasada', async ({ 
   });
 
   await openMobileSidebar(page);
-  await page.getByRole('link', { name: /API Base/ }).click();
+  await page.locator('.sidebar-link[data-page="api-base"]').click();
   await openMobileSidebar(page);
-  await page.getByRole('link', { name: /Catálogo de estilos/ }).click();
-  await expect(page.getByRole('heading', { name: 'Catálogo de conteúdo' })).toBeVisible();
+  await page.locator('.sidebar-link[data-page="estilos"]').click();
+  await expect(page.getByRole('heading', { name: 'Catálogo visual' })).toBeVisible();
   await page.waitForTimeout(650);
   await expect(page).toHaveURL(/#referencia\/estilos$/);
-  await expect(page.getByRole('heading', { name: 'Catálogo de conteúdo' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Catálogo visual' })).toBeVisible();
 });
 
 test('interface móvel mantém menu, índice e conteúdo dentro da largura', async ({ page }) => {
@@ -104,4 +104,65 @@ test('interface móvel mantém menu, índice e conteúdo dentro da largura', asy
   await expect(page.locator('.toc-details')).toHaveAttribute('open', '');
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
   expect(overflow).toBeLessThanOrEqual(1);
+});
+
+test('painéis laterais podem ser recolhidos e redimensionados no desktop', async ({ page }) => {
+  test.skip(test.info().project.name.startsWith('mobile'), 'Cenário exclusivo do projeto desktop.');
+  await page.goto('/#guias/introducao');
+
+  const sidebar = page.locator('app-sidebar');
+  const sidebarButton = page.getByRole('button', { name: 'Recolher menu de páginas' });
+  await sidebarButton.click();
+  await expect(sidebar).toHaveAttribute('collapsed', '');
+  await page.getByRole('button', { name: 'Expandir menu de páginas' }).click();
+  await expect(sidebar).not.toHaveAttribute('collapsed', '');
+
+  const initialWidth = await sidebar.evaluate((element) => element.getBoundingClientRect().width);
+  await page.getByRole('separator', { name: 'Redimensionar menu de páginas' }).press('ArrowRight');
+  const resizedWidth = await sidebar.evaluate((element) => element.getBoundingClientRect().width);
+  expect(resizedWidth).toBeGreaterThan(initialWidth);
+});
+
+test('rolagem manual atualiza o título da URL sem criar nova entrada no histórico', async ({
+  page,
+}) => {
+  await page.goto('/#guias/exemplos-praticos');
+  const historyLength = await page.evaluate(() => history.length);
+  const target = page.getByRole('heading', { name: 'Tabela', exact: true });
+  await page.locator('main').dispatchEvent('wheel');
+  await target.evaluate((element) => element.scrollIntoView({ block: 'start' }));
+  await expect(page).toHaveURL(/#guias\/exemplos-praticos\/tabela$/);
+  await expect.poll(() => page.evaluate(() => history.length)).toBe(historyLength);
+});
+
+test('o primeiro título volta ao início e múltiplos h1 geram aviso', async ({ page }) => {
+  await page.route('**/examples/pages/introducao.html', (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: 'text/html',
+      body: '<h1>Primeiro</h1><p>Texto</p><h1>Segundo</h1>',
+    }),
+  );
+  await page.goto('/#guias/introducao');
+  await expect(page.getByRole('status')).toContainText('apenas um h1');
+
+  if (test.info().project.name.startsWith('mobile')) {
+    await page.getByText('Nesta página').click();
+  }
+
+  const main = page.locator('main');
+  await main.evaluate((element) => {
+    element.scrollTop = element.scrollHeight;
+  });
+  await page.locator('.toc-link').first().click();
+  await expect.poll(() => main.evaluate((element) => element.scrollTop)).toBe(0);
+});
+
+test('bloco de código mostra a linguagem informada', async ({ page }) => {
+  await page.goto('/#guias/exemplos-praticos');
+  const block = page.locator('pre[data-language="HTML"]').first();
+  await expect(block).toBeVisible();
+  await expect(block).toHaveCSS('position', 'relative');
+  const label = await block.evaluate((element) => getComputedStyle(element, '::before').content);
+  expect(label).toBe('"HTML"');
 });

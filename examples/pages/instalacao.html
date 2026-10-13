@@ -1,43 +1,45 @@
 <h1>Instalação</h1>
-<p>Abra o tema por um servidor HTTP local. O projeto não usa etapa de build.</p>
+<p class="lead">Siga estes passos para abrir o tema e criar sua primeira instalação local.</p>
 
-<h2>Pré-requisitos</h2>
+<h2 id="pre-requisitos">Pré-requisitos</h2>
 <ul>
+  <li>Node.js 24 ou mais recente.</li>
   <li>Um navegador moderno.</li>
-  <li>Node.js 24 para usar o servidor que acompanha o projeto.</li>
+  <li>Um editor de texto, como o VS Code.</li>
 </ul>
 
-<h2>Abrir localmente</h2>
-<p>Abra um terminal na raiz do projeto e execute:</p>
+<h2>Abrir a demonstração</h2>
+<ol>
+  <li>Abra um terminal na pasta do projeto.</li>
+  <li>Execute o comando abaixo.</li>
+  <li>Abra <code>http://127.0.0.1:4173</code> no navegador.</li>
+</ol>
+<pre data-language="Terminal"><code>node tools/serve.mjs</code></pre>
+<p>Para parar o servidor, volte ao terminal e pressione <kbd>Ctrl</kbd> + <kbd>C</kbd>.</p>
 
-<pre><code>node tools/serve.mjs</code></pre>
+<h2>Criar a pasta local</h2>
+<p>No PowerShell, execute o comando abaixo somente se a pasta <code>site/</code> não existir:</p>
+<pre
+  data-language="PowerShell"
+><code>Copy-Item -LiteralPath .\examples -Destination .\site -Recurse</code></pre>
 
+<h2>Personalizar a cópia</h2>
+<ol>
+  <li>Altere o nome do site em <code>site/config.js</code>.</li>
+  <li>Cadastre suas abas e páginas no mesmo arquivo.</li>
+  <li>Escreva cada página dentro de <code>site/pages/</code>.</li>
+  <li>Recarregue o navegador.</li>
+</ol>
+
+<h2>Entender o node_modules</h2>
 <p>
-  Depois, abra o endereço
-  <code>http://127.0.0.1:4173</code>
-  pelo navegador. Não use o endereço iniciado por
-  <code>file://</code>
-  porque ele não oferece o servidor HTTP necessário.
+  A pasta <code>node_modules/</code> contém apenas ferramentas de desenvolvimento e testes. Ela não
+  faz parte do site publicado. Para apenas abrir o tema, o comando
+  <code>node tools/serve.mjs</code> é suficiente.
 </p>
 
-<h2>Criar sua instalação</h2>
-<p>
-  Comece copiando a pasta
-  <code>examples/</code>
-  e dê à cópia o nome
-  <code>site/</code>
-  antes de continuar. Depois, cadastre suas abas e páginas em
-  <code>site/config.js</code>
-  e escreva os HTMLs dentro de
-  <code>site/pages/</code>
-  antes de recarregar a página. O arquivo
-  <code>site/custom.css</code>
-  serve para personalizar as cores.
-</p>
-
-<h2>Ferramentas de desenvolvimento</h2>
-<p>
-  A pasta
-  <code>node_modules/</code>
-  só é necessária para formatar e testar mudanças no tema. Ela não faz parte do site publicado.
-</p>
+<h2>Evitar dois erros comuns</h2>
+<ul>
+  <li>Não abra o projeto com <code>file://</code>; use o servidor HTTP.</li>
+  <li>Não publique documentos confidenciais em um servidor público.</li>
+</ul>

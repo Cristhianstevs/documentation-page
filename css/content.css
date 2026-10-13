@@ -200,12 +200,44 @@
 }
 
 .content-container pre {
+  position: relative;
   max-width: 100%;
   padding: var(--space-sm);
   overflow-x: auto;
   border: 1px solid var(--border-color);
   border-radius: 6px;
   background: var(--bg-code);
+}
+
+.content-container pre:has(> code)[data-language],
+.content-container pre:has(> code)[title] {
+  padding-top: calc(var(--space-sm) + 1.5rem);
+}
+
+.content-container pre:has(> code)[data-language]::before,
+.content-container pre:has(> code)[title]::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.2rem var(--space-xs);
+  border-bottom: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
+  border-radius: 0 6px 0 4px;
+  background: var(--bg-surface);
+  color: var(--text-muted);
+  font-size: var(--font-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.content-container pre:has(> code)[data-language]::before {
+  content: attr(data-language);
+}
+
+.content-container pre:has(> code)[title]:not([data-language])::before {
+  content: attr(title);
 }
 
 .content-container pre code {

@@ -4,6 +4,16 @@ Registra entregas reais. Trabalho futuro fica no [plano do MVP](docs/PLANO-MVP.m
 
 ## Não lançado
 
+### Navegação visual e exemplos — 2026-10-13
+
+- A barra de rolagem passou a usar cores discretas do tema escuro.
+- No desktop, menu de páginas e índice podem ser recolhidos e redimensionados por mouse ou teclado.
+- O índice diferencia visualmente `h1`, `h2` e `h3`.
+- Selecionar o `h1` volta ao topo; rolar manualmente atualiza a URL sem aumentar o histórico.
+- Páginas com mais de um `h1` exibem um aviso claro.
+- Blocos `pre > code` podem mostrar a linguagem com `data-language` ou `title`.
+- A demonstração foi reescrita como um guia simples e ganhou a página **Exemplos práticos**.
+
 ### Elementos HTML nativos — 2026-10-12
 
 - Ampliados os estilos globais de conteúdo para títulos `h4`–`h6`, ênfases de texto, termos e definições, teclado/saída de terminal, mídia e partes de tabelas.

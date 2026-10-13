@@ -9,10 +9,8 @@ export const appSettings = {
 
 export const docsConfig = [
   {
-    id: "inicio",
-    title: "Início",
-    pages: [
-      {id:'apresentacao', title:'Apresentação', file:'apresentacao.html', icon:'🏠',}
-    ],
-  }
+    id: 'inicio',
+    title: 'Início',
+    pages: [{ id: 'apresentacao', title: 'Apresentação', file: 'apresentacao.html', icon: '🏠' }],
+  },
 ];
