@@ -135,11 +135,11 @@ Links e imagens dos exemplos que mencionem `examples/assets/` devem ser ajustado
 
 Isso permite mudar uma cor da instalação sem alterar `css/variables.css`. `content.css` oferece uma base visual para títulos `h1`–`h6`, texto, links, ênfases, citações, código, listas, termos e definições, tabelas, imagens, vídeo, áudio e detalhes expansíveis. A página fictícia **Referência → Catálogo de estilos** mostra os padrões principais. **Guias → Exemplos práticos** mostra como escrever cada padrão.
 
-Em blocos `<pre><code>`, use `data-language="HTML"` para mostrar a linguagem no canto superior. `title="HTML"` também é aceito por compatibilidade, mas `data-language` é preferível porque descreve diretamente uma informação usada pelo tema.
+Em blocos `<pre><code>`, use `data-language="HTML"` para mostrar a linguagem no canto superior. Ao lado dela, o tema cria automaticamente um botão para copiar o código. `title="HTML"` também é aceito por compatibilidade, mas `data-language` é preferível porque descreve diretamente uma informação usada pelo tema.
 
 Para uma introdução destacada, usar `class="lead"` em um parágrafo. Os avisos públicos são `callout callout-info`, `callout callout-warning` e `callout callout-danger`; cada aviso deve incluir um rótulo textual e pode usar `callout-icon` e `callout-title`. Cor e ícone sozinhos não substituem o texto.
 
-Tabelas e blocos de código largos ganham rolagem horizontal própria. Imagens respeitam a largura da leitura. Em telas de até 800 px, o botão “Abrir menu de páginas” controla a lateral, `Esc` a fecha e “Nesta página” se torna recolhível. Ao abrir um link de título, o trecho é posicionado abaixo desse índice fixo. Os antigos botões de tema e configurações foram removidos porque ainda não possuíam função. Login corporativo continua sendo uma etapa separada.
+Tabelas e blocos de código largos ganham rolagem horizontal própria. Nas tabelas, use `caption` para explicar os dados, `th scope="col"` para os títulos de coluna e `th scope="row"` para o título de cada linha. Imagens respeitam a largura da leitura. Em telas de até 800 px, o botão “Abrir menu de páginas” controla a lateral, `Esc` a fecha e “Nesta página” se torna recolhível. Ao abrir um link de título, o trecho é posicionado abaixo desse índice fixo. Os antigos botões de tema e configurações foram removidos porque ainda não possuíam função. Login corporativo continua sendo uma etapa separada.
 
 No desktop, os painéis laterais podem ser recolhidos pelos botões das bordas. A divisória ao lado de cada painel pode ser arrastada. Pelo teclado, selecione a divisória com `Tab` e use as setas esquerda/direita. A largura fica limitada para não ocupar toda a leitura.
 

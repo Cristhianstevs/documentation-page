@@ -41,6 +41,11 @@ class AppToc extends HTMLElement {
 
     const aside = document.createElement('aside');
     aside.className = 'toc-panel';
+    const header = document.createElement('div');
+    header.className = 'toc-header';
+    const title = document.createElement('p');
+    title.className = 'toc-title';
+    title.textContent = 'Nesta página';
     const collapseButton = document.createElement('button');
     collapseButton.className = 'panel-collapse-button';
     collapseButton.type = 'button';
@@ -48,31 +53,35 @@ class AppToc extends HTMLElement {
     collapseButton.setAttribute('aria-label', 'Recolher índice da página');
     collapseButton.title = 'Recolher índice da página';
     collapseButton.textContent = '›';
-    const details = document.createElement('details');
-    details.className = 'toc-details';
-    details.open = !window.matchMedia('(max-width: 800px)').matches;
-    const summary = document.createElement('summary');
-    summary.className = 'toc-title';
-    summary.textContent = 'Nesta página';
+    header.append(collapseButton, title);
+    const mobileToggle = document.createElement('button');
+    mobileToggle.className = 'toc-mobile-toggle';
+    mobileToggle.type = 'button';
+    mobileToggle.setAttribute('aria-expanded', 'false');
+    mobileToggle.textContent = 'Nesta página';
     const nav = document.createElement('nav');
     nav.setAttribute('aria-label', 'Nesta página');
     nav.append(createList(createTree(entries), pageHash));
     nav.addEventListener('click', (event) => {
       if (event.target.closest('.toc-link') && window.matchMedia('(max-width: 800px)').matches) {
-        details.open = false;
+        this.removeAttribute('mobile-open');
+        mobileToggle.setAttribute('aria-expanded', 'false');
       }
     });
-    details.append(summary, nav);
+    mobileToggle.addEventListener('click', () => {
+      const open = this.toggleAttribute('mobile-open');
+      mobileToggle.setAttribute('aria-expanded', String(open));
+    });
     const content = document.createElement('div');
     content.className = 'panel-content';
-    content.append(details);
+    content.append(header, mobileToggle, nav);
     aside.append(content);
 
     if (issues.length) {
       const warning = document.createElement('p');
       warning.className = 'toc-warning';
       warning.textContent = issues.join(' ');
-      details.append(warning);
+      content.append(warning);
     }
 
     const resizer = document.createElement('div');
@@ -84,7 +93,7 @@ class AppToc extends HTMLElement {
     resizer.setAttribute('aria-valuemin', '180');
     resizer.setAttribute('aria-valuemax', '420');
     resizer.tabIndex = 0;
-    this.append(collapseButton, aside, resizer);
+    this.append(aside, resizer);
   }
 
   setActive(headingId) {
@@ -97,8 +106,8 @@ class AppToc extends HTMLElement {
   }
 
   collapse() {
-    const details = this.querySelector('.toc-details');
-    if (details) details.open = false;
+    this.removeAttribute('mobile-open');
+    this.querySelector('.toc-mobile-toggle')?.setAttribute('aria-expanded', 'false');
   }
 }
 

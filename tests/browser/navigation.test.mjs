@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
   await page.route(/fonts\.(googleapis|gstatic)\.com/, (route) => route.abort());
+  await page.route('**/site/config.js', (route) => route.fulfill({ status: 404, body: 'Ausente' }));
 });
 
 async function openMobileSidebar(page) {
@@ -27,9 +28,7 @@ test('abre um link de título, preserva F5 e posiciona no início da margem', as
       scrollMarginTop: Number.parseFloat(getComputedStyle(element).scrollMarginTop),
     };
   });
-  const expectedOffset = test.info().project.name.startsWith('mobile')
-    ? position.scrollMarginTop
-    : position.marginTop;
+  const expectedOffset = position.scrollMarginTop;
   expect(position.headingTop - position.mainTop).toBeGreaterThanOrEqual(expectedOffset - 2);
 
   await page.reload();
@@ -100,8 +99,8 @@ test('interface móvel mantém menu, índice e conteúdo dentro da largura', asy
   await page.keyboard.press('Escape');
   await expect(menuButton).toHaveAttribute('aria-expanded', 'false');
 
-  await page.getByText('Nesta página').click();
-  await expect(page.locator('.toc-details')).toHaveAttribute('open', '');
+  await page.getByRole('button', { name: 'Nesta página' }).click();
+  await expect(page.locator('app-toc')).toHaveAttribute('mobile-open', '');
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
   expect(overflow).toBeLessThanOrEqual(1);
 });
@@ -129,8 +128,11 @@ test('rolagem manual atualiza o título da URL sem criar nova entrada no histór
   await page.goto('/#guias/exemplos-praticos');
   const historyLength = await page.evaluate(() => history.length);
   const target = page.getByRole('heading', { name: 'Tabela', exact: true });
-  await page.locator('main').dispatchEvent('wheel');
-  await target.evaluate((element) => element.scrollIntoView({ block: 'start' }));
+  await target.evaluate((element) => {
+    const main = document.querySelector('main');
+    main.dispatchEvent(new WheelEvent('wheel'));
+    main.scrollTop = element.offsetTop;
+  });
   await expect(page).toHaveURL(/#guias\/exemplos-praticos\/tabela$/);
   await expect.poll(() => page.evaluate(() => history.length)).toBe(historyLength);
 });
@@ -147,7 +149,7 @@ test('o primeiro título volta ao início e múltiplos h1 geram aviso', async ({
   await expect(page.getByRole('status')).toContainText('apenas um h1');
 
   if (test.info().project.name.startsWith('mobile')) {
-    await page.getByText('Nesta página').click();
+    await page.getByRole('button', { name: 'Nesta página' }).click();
   }
 
   const main = page.locator('main');
@@ -158,11 +160,14 @@ test('o primeiro título volta ao início e múltiplos h1 geram aviso', async ({
   await expect.poll(() => main.evaluate((element) => element.scrollTop)).toBe(0);
 });
 
-test('bloco de código mostra a linguagem informada', async ({ page }) => {
+test('bloco de código mostra a linguagem e permite copiar', async ({ page }) => {
   await page.goto('/#guias/exemplos-praticos');
   const block = page.locator('pre[data-language="HTML"]').first();
   await expect(block).toBeVisible();
   await expect(block).toHaveCSS('position', 'relative');
-  const label = await block.evaluate((element) => getComputedStyle(element, '::before').content);
-  expect(label).toBe('"HTML"');
+  await expect(block.locator('.code-language')).toHaveText('HTML');
+  const copyButton = block.locator('.copy-code-button');
+  await expect(copyButton).toHaveAccessibleName('Copiar código');
+  await copyButton.click();
+  await expect(copyButton).toHaveAttribute('data-copied', 'true');
 });

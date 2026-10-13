@@ -1,49 +1,55 @@
-/* ======================================= */
-/*    DESIGN TOKENS (Variáveis Globais)    */
-/* =================== =================== */
 :root {
-  /* --- 1. CORES --- */
-  --bg-dark: #1a1a1a;
-  --bg-surface: #1f1f1f;
-  --text-main: rgb(243, 244, 246);
-  --text-muted: #9ca3af;
-  --color-ferrugem: #95190c;
-  --color-laranja: #ff6700;
-  --border-color: #414141;
+  color-scheme: dark;
 
-  --transparent-300: rgba(243, 244, 246, 0.3);
-  --transparent-100: rgba(243, 244, 246, 0.05);
-  --bg-code: #111827;
-  --link-color: #ff9f5a;
-  --link-hover-color: #ffc08f;
-  --color-info: #60a5fa;
-  --color-warning: #fbbf24;
-  --color-danger: #f87171;
-  --focus-color: #93c5fd;
-  --scrollbar-track: #171717;
-  --scrollbar-thumb: #4b5563;
-  --scrollbar-thumb-hover: #6b7280;
+  /* Base neutra, contraste confortável e um único destaque quente. */
+  --bg-dark: #171717;
+  --bg-surface: #1d1d1d;
+  --bg-elevated: #242424;
+  --bg-hover: #292929;
+  --text-main: #ededeb;
+  --text-soft: #d0cfca;
+  --text-muted: #999894;
+  --border-color: #343432;
+  --border-strong: #474743;
+  --color-ferrugem: #d44c47;
+  --color-laranja: #dfab62;
+  --transparent-300: rgb(255 255 255 / 16%);
+  --transparent-100: rgb(255 255 255 / 5%);
+  --bg-code: #14171d;
+  --link-color: #e58b72;
+  --link-hover-color: #f1ae99;
+  --color-info: #529cca;
+  --color-warning: #d5a044;
+  --color-danger: #e06c75;
+  --focus-color: #79b8e8;
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: #454543;
+  --scrollbar-thumb-hover: #5b5b57;
 
-  /* --- 2. TIPOGRAFIA --- */
   --font-family-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
+  --font-xs: 0.6875rem;
+  --font-sm: 0.78rem;
+  --font-md: 0.9rem;
+  --font-lg: 1.05rem;
+  --font-xl: 1.4rem;
+  --font-xxl: 2.25rem;
+  --font-3xl: 3rem;
 
-  --font-xs: 0.65rem; /* ~10px */
-  --font-sm: 0.75rem; /* ~12px */
-  --font-md: 0.9rem; /* ~14.4px */
-  --font-lg: 1.15rem; /* ~18px */
-  --font-xl: 1.5rem; /* ~24px */
-  --font-xxl: 2.5rem; /* ~40px */
-  --font-3xl: 3.5rem; /* ~56px */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.875rem;
+  --space-md: 1.375rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4.5rem;
 
-  /* --- 3. ESPAÇAMENTOS --- */
-  --space-xs: 0.5rem; /* 8px */
-  --space-sm: 1rem; /* 16px */
-  --space-md: 1.5rem; /* 24px */
-  --space-lg: 2rem; /* 32px */
-  --space-xl: 3rem; /* 48px */
+  --radius-sm: 5px;
+  --radius-md: 9px;
+  --radius-lg: 14px;
+  --shadow-soft: 0 12px 36px rgb(0 0 0 / 22%);
 
-  /* --- 4. ESTRUTURA DO LAYOUT --- */
-  --header-height: 60px;
-  --sidebar-width: 260px;
-  --toc-width: 240px;
+  --header-height: 64px;
+  --sidebar-width: 248px;
+  --toc-width: 252px;
+  --content-width: 780px;
 }

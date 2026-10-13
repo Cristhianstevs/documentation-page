@@ -32,6 +32,76 @@ function focusContent() {
   target.focus();
 }
 
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return;
+  } catch {
+    const field = document.createElement('textarea');
+    field.value = text;
+    field.setAttribute('readonly', '');
+    field.style.position = 'fixed';
+    field.style.opacity = '0';
+    document.body.append(field);
+    field.select();
+    const copied = document.execCommand('copy');
+    field.remove();
+    if (!copied) throw new Error('O navegador bloqueou a cópia.');
+  }
+}
+
+function decorateCodeBlocks(container) {
+  for (const block of container.querySelectorAll('pre:has(> code)')) {
+    const code = block.querySelector(':scope > code');
+    const toolbar = document.createElement('div');
+    toolbar.className = 'code-toolbar';
+
+    const language = block.dataset.language || block.title;
+    if (language) {
+      const label = document.createElement('span');
+      label.className = 'code-language';
+      label.textContent = language;
+      toolbar.append(label);
+    }
+
+    const button = document.createElement('button');
+    button.className = 'copy-code-button';
+    button.type = 'button';
+    button.setAttribute('aria-label', 'Copiar código');
+    button.title = 'Copiar código';
+    button.addEventListener('click', async () => {
+      try {
+        await copyText(code.textContent);
+        button.dataset.copied = 'true';
+        button.setAttribute('aria-label', 'Código copiado');
+        button.title = 'Código copiado';
+        window.setTimeout(() => {
+          delete button.dataset.copied;
+          button.setAttribute('aria-label', 'Copiar código');
+          button.title = 'Copiar código';
+        }, 1600);
+      } catch {
+        button.setAttribute('aria-label', 'Não foi possível copiar');
+        button.title = 'Não foi possível copiar';
+      }
+    });
+    toolbar.append(button);
+    block.prepend(toolbar);
+  }
+}
+
+function decorateTables(container) {
+  for (const table of container.querySelectorAll('table')) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'table-wrapper';
+    wrapper.tabIndex = 0;
+    wrapper.setAttribute('role', 'region');
+    wrapper.setAttribute('aria-label', table.caption?.textContent.trim() || 'Tabela rolável');
+    table.before(wrapper);
+    wrapper.append(table);
+  }
+}
+
 async function start() {
   const site = await loadSite();
   const header = document.querySelector('app-header');
@@ -322,6 +392,8 @@ async function start() {
       container.className = 'content-container';
       // Os fragmentos HTML são escritos por autores confiáveis da instalação.
       container.innerHTML = result.html;
+      decorateCodeBlocks(container);
+      decorateTables(container);
       mainContent.replaceChildren(container);
       const indexed = indexContentHeadings(container);
       currentHeadings = indexed.entries;

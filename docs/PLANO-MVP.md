@@ -133,7 +133,7 @@ Concluída em 2026-10-07. Evidências: 33 testes nativos, incluindo a estrutura 
 - [ ] Registrar changelog, guia de uso/migração e uma revisão publicada identificável.
 - [x] Configurar verificações automáticas no repositório quando os comandos locais existirem.
 
-Progresso em 2026-10-13: 36 testes nativos passaram; a 37ª verificação está temporariamente suspensa porque `/site/` foi retirado do `.gitignore` durante o teste local do mantenedor. No navegador, 18 cenários passaram entre desktop e celular. As instalações fictícias `pesca` e `culinaria` preservaram conteúdo, CSS e URLs durante atualização e restauração. Toda a documentação e as páginas de exemplo foram revisadas para o primeiro teste externo. O relatório detalhado está em [RELATORIO-VALIDACAO-MVP.md](RELATORIO-VALIDACAO-MVP.md). Restam restaurar `/site/` no `.gitignore`, executar o [teste de aceite](TESTE-DE-ACEITE.md) por uma segunda pessoa, confirmar a CI remota e publicar/taguear a versão preparada.
+Progresso em 2026-10-13: 37 testes nativos e 18 cenários de navegador passaram. As instalações fictícias `pesca` e `culinaria` preservaram conteúdo, CSS e URLs durante atualização e restauração. Toda a documentação e as páginas de exemplo foram revisadas para o primeiro teste externo. O relatório detalhado está em [RELATORIO-VALIDACAO-MVP.md](RELATORIO-VALIDACAO-MVP.md). Restam executar o [teste de aceite](TESTE-DE-ACEITE.md) por uma segunda pessoa, confirmar a CI remota e publicar/taguear a versão preparada.
 
 **Aceite:** uma pessoa seguindo o guia consegue instalar, cadastrar conteúdo, receber a atualização e recuperar a versão anterior. Sem referência quebrada na demonstração e sem regressão nos fluxos críticos.
 

@@ -81,7 +81,7 @@ Adicione à página:
 <pre data-language="HTML"><code>&lt;p&gt;Exemplo&lt;/p&gt;</code></pre>
 ```
 
-Resultado esperado: “HTML” aparece no canto superior do bloco. O atributo `title="HTML"` também funciona, mas `data-language` é preferido porque descreve a função do valor com clareza.
+Resultado esperado: “HTML” e o botão de copiar aparecem no canto superior do bloco. Clique no botão e cole o resultado em um editor. O atributo `title="HTML"` também funciona, mas `data-language` é preferido porque descreve a função do valor com clareza.
 
 ## 8. Registrar o resultado
 

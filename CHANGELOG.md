@@ -12,6 +12,10 @@ Registra entregas reais. Trabalho futuro fica no [plano do MVP](docs/PLANO-MVP.m
 - Selecionar o `h1` volta ao topo; rolar manualmente atualiza a URL sem aumentar o histórico.
 - Páginas com mais de um `h1` exibem um aviso claro.
 - Blocos `pre > code` podem mostrar a linguagem com `data-language` ou `title`.
+- Blocos de código ganharam um botão de copiar com retorno visual de sucesso.
+- O visual global foi refinado com uma paleta neutra, hierarquia editorial, espaçamentos e componentes consistentes.
+- No desktop, “Nesta página” fica ao lado do controle que recolhe todo o painel; somente o celular mantém a abertura compacta dos links.
+- Tabelas passaram a ter legenda integrada, cabeçalho e rodapé visuais, linhas legíveis e rolagem própria acessível em telas estreitas.
 - A demonstração foi reescrita como um guia simples e ganhou a página **Exemplos práticos**.
 
 ### Elementos HTML nativos — 2026-10-12
