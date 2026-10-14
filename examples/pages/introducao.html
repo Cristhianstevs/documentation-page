@@ -1,41 +1,65 @@
 <h1>Comece por aqui</h1>
 <p class="lead">
-  Este tema transforma arquivos HTML simples em uma documentação organizada por abas, páginas e
-  títulos.
+  Este tema transforma arquivos HTML simples em uma documentação com menus, links diretos e índice
+  automático.
 </p>
 
-<h2>O que aparece na tela</h2>
-<ul>
-  <li>As abas ficam no cabeçalho.</li>
-  <li>As páginas da aba escolhida ficam no menu esquerdo.</li>
-  <li>Os títulos da página formam o índice “Nesta página”.</li>
-  <li>O conteúdo fica na área central.</li>
-</ul>
+<h2 id="entenda-a-tela">Entenda a tela</h2>
+<ol>
+  <li>As <strong>abas</strong> ficam no cabeçalho.</li>
+  <li>As <strong>páginas</strong> ficam no menu esquerdo.</li>
+  <li>Os <strong>títulos</strong> da página ficam no índice direito.</li>
+  <li>O documento fica no centro.</li>
+</ol>
 
-<h2>O que você precisa editar</h2>
-<p>
-  Sua instalação fica na pasta <code>site/</code>. Use <code>site/config.js</code> para cadastrar
-  abas e páginas, <code>site/pages/</code> para escrever o conteúdo e
-  <code>site/custom.css</code> para personalizar o visual.
-</p>
+<h2 id="edite-somente-site">Edite somente a pasta site</h2>
+<table>
+  <caption>
+    Onde colocar cada tipo de conteúdo
+  </caption>
+  <thead>
+    <tr>
+      <th scope="col">O que você quer fazer</th>
+      <th scope="col">Onde editar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Mudar nome e menus</th>
+      <td><code>site/config.js</code></td>
+    </tr>
+    <tr>
+      <th scope="row">Escrever uma página</th>
+      <td><code>site/pages/</code></td>
+    </tr>
+    <tr>
+      <th scope="row">Adicionar imagens</th>
+      <td><code>site/assets/</code></td>
+    </tr>
+    <tr>
+      <th scope="row">Mudar cores locais</th>
+      <td><code>site/custom.css</code></td>
+    </tr>
+  </tbody>
+</table>
 
-<h2>Como os links funcionam</h2>
-<p>Um endereço identifica a aba, a página e, quando necessário, um título:</p>
-<pre data-language="URL"><code>#guias/instalacao/pre-requisitos</code></pre>
-<p>
-  Você pode copiar esse endereço, abrir em outra aba, recarregar a página e usar Voltar ou Avançar
-  normalmente.
-</p>
+<h2 id="primeiro-caminho">Faça o primeiro teste</h2>
+<ol>
+  <li>Abra a página <a href="#guias/instalacao">Criar seu site</a>.</li>
+  <li>Execute os dois comandos mostrados nela.</li>
+  <li>Edite o texto da página criada.</li>
+  <li>Salve o arquivo e recarregue o navegador.</li>
+</ol>
 
-<h2>Próximo passo</h2>
-<p>
-  Abra a página <a href="#guias/instalacao">Instalação</a> e siga o primeiro teste passo a passo.
-</p>
+<h2 id="links-diretos">Entenda os links</h2>
+<p>Um endereço pode apontar para uma aba, uma página e um título:</p>
+<pre data-language="URL"><code>#guias/instalacao/criar-a-pasta-site</code></pre>
+<p>Esse link continua funcionando ao recarregar, voltar, avançar ou abrir em outra aba.</p>
 
 <aside class="callout callout-warning" aria-label="Atenção">
   <span class="callout-icon" aria-hidden="true">⚠️</span>
   <div>
-    <strong class="callout-title">Conteúdo confidencial exige proteção no servidor</strong>
-    <p>Ocultar um link com JavaScript não impede o acesso direto ao arquivo.</p>
+    <strong class="callout-title">Documentos privados precisam de proteção no servidor</strong>
+    <p>Ocultar menus ou links não impede que alguém tente abrir um arquivo diretamente.</p>
   </div>
 </aside>

@@ -1,23 +1,16 @@
-<h1>Configuração</h1>
-<p class="lead">O arquivo <code>site/config.js</code> é o catálogo das abas e páginas.</p>
+<h1>Configurar menus</h1>
+<p class="lead">
+  Edite apenas <code>site/config.js</code> para definir o nome, as abas e as páginas.
+</p>
 
-<h2>Identidade do site</h2>
+<h2 id="configuracao-completa">1. Veja uma configuração completa</h2>
 <pre data-language="JavaScript"><code>export const appSettings = {
-  siteTitle: 'Minha documentação',
-  logoText: 'MINHA WIKI',
-  sidebarTitle: 'Conteúdo',
-};</code></pre>
-<dl>
-  <dt><code>siteTitle</code></dt>
-  <dd>Nome usado no título da aba do navegador.</dd>
-  <dt><code>logoText</code></dt>
-  <dd>Texto curto mostrado no cabeçalho.</dd>
-  <dt><code>sidebarTitle</code></dt>
-  <dd>Título mostrado acima da lista de páginas.</dd>
-</dl>
+  siteTitle: 'Manual da equipe',
+  logoText: 'MANUAL',
+  sidebarTitle: 'Páginas',
+};
 
-<h2>Cadastrar uma aba e uma página</h2>
-<pre data-language="JavaScript"><code>export const docsConfig = [
+export const docsConfig = [
   {
     id: 'guias',
     title: 'Guias',
@@ -32,30 +25,40 @@
   },
 ];</code></pre>
 
-<h2>Significado dos campos</h2>
+<h2 id="identidade">2. Mude a identidade</h2>
+<dl>
+  <dt><code>siteTitle</code></dt>
+  <dd>Nome usado na aba do navegador.</dd>
+  <dt><code>logoText</code></dt>
+  <dd>Nome curto mostrado no cabeçalho.</dd>
+  <dt><code>sidebarTitle</code></dt>
+  <dd>Texto acima do menu de páginas.</dd>
+</dl>
+
+<h2 id="abas-e-paginas">3. Cadastre abas e páginas</h2>
 <dl>
   <dt><code>id</code></dt>
-  <dd>Forma a URL. Use letras minúsculas, números e hífens. Não altere sem necessidade.</dd>
+  <dd>Parte do endereço. Use minúsculas, números e hífens.</dd>
   <dt><code>title</code></dt>
-  <dd>Texto mostrado para quem lê. Pode ter espaços e acentos.</dd>
+  <dd>Nome que aparece no menu. Pode ter espaços e acentos.</dd>
   <dt><code>file</code></dt>
   <dd>Nome exato do arquivo dentro de <code>site/pages/</code>.</dd>
   <dt><code>icon</code></dt>
-  <dd>Ícone opcional mostrado antes do nome da página.</dd>
+  <dd>Ícone opcional mostrado no menu.</dd>
 </dl>
 
-<h2>Adicionar outra página</h2>
+<h2 id="adicionar-pagina">4. Adicione uma página</h2>
 <ol>
-  <li>Crie o arquivo HTML em <code>site/pages/</code>.</li>
-  <li>Adicione um objeto à lista <code>pages</code>.</li>
-  <li>Recarregue o navegador.</li>
-  <li>Abra o link novo e confira o endereço.</li>
+  <li>Crie <code>site/pages/primeiros-passos.html</code>.</li>
+  <li>Adicione o objeto da página dentro de <code>pages</code>.</li>
+  <li>Salve os dois arquivos.</li>
+  <li>Recarregue o navegador e abra o novo item.</li>
 </ol>
 
 <aside class="callout callout-warning" aria-label="Atenção">
   <span class="callout-icon" aria-hidden="true">⚠️</span>
   <div>
-    <strong class="callout-title">Configuração não é segurança</strong>
-    <p>A lista de páginas organiza a navegação, mas não protege arquivos contra acesso direto.</p>
+    <strong class="callout-title">Não altere IDs sem necessidade</strong>
+    <p>O ID faz parte do link. Trocar o título é seguro; trocar o ID quebra links antigos.</p>
   </div>
 </aside>

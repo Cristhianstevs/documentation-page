@@ -5,6 +5,7 @@
   "description": "Tema estático de documentação com navegação por abas, páginas e títulos.",
   "type": "module",
   "scripts": {
+    "create-site": "node tools/create-site.mjs",
     "start": "node tools/serve.mjs",
     "test": "node --test --test-isolation=none tests/*.test.mjs",
     "test:browser": "playwright test",

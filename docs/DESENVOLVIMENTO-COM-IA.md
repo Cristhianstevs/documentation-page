@@ -2,11 +2,12 @@
 
 Atualizado em 2026-10-12. As orientações sobre Codex foram conferidas na documentação oficial da OpenAI. Os exemplos de trabalho são recomendações para este repositório.
 
-## O que significa “vibe coding” aqui
+## Usar IA sem perder o controle do projeto
 
-O termo é usado de formas diferentes: às vezes significa programar conversando com a IA; às vezes descreve aceitar código sem entender como funciona. Para este projeto, vamos praticar desenvolvimento assistido por IA com revisão e aprendizado.
+Neste projeto, a IA ajuda a investigar, escrever, explicar e testar. A pessoa continua responsável
+por entender as decisões, revisar as mudanças e validar o resultado.
 
-Você define a necessidade e continua responsável por entender as decisões, revisar mudanças e validar o resultado. A IA ajuda a investigar, escrever, explicar e testar. Uma resposta convincente não substitui evidência de que o comportamento funciona.
+Uma resposta convincente não substitui a evidência de que o comportamento funciona.
 
 Exemplo: “crie o índice” é amplo. Um pedido verificável é “leia os h2/h3 do conteúdo, preserve IDs explícitos, gere IDs únicos e faça o link abrir diretamente no título, inclusive após F5”.
 

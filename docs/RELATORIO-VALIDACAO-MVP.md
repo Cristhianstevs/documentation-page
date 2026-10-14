@@ -1,6 +1,6 @@
 # Relatório de validação do MVP
 
-Última validação local: 2026-10-13
+Última validação local: 2026-10-14
 
 Versão preparada: `0.1.0`
 
@@ -12,14 +12,14 @@ Uma instalação define abas e páginas, o navegador valida a URL, carrega o fra
 
 | Camada                  | Situação | Evidência                                                                                     |
 | ----------------------- | -------- | --------------------------------------------------------------------------------------------- |
-| Testes nativos          | Aprovada | 37 testes para documentação, configuração, rotas, páginas, títulos, atualização e reversão    |
-| Navegador desktop       | Aprovada | 9 cenários: navegação, painéis, rolagem/URL, aviso de `h1` e linguagem do código              |
-| Navegador móvel         | Aprovada | 9 cenários: mesmos fluxos aplicáveis, menus recolhíveis e ausência de corte horizontal        |
+| Testes nativos          | Aprovada | 38 testes para criação, documentação, configuração, rotas, páginas, títulos e atualização     |
+| Navegador desktop       | Aprovada | 10 cenários: navegação, painéis, URLs, conteúdo, cópia, tarefas e blocos expansíveis          |
+| Navegador móvel         | Aprovada | 10 cenários: mesmos fluxos aplicáveis, menus recolhíveis e ausência de corte horizontal       |
 | Atualização             | Aprovada | Instalações fictícias `pesca` e `culinaria` mantiveram configuração, páginas e CSS            |
 | Backup e reversão       | Aprovada | Cópia restaurada recuperou exatamente a impressão digital SHA-256 do conteúdo original        |
 | Formatação              | Aprovada | Biome e Prettier sem divergências; `git diff --check` sem erros                               |
 | CI                      | Pendente | Workflow em `.github/workflows/validate.yml`; ainda falta registrar uma execução remota verde |
-| Documentação e exemplos | Aprovada | Arquivos Markdown e páginas de exemplo revisados; referências locais verificadas              |
+| Documentação e exemplos | Aprovada | Fluxo único de início, exemplos copiáveis, referências locais e termos revisados              |
 
 O teste da âncora mede a posição do `h2` usando o espaço de rolagem definido pelo tema. No celular, esse espaço também considera a altura do índice fixo.
 
@@ -41,7 +41,9 @@ O teste da âncora mede a posição do `h2` usando o espaço de rolagem definido
 
 ## Inspeção visual
 
-Foram revisadas capturas no perfil Desktop Chrome e no perfil Pixel 5. A hierarquia do índice, os novos controles laterais, o rótulo dos blocos de código e a página de exemplos ficaram legíveis. No celular, os controles próprios do desktop ficam ocultos e não foi observado corte horizontal.
+Foram revisadas capturas no perfil Desktop Chrome e no perfil Pixel 5. A nova tipografia, a paleta,
+os menus, os estados ativos, o índice, os blocos de código e os avisos ficaram legíveis. No celular,
+as abas e os controles continuam acessíveis e não foi observado corte horizontal.
 
 ## Pendências externas
 

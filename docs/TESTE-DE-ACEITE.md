@@ -1,97 +1,118 @@
 # Teste de aceite do MVP
 
-Este roteiro é para a pessoa que recebeu uma cópia do tema pela primeira vez. Faça os passos na ordem e anote qualquer dúvida. Não é necessário conhecer o código do projeto.
+Este roteiro é para uma pessoa que nunca usou o tema. Faça tudo na ordem, sem ajuda. Anote qualquer
+passo que não esteja claro.
 
-## 1. Abrir a demonstração
+Use somente conteúdo fictício.
 
-1. Instale o Node.js 24.
+## 1. Preparar
+
+1. Instale o Node.js 24 ou mais recente.
 2. Abra um terminal na pasta do projeto.
-3. Execute `node tools/serve.mjs`.
+3. Execute `npm start`.
 4. Abra `http://127.0.0.1:4173`.
 
-Resultado esperado: a demonstração abre com abas no topo, páginas na lateral e “Nesta página” à direita. No celular, a lateral e o índice usam botões para abrir e fechar. Abra também a página “Exemplos práticos” para conhecer o HTML aceito pelo tema.
+Resultado esperado: a demonstração abre com abas, menu de páginas, conteúdo e índice “Nesta
+página”.
 
 ## 2. Criar uma instalação
 
-No PowerShell, execute este comando somente se a pasta `site/` ainda não existir:
+Pare o servidor com `Ctrl + C`. Depois execute:
 
-```powershell
-Copy-Item -LiteralPath .\examples -Destination .\site -Recurse
+```sh
+npm run create-site
+npm start
 ```
 
-Depois:
+Resultado esperado: a pasta `site/` é criada e o navegador mostra a página “Bem-vindo”.
+
+Execute `npm run create-site` novamente.
+
+Resultado esperado: o comando avisa que `site/` já existe e não altera os arquivos.
+
+## 3. Mudar o nome
 
 1. Abra `site/config.js`.
-2. Troque `siteTitle` para `Wiki de teste`.
-3. Recarregue o navegador.
+2. Troque `siteTitle` para `Documentação de teste`.
+3. Troque `logoText` para `TESTE`.
+4. Salve e recarregue.
 
-Resultado esperado: o novo nome aparece na aba do navegador. Os arquivos de `examples/` continuam intactos.
+Resultado esperado: o novo nome aparece na aba do navegador e no cabeçalho.
 
-## 3. Criar uma página
+## 4. Criar uma página
 
-1. Cadastre uma página em `site/config.js` com o ID `primeiros-passos` e o arquivo `primeiros-passos.html`.
-2. Crie `site/pages/primeiros-passos.html` com este conteúdo:
+Crie `site/pages/primeiros-passos.html`:
 
 ```html
 <h1>Primeiros passos</h1>
-<p>Minha primeira página de teste.</p>
-<h2 id="proximo-passo">Próximo passo</h2>
+<p class="lead">Minha primeira página.</p>
+
+<h2 id="preparar">Preparar</h2>
 <p>Este trecho possui um endereço estável.</p>
 ```
 
-3. Recarregue o navegador e abra a página criada.
+Cadastre a página dentro de `pages` em `site/config.js`:
 
-Resultado esperado: a página aparece na lateral e os dois títulos aparecem no índice. Use apenas um `h1` por página. Se houver mais de um, o tema mostra um aviso para o autor corrigir.
+```js
+{
+  id: 'primeiros-passos',
+  title: 'Primeiros passos',
+  file: 'primeiros-passos.html',
+  icon: '📘',
+},
+```
 
-## 4. Conferir os links
+Resultado esperado: a página aparece no menu e os títulos aparecem no índice.
 
-1. Copie o endereço do título “Próximo passo”.
-2. Abra o endereço em outra aba.
-3. Recarregue a página.
-4. Use os botões Voltar e Avançar do navegador.
+## 5. Conferir links
+
+1. Abra o título “Preparar”.
+2. Copie o endereço.
+3. Abra o endereço em outra aba.
+4. Recarregue.
+5. Use Voltar e Avançar.
 
 Resultado esperado: a aba, a página e o título corretos continuam selecionados.
 
-5. Role a página sem clicar no índice e copie o endereço novamente.
+## 6. Conferir componentes
 
-Resultado esperado: o último trecho destacado também aparece no endereço, sem criar várias entradas no histórico.
+Copie para a página um aviso, uma lista de tarefas e um bloco expansível da página **Guias →
+Escrever páginas**.
 
-## 5. Conferir o desktop
+Resultado esperado:
 
-1. Use as setas nas bordas dos dois painéis laterais para recolher e expandir cada painel.
-2. Arraste a borda de um painel para mudar sua largura.
-3. Se preferir o teclado, selecione a borda com `Tab` e use as setas esquerda e direita.
+- o botão do bloco de código copia o HTML;
+- o checkbox pode ser marcado pelo mouse e pela tecla Espaço;
+- o bloco expansível abre pelo mouse e pela tecla Enter;
+- o foco do teclado fica visível.
 
-Resultado esperado: os painéis podem ser ajustados sem esconder o conteúdo central.
+## 7. Conferir desktop
 
-## 6. Conferir celular e teclado
+1. Recolha e abra os dois painéis laterais.
+2. Arraste a borda de cada painel.
+3. Selecione a borda com `Tab` e use as setas.
 
-1. Reduza a janela para uma largura parecida com a de um celular.
+Resultado esperado: os painéis mudam sem cobrir o conteúdo.
+
+## 8. Conferir celular
+
+1. Reduza a janela para cerca de 390 px.
 2. Abra e feche o menu de páginas.
-3. Pressione `Esc` com o menu aberto.
-4. Use `Tab` para navegar pelos links.
+3. Abra o menu e pressione `Esc`.
+4. Abra e feche “Nesta página”.
 
-Resultado esperado: não há corte horizontal; o menu fecha com `Esc`; o foco do teclado permanece visível.
+Resultado esperado: não existe corte horizontal e os menus continuam acessíveis.
 
-## 7. Conferir um bloco de código
-
-Adicione à página:
-
-```html
-<pre data-language="HTML"><code>&lt;p&gt;Exemplo&lt;/p&gt;</code></pre>
-```
-
-Resultado esperado: “HTML” e o botão de copiar aparecem no canto superior do bloco. Clique no botão e cole o resultado em um editor. O atributo `title="HTML"` também funciona, mas `data-language` é preferido porque descreve a função do valor com clareza.
-
-## 8. Registrar o resultado
+## 9. Registrar o resultado
 
 Anote:
 
 - revisão testada;
-- sistema operacional e navegador;
-- passos que passaram;
-- passo que não funcionou;
+- sistema e navegador;
+- passos concluídos;
+- passo que falhou;
 - mensagem exibida;
-- dúvida causada pelo guia.
+- dúvida causada pelo texto.
 
-Se todos os passos passarem sem ajuda, a validação independente do MVP está concluída. Não use documentos confidenciais neste teste.
+Se uma pessoa concluir tudo sem ajuda, a clareza do MVP foi validada. Login, publicação e controle
+de acesso não fazem parte deste roteiro.

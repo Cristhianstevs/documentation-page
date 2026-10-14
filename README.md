@@ -1,41 +1,111 @@
-# Documentação Page
+# Documentation Page
 
-Tema genérico para centralizar documentação, wikis e anotações com a organização **Abas → Páginas → Títulos**.
+Tema estático para criar documentação com a estrutura **Abas → Páginas → Títulos**.
 
-A proposta é usar o mesmo tema em instalações diferentes, como uma base de conhecimento de equipe e uma wiki pessoal. Cada instalação terá seu conteúdo e poderá adotar melhorias do tema.
+Você escreve arquivos HTML simples. O tema cria os menus, o índice da página, os links diretos e o
+layout para desktop e celular.
 
-## O que este projeto faz
+## Começo rápido
 
-Este projeto é um tema estático para documentação. A pessoa cria abas, cadastra páginas e escreve títulos. O tema monta automaticamente a navegação no formato **Abas → Páginas → Títulos**.
+### 1. Instale o necessário
 
-Ele é feito com HTML, CSS e JavaScript puro. Não há backend, banco de dados nem etapa de build. Os pacotes do `node_modules` servem apenas para desenvolvimento e testes; eles não são enviados ao navegador nem precisam ser publicados com o site.
+Use o [Node.js 24](https://nodejs.org/) ou uma versão mais recente.
 
-O tema carrega `site/config.js` e `site/pages/` quando há uma instalação local. Na ausência de `site/config.js`, usa `examples/`. Cabeçalho e lateral recebem a mesma configuração. Links de página como `#guias/instalacao` são preservados.
+### 2. Crie sua pasta de conteúdo
 
-O índice automático, os links de trechos, os painéis laterais ajustáveis, os exemplos práticos e a navegação para celular estão implementados. A versão `0.1.0` está pronta para o teste independente que antecede a primeira publicação. O [diagnóstico inicial](docs/DIAGNOSTICO.md) registra como o projeto começou; o [changelog](CHANGELOG.md) registra o que foi entregue depois.
+Abra um terminal na pasta do projeto e execute:
 
-Esta base estática ainda não oferece controle de acesso para documentos confidenciais.
+```sh
+npm run create-site
+```
 
-## Experimentar sem instalar dependências
+O comando cria uma instalação mínima dentro de `site/`. Ele não substitui uma pasta `site/`
+existente.
 
-1. Instalar o Node.js 24.
-2. Executar `node tools/serve.mjs`.
-3. Abrir `http://127.0.0.1:4173`.
+### 3. Abra o site
 
-Esse caminho não cria `node_modules`. Sem `site/config.js`, a demonstração de `examples/` aparece automaticamente.
+```sh
+npm start
+```
 
-## Criar sua documentação
+Abra `http://127.0.0.1:4173` no navegador.
 
-1. Copiar `examples/` para uma nova pasta `site/` ou criar `site/` do zero.
-2. Editar `site/config.js` para definir o nome, as abas e as páginas.
-3. Criar os textos em `site/pages/`.
-4. Recarregar o navegador.
+### 4. Edite sua primeira página
 
-O passo a passo completo está no [guia de uso](docs/GUIA-DE-USO.md).
+Abra `site/pages/inicio.html`, troque o texto, salve e recarregue o navegador.
 
-## Desenvolver e validar o tema
+Pronto. Você já tem uma documentação local.
 
-Quem vai alterar o tema deve instalar as ferramentas fixadas:
+## Estrutura que você edita
+
+```text
+site/
+├── config.js       # nome do site, abas, páginas e ordem dos menus
+├── custom.css      # cores e ajustes visuais desta instalação
+├── assets/         # imagens, PDFs e outros arquivos
+└── pages/
+    └── inicio.html # conteúdo de uma página
+```
+
+| Para fazer isto                   | Edite isto             |
+| --------------------------------- | ---------------------- |
+| Mudar o nome do site              | `site/config.js`       |
+| Criar abas e itens do menu        | `site/config.js`       |
+| Escrever ou alterar uma página    | `site/pages/nome.html` |
+| Adicionar uma imagem ou um PDF    | `site/assets/`         |
+| Personalizar cores e espaçamentos | `site/custom.css`      |
+
+## Exemplo de uma página
+
+Uma página é um fragmento HTML. Não inclua `html`, `head`, `body`, CSS ou JavaScript.
+
+```html
+<h1>Primeiros passos</h1>
+<p class="lead">Resumo curto da página.</p>
+
+<h2 id="preparar">Preparar</h2>
+<p>Explique o que a pessoa precisa fazer.</p>
+
+<h2 id="executar">Executar</h2>
+<ol>
+  <li>Faça a primeira ação.</li>
+  <li>Confira o resultado.</li>
+</ol>
+```
+
+Use um único `h1`. Os títulos `h1`, `h2` e `h3` formam automaticamente o índice da direita.
+
+## Aprender com a demonstração
+
+Se `site/config.js` não existir, o tema abre a demonstração da pasta `examples/`.
+
+Nela você encontra:
+
+- um tutorial para criar `site/`;
+- a configuração completa de abas e páginas;
+- exemplos copiáveis de todos os componentes de conteúdo;
+- um catálogo visual;
+- orientações para atualizar e revisar documentos.
+
+## Arquivos do tema e arquivos do usuário
+
+- `site/` contém seu conteúdo local.
+- `examples/` contém a demonstração pública.
+- `css/` e `js/` contêm o tema.
+- `docs/` contém os manuais do projeto.
+
+A pasta `site/` é ignorada pelo Git deste tema. Faça backup dela. Essa regra evita commits comuns,
+mas não protege arquivos publicados na internet.
+
+## Conteúdo privado
+
+Este projeto não possui login nem controle de acesso. Não publique documentos privados em um
+servidor público. Uma instalação privada precisa proteger também o acesso direto a páginas, imagens
+e anexos no servidor.
+
+## Validar uma alteração no tema
+
+As dependências existem somente para desenvolvimento e testes:
 
 ```sh
 npm ci
@@ -43,71 +113,17 @@ npx playwright install chromium
 npm run validate
 ```
 
-Não usar `file://`: os módulos e as páginas precisam ser carregados por HTTP.
+Não abra o projeto com `file://`. Use sempre `npm start` ou `node tools/serve.mjs`.
 
 ## Documentação
 
-| Quero…                                          | Documento                                                |
-| ----------------------------------------------- | -------------------------------------------------------- |
-| Entender o que funciona e o que falta           | [Diagnóstico](docs/DIAGNOSTICO.md)                       |
-| Seguir as próximas entregas do MVP              | [Plano do MVP](docs/PLANO-MVP.md)                        |
-| Entender URLs, tema, instalações e atualizações | [Arquitetura](docs/ARQUITETURA.md)                       |
-| Criar páginas e adotar mudanças                 | [Guia de uso](docs/GUIA-DE-USO.md)                       |
-| Aprender a trabalhar com Codex no VS Code       | [Desenvolvimento com IA](docs/DESENVOLVIMENTO-COM-IA.md) |
-| Conferir o que foi entregue                     | [Changelog](CHANGELOG.md)                                |
-| Consultar as evidências da validação            | [Relatório do MVP](docs/RELATORIO-VALIDACAO-MVP.md)      |
-| Testar uma cópia como novo usuário              | [Teste de aceite](docs/TESTE-DE-ACEITE.md)               |
-| Consultar instruções para o agente              | [AGENTS.md](AGENTS.md)                                   |
-| Rever as anotações do README anterior           | [Notas iniciais](docs/NOTAS-INICIAIS.md)                 |
+| Você quer…                              | Leia                                                      |
+| --------------------------------------- | --------------------------------------------------------- |
+| Aprender todo o fluxo                   | [Guia de uso](docs/GUIA-DE-USO.md)                        |
+| Entender as decisões técnicas           | [Arquitetura](docs/ARQUITETURA.md)                        |
+| Conferir o estado do MVP                | [Plano do MVP](docs/PLANO-MVP.md)                         |
+| Testar uma instalação como novo usuário | [Teste de aceite](docs/TESTE-DE-ACEITE.md)                |
+| Ver o que já foi validado               | [Relatório de validação](docs/RELATORIO-VALIDACAO-MVP.md) |
+| Consultar as mudanças                   | [Changelog](CHANGELOG.md)                                 |
 
-## Estrutura atual
-
-```text
-documentacao-page/
-├── .vscode/                    # preferências e recomendações de editor
-├── css/
-│   ├── variables.css           # cores, fontes e espaçamentos
-│   ├── core.css                # estrutura do layout
-│   └── content.css             # estilos públicos do conteúdo
-├── js/
-│   ├── components/
-│   │   ├── AppHeader.js
-│   │   ├── AppSidebar.js
-│   │   └── AppToc.js
-│   ├── load-site.js            # seleção e validação da configuração
-│   └── main.js                 # inicialização e navegação
-├── examples/                   # demonstração versionada pelo tema
-│   ├── config.js
-│   ├── pages/
-│   ├── assets/
-│   └── custom.css
-├── site/                       # cópia local, criada pelo usuário e ignorada pelo Git
-│   ├── config.js
-│   ├── pages/
-│   ├── assets/
-│   └── custom.css
-├── tests/                       # testes nativos, de navegador e instalações fictícias
-├── tools/                       # servidor HTTP local
-├── docs/                       # documentação do desenvolvimento do tema
-├── .gitattributes
-├── .gitignore
-├── .prettierrc
-├── biome.jsonc
-├── package.json                 # comandos e ferramentas fixadas
-├── playwright.config.mjs       # matriz de navegador
-├── favicon.ico
-├── index.html
-├── AGENTS.md
-├── CHANGELOG.md
-└── README.md
-```
-
-A pasta `site/` não é distribuída pelo Git do tema e precisa de backup próprio. `docs/` contém os manuais do projeto; não deve receber documentos internos de uma instalação. As convenções de nomes e a migração dos caminhos antigos estão no [guia de uso](docs/GUIA-DE-USO.md).
-
-## Reutilização e colaboração
-
-Configuração, páginas e CSS próprios ficam em `site/`. Os arquivos fora dessa pasta pertencem ao tema ou às suas ferramentas e documentação. Alterá-los não atualiza outros sites imediatamente: cada cópia precisa receber e validar a atualização. Para cópias antigas com conteúdo nos caminhos anteriores, fazer backup e seguir a migração antes de atualizar.
-
-O tema deve conter apenas exemplos públicos/fictícios. Autenticação empresarial, documentos internos e backups pertencem ao ambiente autorizado da empresa. Uma tela de login no navegador não protege, sozinha, arquivos servidos publicamente.
-
-Trabalhar com mudanças pequenas, critérios de aceite e verificações reproduzíveis. O roadmap contém propostas; o changelog registra entregas. O código e os exemplos usam a licença MIT; versões seguem SemVer durante a fase `0.x`.
+O projeto usa a licença MIT.

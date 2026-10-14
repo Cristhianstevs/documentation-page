@@ -1,199 +1,316 @@
-# Guia de uso e organização
+# Guia de uso
 
-Atualizado em 2026-10-12. Este guia ensina a abrir o tema, criar uma instalação e validar uma mudança. A versão `0.1.0` está pronta para validação independente antes da publicação.
+Este guia ensina a criar e manter uma documentação com o tema. Siga as seções na ordem na primeira
+vez. Depois, use o índice para consultar somente o que precisar.
 
-## 1. Abrir a demonstração
+## 1. Entender o que o tema faz
 
-Para apenas abrir e experimentar o tema, não é necessário instalar `node_modules`. Com Node.js 24 instalado, execute:
+Você informa três níveis:
+
+1. **Abas**: grupos principais no cabeçalho.
+2. **Páginas**: itens no menu esquerdo.
+3. **Títulos**: seções `h1`, `h2` e `h3` dentro de cada página.
+
+O tema lê essas informações e monta a navegação. Você não precisa editar os componentes em `js/`.
+
+## 2. Abrir a demonstração
+
+No terminal, dentro da pasta do projeto, execute:
 
 ```sh
-node tools/serve.mjs
+npm start
 ```
 
-Abra `http://127.0.0.1:4173`. Para parar o servidor, volte ao terminal e pressione `Ctrl+C`.
+Abra `http://127.0.0.1:4173`.
 
-Também é possível usar `npm start`; esse comando chama o mesmo servidor e não exige os pacotes de desenvolvimento. A opção Live Server continua válida. Não abra o projeto por `file://`, porque os módulos e as páginas precisam de um servidor HTTP. Não existe etapa de build.
+Quando `site/config.js` não existe, a demonstração de `examples/` aparece. Ela usa somente conteúdo
+fictício e pode ser explorada sem criar uma instalação.
 
-Sem `site/config.js`, o site mostra o conteúdo de `examples/`. Com esse arquivo, passa a usar a instalação local após recarregar. Somente HTTP 404 na verificação de `site/config.js` ativa os exemplos. Erros de sintaxe, acesso ou conexão aparecem na tela. O servidor precisa devolver 404 para arquivos inexistentes, sem substituir o pedido por `index.html`.
+Para parar o servidor, pressione `Ctrl + C` no terminal.
 
-Existem, portanto, dois modos de execução:
+## 3. Criar sua instalação
 
-| Situação                    | Resultado                                                                  |
-| --------------------------- | -------------------------------------------------------------------------- |
-| `site/config.js` não existe | Mostra a demonstração de `examples/`                                       |
-| `site/config.js` existe     | Mostra a instalação local de `site/`, mesmo quando `docsConfig` está vazio |
+Execute uma vez:
 
-Quem baixa ou clona o tema não precisa renomear arquivos para ver a demonstração: `site/` é ignorada pelo Git e não acompanha o repositório. Em uma cópia que já possui uma instalação local, renomear somente `site/config.js` para `site/config.local.js` desativa temporariamente essa instalação. Não é necessário renomear `pages/`, `assets/` ou `custom.css`; ao restaurar o nome `site/config.js`, esses caminhos precisam conservar os nomes definidos pelo contrato.
-
-## 2. Criar sua instalação
-
-O caminho mais simples é copiar a demonstração. Faça isso somente quando a pasta `site/` ainda não existir:
-
-No PowerShell, apenas quando a pasta de destino ainda não existir:
-
-```powershell
-Copy-Item -LiteralPath .\examples -Destination .\site -Recurse
+```sh
+npm run create-site
 ```
 
-A cópia cria `site/config.js`, `site/pages/`, `site/assets/` e `site/custom.css`. Depois, substitua os textos fictícios pelos seus.
+O comando recusa continuar quando a pasta `site/` já existe. Assim, uma instalação existente não é
+substituída por engano.
 
-Se preferir começar vazio, crie essas quatro estruturas manualmente. O arquivo `site/config.js` é obrigatório; as outras pastas e o CSS são usados conforme a necessidade.
+Estrutura criada:
 
-A demonstração contém somente páginas fictícias completas. Ela serve como referência de estrutura, não como conteúdo para uma instalação real.
+```text
+site/
+├── config.js
+├── custom.css
+├── assets/
+└── pages/
+    └── inicio.html
+```
 
-A pasta `site/` é ignorada pelo Git do tema. Ela não será enviada por um commit comum desse tema e precisa de backup próprio. Ignorar no Git não torna os arquivos privados na hospedagem nem impede adição forçada. Para conteúdo empresarial, o controle de acesso continua sendo uma etapa separada.
+Recarregue o navegador. O tema deixa de usar `examples/` e passa a usar `site/`.
 
-## 3. Saber o que editar
+### Criar manualmente
 
-| Quero alterar                        | Arquivo ou pasta                          |
-| ------------------------------------ | ----------------------------------------- |
-| Nome, marca textual e título lateral | `site/config.js`, dentro de `appSettings` |
-| Abas, páginas e ordem dos menus      | `site/config.js`, dentro de `docsConfig`  |
-| Texto de uma página                  | `site/pages/nome-da-pagina.html`          |
-| Imagens ou anexos                    | `site/assets/`                            |
-| Cores e ajustes locais               | `site/custom.css`                         |
-| Funcionamento compartilhado          | Arquivos do tema em `js/`                 |
-| Estilos padrão compartilhados        | Arquivos do tema em `css/`                |
+Se não quiser usar o comando, copie `examples/starter/` para uma nova pasta chamada `site/` e crie
+dentro dela uma pasta vazia chamada `assets/`.
 
-Os caminhos desta tabela são relativos à raiz do projeto. Mudanças do tema chegam a outra instalação somente quando ela recebe a atualização.
+## 4. Entender cada arquivo
 
-## 4. Dar nomes aos arquivos e IDs
+| Caminho                | Conteúdo                                | Obrigatório |
+| ---------------------- | --------------------------------------- | ----------- |
+| `site/config.js`       | Nome, abas, páginas e ordem dos menus   | Sim         |
+| `site/pages/nome.html` | Texto de uma página                     | Sim         |
+| `site/assets/`         | Imagens, PDFs, vídeos e outros arquivos | Não         |
+| `site/custom.css`      | Personalizações visuais da instalação   | Não         |
 
-Não existe uma única convenção obrigatória para todo projeto. Aqui adotamos:
+O marcador da instalação é `site/config.js`. Um erro de sintaxe nesse arquivo mostra uma mensagem;
+o tema não troca silenciosamente para a demonstração.
 
-- Pastas e módulos comuns em minúsculas, usando hífen quando houver mais de uma palavra: `load-site.js`.
-- Arquivos que representam classes de componentes em PascalCase, acompanhando o nome da classe: `AppHeader.js` e `AppSidebar.js`.
-- Páginas com nomes descritivos, sem espaços ou acentos: `primeiros-passos.html`. Letras minúsculas, números e hífens são aceitos.
-- Títulos visíveis podem ter espaços e acentos: “Primeiros passos”.
-- Nomes de variáveis e funções em camelCase: `appSettings`, `loadSite`.
-- Manter `README.md`, `AGENTS.md`, `CHANGELOG.md` e os documentos existentes. Renomear todos os manuais não ajudaria esta mudança.
+## 5. Configurar nome e menus
 
-`main.js` é o ponto de entrada: inicia a aplicação. `load-site.js` escolhe e valida a configuração. `config.js` continua sendo um nome adequado dentro de cada pasta de conteúdo.
-
-## 5. Configurar e adicionar páginas
-
-Exemplo de `site/config.js`:
+Abra `site/config.js`:
 
 ```js
 export const appSettings = {
-  siteTitle: "Wiki de pesca",
-  logoText: "PESCA",
-  sidebarTitle: "Conteúdo",
+  siteTitle: "Manual da equipe",
+  logoText: "MANUAL",
+  sidebarTitle: "Páginas",
 };
 
 export const docsConfig = [
   {
-    id: "pesca",
-    title: "Pesca",
-    pages: [{ id: "equipamentos", title: "Equipamentos", file: "equipamentos.html", icon: "🎣" }],
+    id: "guias",
+    title: "Guias",
+    pages: [
+      {
+        id: "primeiros-passos",
+        title: "Primeiros passos",
+        file: "primeiros-passos.html",
+        icon: "📘",
+      },
+    ],
   },
 ];
 ```
 
-`siteTitle` aparece no título do navegador e nas boas-vindas; `logoText` aparece no cabeçalho. A versão exibida pertence ao tema, definida em `js/main.js`, e não precisa ser copiada para a configuração local.
+### Campos de identidade
 
-Os IDs de aba e de página devem usar minúsculas, números e hífens. O ID da página deve ser único dentro da aba e forma a URL; mantenha-o estável mesmo se o título ou o arquivo mudar. `title` é o texto apresentado. `file` aponta para um arquivo diretamente em `site/pages/`, sem subpastas. `icon` é opcional. Configurações antigas sem `page.id` continuam funcionando: nesse caso, o tema deriva o ID do nome do arquivo. Não repetir o mesmo arquivo dentro da mesma aba. Uma lista vazia é aceita e produz um estado vazio.
+- `siteTitle`: título da aba do navegador.
+- `logoText`: nome curto no canto superior esquerdo.
+- `sidebarTitle`: rótulo acima do menu de páginas.
 
-Criar `site/pages/equipamentos.html`:
+### Campos de uma aba
+
+- `id`: parte do endereço. Use minúsculas, números e hífens.
+- `title`: nome mostrado no cabeçalho.
+- `pages`: páginas da aba, na ordem em que devem aparecer.
+
+### Campos de uma página
+
+- `id`: parte do endereço da página.
+- `title`: nome mostrado no menu.
+- `file`: arquivo dentro de `site/pages/`.
+- `icon`: ícone opcional mostrado no menu.
+
+Mantenha os IDs depois que os links forem compartilhados. Você pode trocar `title` sem mudar o
+endereço.
+
+## 6. Criar uma página
+
+Crie `site/pages/primeiros-passos.html`:
 
 ```html
-<h1>Equipamentos</h1>
-<p>Exemplo fictício de uma wiki de pesca.</p>
-<h2 id="varas">Varas</h2>
-<p>Organize aqui as informações sobre as varas.</p>
+<h1>Primeiros passos</h1>
+<p class="lead">O que a pessoa aprenderá nesta página.</p>
+
+<h2 id="preparar">1. Preparar</h2>
+<p>Explique o que precisa estar pronto.</p>
+
+<h2 id="executar">2. Executar</h2>
+<ol>
+  <li>Faça a primeira ação.</li>
+  <li>Faça a segunda ação.</li>
+  <li>Confira o resultado.</li>
+</ol>
 ```
 
-Recarregar o navegador. O cabeçalho e a lateral usam essa configuração. Um arquivo sozinho na pasta não se cadastra automaticamente no menu.
+Depois, cadastre o arquivo em `site/config.js`, salve e recarregue.
 
-A página deve ser um fragmento HTML, sem `html`, `head`, scripts ou contêiner de leitura próprio. O tema já cria o contêiner de leitura. Use exatamente um `h1` por página. Se houver mais de um, o tema mantém a página legível, mas mostra um aviso para o autor corrigir a hierarquia.
+### Regra simples para títulos
 
-## 6. Usar links e imagens
+- Use exatamente um `h1`: título da página.
+- Use `h2`: seções principais.
+- Use `h3`: partes de uma seção.
+- Use `h4`, `h5` e `h6` somente para detalhes mais profundos.
 
-O endereço de página continua no formato `#pesca/equipamentos`. Os links dos menus agora têm esse destino real. Ao abrir o site sem fragmento, o tema procura a primeira página válida da configuração e completa o endereço sem criar uma etapa extra no histórico. Um endereço contendo apenas a aba também abre sua primeira página; uma aba sem páginas mostra um aviso. Link direto, F5, Voltar/Avançar e navegação pelo teclado funcionam para páginas cadastradas.
-
-O endereço depende dos IDs da aba e da página. Mudar o título de exibição ou o arquivo preserva o link; mudar um ID altera o endereço. O índice lê `h1`, `h2` e `h3` e cria links como `#pesca/equipamentos/varas`. Ao selecionar um título, a rolagem para no início do espaço superior definido pelo título, em vez de colá-lo no topo da leitura. O movimento é suave, exceto quando o sistema pede movimento reduzido. IDs escritos no HTML são preservados; quando não há `id`, o tema gera um endereço legível. Para manter um link compartilhado mesmo após renomear o título, prefira declarar um ID estável, como `<h2 id="varas">Varas para iniciantes</h2>`.
-
-Ao rolar manualmente, o índice e o endereço acompanham a seção atual. Essa atualização substitui somente o trecho da URL e não cria uma nova entrada no histórico a cada movimento. Selecionar o `h1` no índice volta ao início da página.
-
-Como o fragmento HTML é inserido em `index.html`, imagens são resolvidas a partir desse documento. Para uma imagem em `site/assets/vara.png`, usar:
+O índice usa `h1`, `h2` e `h3`. O tema cria IDs automaticamente, mas um ID escrito por você é mais
+seguro para links que serão compartilhados:
 
 ```html
-<img src="./site/assets/vara.png" alt="Vara usada no exemplo de pesca" />
+<h2 id="instalar-programa">Instalar o programa</h2>
 ```
 
-Links e imagens dos exemplos que mencionem `examples/assets/` devem ser ajustados para `site/assets/` ao copiar o conteúdo. Não há reescrita automática desses caminhos.
+## 7. Escrever com menos código
 
-## 7. Personalizar a aparência
+Comece pelo modelo de `examples/starter/pages/inicio.html`. Depois, copie componentes da página
+**Guias → Escrever páginas** da demonstração.
 
-`site/custom.css` é carregado depois dos estilos do tema. Manter esse arquivo, mesmo vazio. Exemplo:
+Essa página mostra e permite copiar:
+
+- títulos e parágrafos;
+- links e listas;
+- listas de tarefas;
+- citações e código;
+- tabelas;
+- imagens, áudio e vídeo;
+- conteúdo expansível;
+- avisos de informação, atenção e perigo;
+- texto semântico e acessível.
+
+Todo bloco de código possui um botão de cópia no canto superior direito.
+
+## 8. Adicionar imagens e arquivos
+
+Coloque o arquivo em `site/assets/`. Depois use um caminho que começa na raiz do projeto:
+
+```html
+<figure>
+  <img src="./site/assets/fluxo.png" alt="Fluxo de aprovação em três etapas" />
+  <figcaption>Fluxo usado pela equipe para aprovar um documento.</figcaption>
+</figure>
+```
+
+Escreva o texto alternativo com a informação transmitida pela imagem. Se a imagem for apenas
+decorativa, use `alt=""`.
+
+## 9. Criar links
+
+Formato dos endereços:
+
+| Destino | Formato                            |
+| ------- | ---------------------------------- |
+| Aba     | `#guias`                           |
+| Página  | `#guias/primeiros-passos`          |
+| Título  | `#guias/primeiros-passos/preparar` |
+
+Exemplo:
+
+```html
+<a href="#guias/primeiros-passos/preparar">Ir para a preparação</a>
+```
+
+Links reais permitem copiar o endereço, abrir em outra aba, recarregar e usar Voltar ou Avançar.
+
+## 10. Usar listas de tarefas
+
+```html
+<ul class="task-list">
+  <li>
+    <label><input type="checkbox" checked /> Tarefa concluída</label>
+  </li>
+  <li>
+    <label><input type="checkbox" /> Próxima tarefa</label>
+  </li>
+</ul>
+```
+
+O estado muda enquanto a página está aberta. Ao recarregar, volta ao valor escrito no HTML. Salvar
+o estado exigiria armazenamento adicional, que não faz parte deste tema estático.
+
+## 11. Usar conteúdo expansível
+
+```html
+<details>
+  <summary>Mostrar mais informações</summary>
+  <p>Conteúdo que pode permanecer fechado até ser necessário.</p>
+</details>
+```
+
+O navegador fornece clique e teclado. Não adicione JavaScript.
+
+## 12. Personalizar o visual
+
+Use `site/custom.css`. Esse arquivo é carregado depois do CSS do tema.
 
 ```css
 :root {
-  --color-ferrugem: #26734d;
+  --color-ferrugem: #2563eb;
+  --content-width: 860px;
 }
 ```
 
-Isso permite mudar uma cor da instalação sem alterar `css/variables.css`. `content.css` oferece uma base visual para títulos `h1`–`h6`, texto, links, ênfases, citações, código, listas, termos e definições, tabelas, imagens, vídeo, áudio e detalhes expansíveis. A página fictícia **Referência → Catálogo de estilos** mostra os padrões principais. **Guias → Exemplos práticos** mostra como escrever cada padrão.
+Evite editar `css/variables.css` para personalizar uma instalação. Alterações no tema dificultam
+receber atualizações futuras.
 
-Em blocos `<pre><code>`, use `data-language="HTML"` para mostrar a linguagem no canto superior. Ao lado dela, o tema cria automaticamente um botão para copiar o código. `title="HTML"` também é aceito por compatibilidade, mas `data-language` é preferível porque descreve diretamente uma informação usada pelo tema.
+## 13. Conferir antes de publicar
 
-A página **Guias → Exemplos práticos** reúne uma versão renderizada e um bloco copiável de cada padrão suportado. Ela também inclui um modelo de página completa e um checklist curto de acessibilidade.
+- [ ] Existe somente um `h1` em cada página.
+- [ ] A ordem dos títulos faz sentido.
+- [ ] Links e imagens abrem corretamente.
+- [ ] Imagens possuem texto alternativo.
+- [ ] A página funciona pelo teclado.
+- [ ] A página cabe numa tela estreita.
+- [ ] Nenhum dado privado foi colocado numa hospedagem pública.
+- [ ] A pasta `site/` possui backup.
 
-Para uma introdução destacada, usar `class="lead"` em um parágrafo. Os avisos públicos são `callout callout-info`, `callout callout-warning` e `callout callout-danger`; cada aviso deve incluir um rótulo textual e pode usar `callout-icon` e `callout-title`. Cor e ícone sozinhos não substituem o texto.
+Use também o [teste de aceite](TESTE-DE-ACEITE.md).
 
-Para uma lista de tarefas interativa, use `class="task-list"` em um `ul` e coloque cada `input type="checkbox"` dentro de um `label`. Itens marcados recebem um risco no texto. Como o tema é estático e não possui banco de dados, o estado muda apenas no navegador atual e volta ao valor escrito no HTML quando a página é recarregada.
+## 14. Atualizar o tema
 
-O elemento `details` cria um bloco expansível semelhante ao toggle do Notion. O título fica em `summary`, o conteúdo vem depois e outros blocos `details` podem ser aninhados. O navegador já fornece interação por mouse e teclado; não é necessário adicionar JavaScript.
+Antes de atualizar:
 
-Tabelas e blocos de código largos ganham rolagem horizontal própria. Nas tabelas, use `caption` para explicar os dados, `th scope="col"` para os títulos de coluna e `th scope="row"` para o título de cada linha. Imagens respeitam a largura da leitura. Em telas de até 800 px, o botão “Abrir menu de páginas” controla a lateral, `Esc` a fecha e “Nesta página” se torna recolhível. Ao abrir um link de título, o trecho é posicionado abaixo desse índice fixo. Os antigos botões de tema e configurações foram removidos porque ainda não possuíam função. Login corporativo continua sendo uma etapa separada.
+1. Faça backup de `site/` fora da pasta do projeto.
+2. Leia `CHANGELOG.md`.
+3. Anote a revisão que está funcionando.
+4. Teste a versão nova numa cópia.
 
-No desktop, os painéis laterais podem ser recolhidos pelos botões das bordas. A divisória ao lado de cada painel pode ser arrastada. Pelo teclado, selecione a divisória com `Tab` e use as setas esquerda/direita. A largura fica limitada para não ocupar toda a leitura.
-
-## 8. Migrar uma cópia anterior
-
-Antes de atualizar uma cópia antiga com conteúdo próprio, fazer backup fora do checkout do tema. Não confiar no Git do tema para guardar conteúdo confidencial.
-
-| Caminho antigo                 | Destino da instalação                    |
-| ------------------------------ | ---------------------------------------- |
-| `js/config.js` personalizado   | `site/config.js`                         |
-| `pages/` com conteúdo próprio  | `site/pages/`                            |
-| `css/customization/custom.css` | `site/custom.css`                        |
-| Imagens e anexos próprios      | `site/assets/`, ajustando as referências |
-
-Preservar os exports `appSettings` e `docsConfig`. Os novos campos de identidade têm valores padrão quando omitidos; `appSettings.version` antigo deixa de controlar a versão do tema. Manter os IDs de abas e nomes de arquivo conserva links como `#guias/instalacao`.
-
-No código do tema, `js/script.js` virou `js/main.js`, e o `index.html` já referencia o novo nome. Os exemplos antes em `js/config.js`, `pages/` e no CSS de personalização agora ficam em `examples/`.
-
-Após migrar, conferir `git ls-files site` (sem arquivos) e `git check-ignore -v site/config.js` (regra encontrada). Arquivos que já foram rastreados ou enviados não saem do histórico apenas por ganharem uma regra de ignore. Atualizar uma cópia antiga pode ainda exigir resolver suas alterações rastreadas; os novos caminhos não eliminam divergências anteriores.
-
-## 9. Validar o tema
-
-Esta parte é para quem altera os arquivos do tema. Instale as ferramentas uma vez:
+Quando o checkout do tema estiver limpo e sem commits próprios divergentes:
 
 ```sh
-npm ci
-npx playwright install chromium
+git fetch origin
+git diff --stat HEAD origin/main
+git pull --ff-only origin main
 ```
 
-Depois execute:
+Depois, confira páginas, links, imagens e `site/custom.css`.
 
-```sh
-npm test
-npm run test:browser
-npm run validate
-```
+## 15. Migrar uma instalação antiga
 
-`npm test` verifica regras isoladas e a atualização de duas instalações fictícias. `npm run test:browser` abre o Chromium e verifica as jornadas principais em desktop e celular. `npm run validate` executa todas as verificações.
+| Caminho antigo                 | Caminho atual     |
+| ------------------------------ | ----------------- |
+| `js/config.js`                 | `site/config.js`  |
+| `pages/`                       | `site/pages/`     |
+| `css/customization/custom.css` | `site/custom.css` |
+| Imagens antigas                | `site/assets/`    |
 
-Para verificar manualmente: abrir um link antigo, navegar, recarregar e usar Voltar; trocar o nome e o CSS locais; conferir um arquivo ausente e uma configuração inválida. A [matriz do plano](PLANO-MVP.md) contém os cenários das próximas etapas.
+Faça backup antes de mover arquivos. Ajuste os caminhos das imagens depois da mudança.
 
-## 10. Atualizar com segurança
+## 16. Resolver problemas comuns
 
-1. Fazer backup de `site/` fora da pasta do tema.
-2. Ler o [changelog](../CHANGELOG.md).
-3. Receber a atualização em uma cópia de teste.
-4. Executar `npm run validate`.
-5. Abrir sua instalação e conferir os links, o índice e o CSS local.
-6. Somente depois usar a versão atualizada no ambiente principal.
+### A demonstração aparece no lugar do meu conteúdo
 
-O [fluxo de atualização](ARQUITETURA.md) explica os comandos e o processo de reversão.
+Confira se o arquivo se chama exatamente `site/config.js` e recarregue pelo servidor HTTP.
+
+### A página não aparece no menu
+
+Confira se ela foi cadastrada em `docsConfig` e se `file` corresponde ao nome em `site/pages/`.
+
+### A página mostra “Arquivo não encontrado”
+
+Confira maiúsculas, minúsculas, hífens e a extensão `.html`.
+
+### A imagem não aparece
+
+Confira se o arquivo está em `site/assets/` e se o caminho começa com `./site/assets/`.
+
+### O site não abre com file://
+
+Esse modo não é suportado. Execute `npm start` e use `http://127.0.0.1:4173`.
+
+### O conteúdo precisa ser privado
+
+Não publique até existir autenticação e autorização no servidor para páginas e anexos. Esconder
+elementos com JavaScript não protege os arquivos.

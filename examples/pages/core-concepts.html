@@ -1,41 +1,44 @@
-<h1>Como o tema funciona</h1>
-<p class="lead">O tema e o conteúdo local têm responsabilidades diferentes.</p>
+<h1>Como funciona</h1>
+<p class="lead">Você escreve configuração e conteúdo. O tema monta o restante.</p>
 
-<h2>Tema</h2>
-<p>
-  O tema contém o layout, os componentes, a navegação, o índice automático e os estilos globais.
-  Esses arquivos podem receber atualizações.
-</p>
+<h2 id="fluxo">Fluxo automático</h2>
+<ol>
+  <li><code>site/config.js</code> informa quais abas e páginas existem.</li>
+  <li>O endereço escolhe a página.</li>
+  <li>O tema carrega o arquivo HTML cadastrado.</li>
+  <li>Os títulos <code>h1</code>, <code>h2</code> e <code>h3</code> formam o índice.</li>
+  <li>Os links e menus são atualizados.</li>
+</ol>
 
-<h2>Instalação</h2>
-<p>
-  A instalação fica em <code>site/</code> e guarda sua configuração, páginas, imagens e CSS. Essa
-  pasta deve continuar separada dos arquivos compartilhados do tema.
-</p>
+<h2 id="o-que-voce-escreve">O que você escreve</h2>
+<ul>
+  <li>Um objeto curto no arquivo de configuração.</li>
+  <li>Um fragmento HTML para cada página.</li>
+  <li>Imagens ou anexos quando forem necessários.</li>
+  <li>CSS local somente quando quiser personalizar.</li>
+</ul>
 
-<h2>Configuração</h2>
-<p>
-  <code>site/config.js</code> define o nome do site, as abas, as páginas e a ordem dos menus. Um
-  arquivo HTML sozinho não aparece no menu até ser cadastrado nessa configuração.
-</p>
+<h2 id="o-que-o-tema-faz">O que o tema faz</h2>
+<ul>
+  <li>Monta os menus na ordem da configuração.</li>
+  <li>Valida os endereços antes de buscar arquivos.</li>
+  <li>Gera o índice e IDs para títulos sem ID.</li>
+  <li>Adapta a navegação para desktop e celular.</li>
+  <li>Adiciona rolagem a tabelas e blocos de código largos.</li>
+  <li>Adiciona o botão de copiar aos exemplos de código.</li>
+</ul>
 
-<h2>Página</h2>
-<p>
-  Cada página é um fragmento HTML. Ela deve possuir exatamente um <code>h1</code>. Os elementos
-  <code>h1</code>, <code>h2</code> e <code>h3</code> formam o índice da direita.
-</p>
+<h2 id="formato-da-pagina">Formato da página</h2>
+<p>A página é um fragmento. Escreva o conteúdo diretamente:</p>
+<pre data-language="HTML"><code>&lt;h1&gt;Título da página&lt;/h1&gt;
+&lt;p class="lead"&gt;Resumo curto.&lt;/p&gt;
 
-<h2>Endereço estável</h2>
-<p>
-  Os campos <code>id</code> formam a URL. Mantenha esses valores mesmo quando mudar o texto visível.
-  Para um título compartilhado, escreva também um ID explícito:
-</p>
-<pre
-  data-language="HTML"
-><code>&lt;h2 id="primeiros-passos"&gt;Começar agora&lt;/h2&gt;</code></pre>
+&lt;h2 id="assunto-principal"&gt;Assunto principal&lt;/h2&gt;
+&lt;p&gt;Explique o assunto.&lt;/p&gt;</code></pre>
+<p>Não escreva <code>html</code>, <code>head</code>, <code>body</code>, estilos ou scripts.</p>
 
-<h2>Atualização</h2>
+<h2 id="tema-e-conteudo">Tema e conteúdo ficam separados</h2>
 <p>
-  Antes de atualizar o tema, faça backup de <code>site/</code>, leia o changelog e teste a nova
-  versão numa cópia. A separação reduz conflitos, mas não substitui backup e validação.
+  O tema fica fora de <code>site/</code>. Seu conteúdo fica dentro de <code>site/</code>. Essa
+  separação permite atualizar o visual e a navegação sem substituir seus documentos.
 </p>

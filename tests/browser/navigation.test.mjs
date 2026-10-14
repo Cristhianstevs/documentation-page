@@ -15,9 +15,9 @@ async function openMobileSidebar(page) {
 test('abre um link de título, preserva F5 e posiciona no início da margem', async ({ page }) => {
   await page.goto('/#guias/instalacao/pre-requisitos');
 
-  const heading = page.getByRole('heading', { name: 'Pré-requisitos', exact: true });
+  const heading = page.getByRole('heading', { name: '1. Confira o necessário', exact: true });
   await expect(heading).toBeFocused();
-  await expect(page.locator('.toc-link.active')).toHaveText('Pré-requisitos');
+  await expect(page.locator('.toc-link.active')).toHaveText('1. Confira o necessário');
 
   const position = await heading.evaluate((element) => {
     const main = document.querySelector('main');
@@ -82,10 +82,10 @@ test('a última página clicada vence uma resposta anterior atrasada', async ({ 
   await page.locator('.sidebar-link[data-page="api-base"]').click();
   await openMobileSidebar(page);
   await page.locator('.sidebar-link[data-page="estilos"]').click();
-  await expect(page.getByRole('heading', { name: 'Catálogo visual' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Visual do conteúdo' })).toBeVisible();
   await page.waitForTimeout(650);
   await expect(page).toHaveURL(/#referencia\/estilos$/);
-  await expect(page.getByRole('heading', { name: 'Catálogo visual' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Visual do conteúdo' })).toBeVisible();
 });
 
 test('interface móvel mantém menu, índice e conteúdo dentro da largura', async ({ page }) => {

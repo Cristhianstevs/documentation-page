@@ -4,6 +4,17 @@ Registra entregas reais. Trabalho futuro fica no [plano do MVP](docs/PLANO-MVP.m
 
 ## Não lançado
 
+### Revisão final de experiência e documentação — 2026-10-14
+
+- Adicionado `npm run create-site`, que cria uma instalação mínima e recusa sobrescrever `site/`.
+- Adicionado `examples/starter/` com configuração, página inicial e CSS local prontos para editar.
+- README, guia de uso, teste de aceite e demonstração foram reorganizados em passos curtos e na
+  mesma ordem de aprendizado.
+- A navegação da demonstração recebeu nomes mais diretos e todas as comparações com produtos
+  externos foram removidas.
+- O design ganhou fonte de leitura do sistema, hierarquia tipográfica maior, paleta com contraste,
+  navegação mais clara e estados de interação consistentes.
+
 ### Navegação visual e exemplos — 2026-10-13
 
 - A barra de rolagem passou a usar cores discretas do tema escuro.

@@ -1,38 +1,40 @@
 :root {
   color-scheme: dark;
 
-  /* Base neutra, contraste confortável e um único destaque quente. */
-  --bg-dark: #171717;
-  --bg-surface: #1d1d1d;
-  --bg-elevated: #242424;
-  --bg-hover: #292929;
-  --text-main: #ededeb;
-  --text-soft: #d0cfca;
-  --text-muted: #999894;
-  --border-color: #343432;
-  --border-strong: #474743;
-  --color-ferrugem: #d44c47;
-  --color-laranja: #dfab62;
+  /* Base escura neutra com contraste alto e destaque azul. */
+  --bg-dark: #0b0d12;
+  --bg-surface: #11141b;
+  --bg-elevated: #181c25;
+  --bg-hover: #202631;
+  --text-main: #f4f6f8;
+  --text-soft: #c9d0da;
+  --text-muted: #8f9aaa;
+  --border-color: #262c37;
+  --border-strong: #384252;
+  --color-ferrugem: #6ea8fe;
+  --color-laranja: #f2b84b;
   --transparent-300: rgb(255 255 255 / 16%);
   --transparent-100: rgb(255 255 255 / 5%);
-  --bg-code: #14171d;
-  --link-color: #e58b72;
-  --link-hover-color: #f1ae99;
-  --color-info: #529cca;
-  --color-warning: #d5a044;
-  --color-danger: #e06c75;
-  --focus-color: #79b8e8;
+  --bg-code: #0d1117;
+  --link-color: #83b4ff;
+  --link-hover-color: #b4d2ff;
+  --color-info: #64b5f6;
+  --color-warning: #e9b949;
+  --color-danger: #ef7d86;
+  --focus-color: #8fc0ff;
   --scrollbar-track: transparent;
-  --scrollbar-thumb: #454543;
-  --scrollbar-thumb-hover: #5b5b57;
+  --scrollbar-thumb: #384252;
+  --scrollbar-thumb-hover: #526075;
 
-  --font-family-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
-  --font-xs: 0.6875rem;
-  --font-sm: 0.78rem;
-  --font-md: 0.9rem;
-  --font-lg: 1.05rem;
-  --font-xl: 1.4rem;
-  --font-xxl: 2.25rem;
+  --font-family-sans:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-family-mono: "Cascadia Code", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --font-xs: 0.75rem;
+  --font-sm: 0.875rem;
+  --font-md: 0.975rem;
+  --font-lg: 1.125rem;
+  --font-xl: 1.5rem;
+  --font-xxl: 2.5rem;
   --font-3xl: 3rem;
 
   --space-2xs: 0.25rem;
@@ -43,13 +45,13 @@
   --space-xl: 3rem;
   --space-2xl: 4.5rem;
 
-  --radius-sm: 5px;
-  --radius-md: 9px;
-  --radius-lg: 14px;
-  --shadow-soft: 0 12px 36px rgb(0 0 0 / 22%);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-soft: 0 16px 42px rgb(0 0 0 / 28%);
 
-  --header-height: 64px;
-  --sidebar-width: 248px;
-  --toc-width: 252px;
-  --content-width: 780px;
+  --header-height: 68px;
+  --sidebar-width: 264px;
+  --toc-width: 268px;
+  --content-width: 800px;
 }

@@ -1,225 +1,35 @@
-<h1>Catálogo de elementos HTML</h1>
-<p class="lead">
-  Esta página mostra como os elementos HTML mais comuns aparecem no tema sem classes especiais. Ela
-  usa somente conteúdo fictício para teste visual.
+<h1>Apresentação</h1>
+<p class="lead">Esta página local mostra uma estrutura simples para começar a escrever.</p>
+
+<h2 id="objetivo">Objetivo</h2>
+<p>
+  Use esta instalação para guardar sua configuração, suas páginas, suas imagens e suas
+  personalizações. Os arquivos do tema ficam separados.
 </p>
 
-<h1>Teste de dois h1</h1>
+<h2 id="estrutura">Estrutura local</h2>
+<pre data-language="Texto"><code>site/
+├── config.local.js
+├── custom.css
+├── assets/
+└── pages/
+    └── apresentacao.html</code></pre>
 
 <aside class="callout callout-info" aria-label="Informação">
   <span class="callout-icon" aria-hidden="true">ℹ️</span>
   <div>
-    <strong class="callout-title">Escopo deste teste</strong>
+    <strong class="callout-title">Instalação desativada</strong>
     <p>
-      <code>&lt;blockcode&gt;</code> não existe no HTML: para um bloco de código, usamos
-      <code>&lt;pre&gt;&lt;code&gt;</code>. A tag <code>&lt;big&gt;</code> é obsoleta e não deve ser
-      usada em conteúdo novo.
+      O arquivo se chama <code>config.local.js</code>. Para ativar esta instalação, renomeie-o para
+      <code>config.js</code> quando quiser substituir a demonstração.
     </p>
   </div>
 </aside>
 
-<h2>Hierarquia de títulos</h2>
-<p>O título principal desta página já demonstra o elemento <code>h1</code>.</p>
-
-<h3>Título de terceiro nível</h3>
-<p>O elemento <code>h3</code>divide um assunto dentro de uma seção.</p>
-
-<h4>Título de quarto nível</h4>
-<p>O elemento <code>h4</code> serve para uma subdivisão mais específica.</p>
-
-<h5>Título de quinto nível</h5>
-<p>O elemento <code>h5</code> deve aparecer apenas em conteúdos realmente profundos.</p>
-
-<h6>Título de sexto nível</h6>
-<p>O elemento <code>h6</code> é o último nível disponível no HTML.</p>
-
-<h2>Parágrafo e link</h2>
-<p>
-  Este é um parágrafo comum. Ele pode conter um
-  <a href="#inicio/apresentacao/listas">link para outra parte da página</a> sem perder o
-  comportamento normal do navegador.
-</p>
-
-<h2>Ênfase e significado no texto</h2>
-<p>
-  <strong>Strong indica grande importância.</strong>
-  <b>Bold apenas chama atenção visual.</b>
-  <em>Em adiciona ênfase ao sentido.</em>
-  <i>Italic marca outra voz ou termo técnico.</i>
-</p>
-<p>
-  <mark>Mark destaca um trecho relevante.</mark>
-  <u>Underline marca uma anotação.</u>
-  <s>Este valor não é mais válido.</s>
-  <del>Este conteúdo foi removido.</del>
-  <ins>Este conteúdo foi adicionado.</ins>
-</p>
-<p>
-  <small>Small apresenta uma observação secundária.</small>
-  A fórmula da água é H<sub>2</sub> O e 2<sup>3</sup> é igual a 8.
-</p>
-<p>
-  <abbr title="HyperText Markup Language">HTML</abbr>
-  é a linguagem de marcação usada nas páginas.
-  <dfn>Identificador estável</dfn>
-  é um nome que não muda quando o título visível é alterado. Este teste foi revisado em
-  <time datetime="2026-10-12">12 de outubro de 2026</time>.
-</p>
-<p>
-  Uma citação curta pode aparecer no meio do texto:
-  <q>escreva para quem vai ler</q>.
-</p>
-
-<h2>Citação em bloco</h2>
-<blockquote>
-  <p>
-    Uma documentação simples reduz o esforço necessário para encontrar e aplicar uma orientação.
-  </p>
-  <footer>
-    —
-    <cite>Princípio fictício desta demonstração</cite>
-  </footer>
-</blockquote>
-
-<h2>Código e saída do computador</h2>
-<p>
-  Use
-  <code>site/config.js</code>
-  para configurar a instalação. Pressione
-  <kbd>Ctrl</kbd>
-  +
-  <kbd>C</kbd>
-  para encerrar o servidor local.
-</p>
-<p>
-  O terminal pode responder
-  <samp>Servidor disponível em http://127.0.0.1:4173</samp>
-  . Em uma explicação de código,
-  <var>pageId</var>
-  pode representar o ID de uma página.
-</p>
-<pre><code>export const docsConfig = [
-  {
-    id: 'inicio',
-    title: 'Início',
-    pages: [],
-  },
-];</code></pre>
-
-<h2>Separação e quebra de linha</h2>
-<p>
-  Primeira linha.
-  <br />
-  Segunda linha criada com
-  <code>br</code>
-  .
-</p>
-<hr />
-<p>
-  O elemento
-  <code>hr</code>
-  acima representa uma mudança de assunto.
-</p>
-
-<h2>Termos e definições</h2>
-<dl>
-  <dt>Tema</dt>
-  <dd>Arquivos compartilhados que controlam navegação, estilos e comportamento.</dd>
-  <dt>Instalação</dt>
-  <dd>
-    Configuração e conteúdo próprios guardados na pasta
-    <code>site/</code>
-    .
-  </dd>
-</dl>
-
-<h2 id="listas">Listas</h2>
-<h3>Lista sem ordem</h3>
-<ul>
-  <li>Itens equivalentes usam marcadores.</li>
-  <li>Um item pode ter mais de uma linha para testar alinhamento e espaçamento.</li>
-  <li>
-    Um item pode conter outra lista:
-    <ul>
-      <li>Subitem fictício.</li>
-    </ul>
-  </li>
-</ul>
-
-<h3>Lista ordenada</h3>
+<h2 id="proximo-passo">Próximo passo</h2>
 <ol>
-  <li>Abra a demonstração.</li>
-  <li>Crie sua instalação.</li>
-  <li>Confira o resultado.</li>
+  <li>Defina as abas e páginas no arquivo de configuração.</li>
+  <li>Crie cada documento dentro de <code>site/pages/</code>.</li>
+  <li>Guarde imagens e anexos em <code>site/assets/</code>.</li>
+  <li>Use <code>site/custom.css</code> apenas para ajustes desta instalação.</li>
 </ol>
-
-<h2>Imagem, vídeo e áudio</h2>
-<figure>
-  <img
-    src="./examples/assets/documentation-flow.svg"
-    alt="Fluxo fictício entre o tema, a instalação e a página publicada"
-    width="720"
-    height="260"
-  />
-  <figcaption>Imagem responsiva acompanhada de uma legenda.</figcaption>
-</figure>
-
-<video controls preload="metadata" poster="./examples/assets/documentation-flow.svg">
-  Seu navegador não oferece suporte ao elemento de vídeo.
-</video>
-<p class="media-description">
-  Player de vídeo sem arquivo, usado somente para testar os controles.
-</p>
-
-<audio controls preload="metadata">Seu navegador não oferece suporte ao elemento de áudio.</audio>
-<p class="media-description">
-  Player de áudio sem arquivo, usado somente para testar os controles.
-</p>
-
-<h2>Tabela completa</h2>
-<table>
-  <caption>
-    Situação fictícia das páginas
-  </caption>
-  <colgroup>
-    <col />
-    <col />
-    <col />
-  </colgroup>
-  <thead>
-    <tr>
-      <th scope="col">Página</th>
-      <th scope="col">Responsável</th>
-      <th scope="col">Estado</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">Introdução</th>
-      <td>Ana</td>
-      <td>Publicada</td>
-    </tr>
-    <tr>
-      <th scope="row">Instalação</th>
-      <td>Bruno</td>
-      <td>Em revisão</td>
-    </tr>
-  </tbody>
-  <tfoot>
-    <tr>
-      <th scope="row" colspan="2">Total de páginas</th>
-      <td>2</td>
-    </tr>
-  </tfoot>
-</table>
-
-<h2>Conteúdo expansível</h2>
-<details>
-  <summary>Mostrar explicação complementar</summary>
-  <p>
-    <code>details</code>
-    guarda o conteúdo recolhível e
-    <code>summary</code>
-    fornece o controle que abre ou fecha esse conteúdo.
-  </p>
-</details>

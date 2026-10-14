@@ -1,6 +1,13 @@
-# Arquitetura proposta e atualização das instalações
+# Arquitetura do tema
 
-Status atualizado em 2026-10-12: a arquitetura do MVP público está implementada. Isso inclui a separação entre tema e conteúdo, navegação, índice automático, catálogo visual e adaptação ao celular. `js/main.js` inicia o tema e `js/load-site.js` escolhe e valida uma única configuração. A primeira publicação e a integração corporativa continuam sendo marcos separados. O [guia de uso](GUIA-DE-USO.md) mostra o passo a passo atual.
+Status atualizado em 2026-10-14: a arquitetura do MVP público está implementada. Este documento
+explica as decisões técnicas. Para criar uma documentação, siga o [guia de uso](GUIA-DE-USO.md).
+
+## Resumo
+
+O autor executa `npm run create-site`, edita `site/config.js` e cria arquivos em `site/pages/`. O
+tema valida a configuração, monta os menus, carrega a página escolhida e cria o índice dos títulos.
+Não há framework, banco de dados ou etapa de build.
 
 ## 1. Separar responsabilidades
 
@@ -28,6 +35,7 @@ documentacao-page/
 │   ├── config.js
 │   ├── pages/
 │   ├── assets/
+│   ├── starter/                # modelo mínimo usado por npm run create-site
 │   └── custom.css
 ├── site/                       # instalação local, ignorada pelo Git do tema
 │   ├── config.js
@@ -35,6 +43,9 @@ documentacao-page/
 │   ├── assets/
 │   └── custom.css
 ├── docs/                       # documentação do desenvolvimento do tema
+├── tools/
+│   ├── create-site.mjs         # cria site/ sem substituir uma instalação
+│   └── serve.mjs               # servidor HTTP local
 ├── .gitignore
 ├── AGENTS.md
 ├── CHANGELOG.md
@@ -45,6 +56,10 @@ Na demonstração genérica, o tema carrega `examples/`. Se `site/config.js` exi
 
 O cadastro diário continua simples: editar `site/config.js` e criar `site/pages/minha-pagina.html`. Imagens são arquivos adicionais de conteúdo, quando necessárias. Alterações de marca podem ficar na configuração e no CSS local.
 
+O comando `npm run create-site` copia `examples/starter/` e cria `site/assets/`. Se `site/` já
+existir, ele encerra sem alterar arquivos. O comando reduz a digitação inicial, mas mantém os quatro
+caminhos do contrato visíveis para o autor.
+
 A área `site/` é uma escolha simples para aprender e usar `pull`. Em ambientes com maior exigência, a configuração de hospedagem pode montar conteúdo de uma pasta externa ao checkout do tema. O serviço empresarial e seus segredos ficam fora da raiz estática pública e fora do repositório genérico.
 
 **Contrato importante:** o tema nunca deve passar a rastrear arquivos em `site/`. O `.gitignore` não bloqueia acesso por navegador, ferramentas de IA, cópias manuais ou publicações. Também não altera arquivos que já estão rastreados. [Comportamento documentado pelo Git](https://git-scm.com/docs/gitignore).
@@ -53,7 +68,9 @@ O marcador de instalação é `site/config.js`: somente uma resposta HTTP 404 ne
 
 ## 3. Configuração como catálogo único
 
-No MVP estático, o navegador não tem uma API geral para descobrir todos os arquivos de uma pasta publicada. A lista de páginas deve vir do `config.js`. A automação pretendida é: **cadastrou no config + criou o HTML → menus e índice aparecem automaticamente**.
+No MVP estático, o navegador não consegue listar de forma segura todos os arquivos de uma pasta
+publicada. A lista de páginas vem do `config.js`. A regra é simples: **cadastre a página na
+configuração e crie o HTML; o tema monta menus, links e índice**.
 
 Se futuramente quisermos “jogar um arquivo na pasta e pronto”, um script de geração ou backend deverá produzir esse catálogo. Isso é outra etapa, não uma capacidade implícita do navegador.
 

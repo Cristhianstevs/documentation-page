@@ -1,6 +1,13 @@
 # Plano para concluir o MVP
 
-Criado em 2026-09-27 a partir da [revisão do projeto](DIAGNOSTICO.md) e atualizado em 2026-10-13. Este documento mostra o que foi concluído e o que ainda bloqueia a primeira publicação. Uma caixa marcada representa trabalho concluído com alguma evidência.
+Criado em 2026-09-27 a partir da [revisão do projeto](DIAGNOSTICO.md) e atualizado em 2026-10-14. Este documento mostra o que foi concluído e o que ainda bloqueia a primeira publicação. Uma caixa marcada representa trabalho concluído com evidência.
+
+## Estado atual
+
+As etapas técnicas do tema público estão concluídas. A instalação possui um gerador seguro, a
+demonstração ensina o fluxo completo e as regras principais possuem testes automatizados. Ainda
+faltam três ações externas: teste por uma segunda pessoa, execução verde da CI remota e publicação
+da versão `0.1.0`.
 
 ## Resultado que queremos
 
@@ -113,6 +120,8 @@ Concluída em 2026-10-07. Evidências: testes nativos para normalização, acent
 - [x] Tornar cabeçalho e lateral utilizáveis no celular; índice recolhível em tela estreita.
 - [x] Verificar foco visível, navegação por teclado, nomes acessíveis e movimento reduzido.
 - [x] Remover ou implementar os botões sem ação; não deixar uma função anunciada como pronta quando não está.
+- [x] Incluir listas de tarefas, conteúdo expansível e exemplos copiáveis acessíveis.
+- [x] Revisar tipografia, contraste, espaçamento e estados de interação em desktop e celular.
 
 Concluída em 2026-10-07. Evidências: 33 testes nativos, incluindo a estrutura e as referências do catálogo; verificação no Chrome em 1424 × 805 e 390 × 844. Em tela estreita não houve corte horizontal, o menu abriu e fechou com estado acessível e `Esc`, o índice recolheu e expandiu, o foco permaneceu visível e a preferência por movimento reduzido foi respeitada. Em tela ampla, a leitura ficou limitada a 820 px; tabelas, imagens e avisos permaneceram contidos.
 
@@ -132,8 +141,15 @@ Concluída em 2026-10-07. Evidências: 33 testes nativos, incluindo a estrutura 
 - [x] Ensaiar backup, migração e reversão usando somente dados fictícios.
 - [ ] Registrar changelog, guia de uso/migração e uma revisão publicada identificável.
 - [x] Configurar verificações automáticas no repositório quando os comandos locais existirem.
+- [x] Criar uma instalação mínima com `npm run create-site`, sem sobrescrever conteúdo existente.
+- [x] Reorganizar README, guia e demonstração como um passo a passo único para iniciantes.
 
-Progresso em 2026-10-13: 37 testes nativos e 18 cenários de navegador passaram. As instalações fictícias `pesca` e `culinaria` preservaram conteúdo, CSS e URLs durante atualização e restauração. Toda a documentação e as páginas de exemplo foram revisadas para o primeiro teste externo. O relatório detalhado está em [RELATORIO-VALIDACAO-MVP.md](RELATORIO-VALIDACAO-MVP.md). Restam executar o [teste de aceite](TESTE-DE-ACEITE.md) por uma segunda pessoa, confirmar a CI remota e publicar/taguear a versão preparada.
+Progresso em 2026-10-14: o fluxo de entrada foi reduzido a `npm run create-site` e `npm start`. A
+demonstração, o guia e o teste de aceite seguem a mesma ordem. As instalações fictícias `pesca` e
+`culinaria` continuam protegidas pelos testes de atualização e restauração. Os números da validação
+mais recente estão no [relatório do MVP](RELATORIO-VALIDACAO-MVP.md). Restam executar o
+[teste de aceite](TESTE-DE-ACEITE.md) por uma segunda pessoa, confirmar a CI remota e publicar a
+versão preparada.
 
 **Aceite:** uma pessoa seguindo o guia consegue instalar, cadastrar conteúdo, receber a atualização e recuperar a versão anterior. Sem referência quebrada na demonstração e sem regressão nos fluxos críticos.
 
@@ -186,6 +202,12 @@ Editor visual, colaboração simultânea, comentários, pesquisa avançada, banc
 
 Não precisamos prever hoje cada extensão possível. Primeiro entregar uma base confiável; depois usar a experiência real para escolher a próxima necessidade.
 
-## Próxima tarefa recomendada
+## Próximas ações
 
-Entregar uma cópia limpa para uma segunda pessoa e pedir que ela siga o [teste de aceite](TESTE-DE-ACEITE.md) sem ajuda. Registrar o resultado e corrigir somente os problemas encontrados. Depois, confirmar a CI e publicar/taguear `v0.1.0`. Somente então marcar a Etapa 6 como concluída.
+1. Entregar uma cópia limpa para uma segunda pessoa.
+2. Pedir que ela siga o [teste de aceite](TESTE-DE-ACEITE.md) sem ajuda.
+3. Registrar dúvidas e corrigir somente problemas comprovados.
+4. Confirmar uma execução verde da CI.
+5. Criar a tag e publicar `v0.1.0`.
+
+Somente depois dessas ações a Etapa 6 pode ser marcada como concluída.

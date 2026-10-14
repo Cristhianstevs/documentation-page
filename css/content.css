@@ -12,8 +12,8 @@
 .content-container h5,
 .content-container h6 {
   color: var(--text-main);
-  line-height: 1.2;
-  letter-spacing: -0.035em;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
   text-wrap: balance;
 }
 
@@ -22,22 +22,22 @@
 }
 
 .content-container h1 {
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-md);
   font-size: clamp(2rem, 4vw, var(--font-xxl));
-  font-weight: 700;
+  font-weight: 760;
 }
 
 .content-container h2 {
   margin-top: var(--space-2xl);
-  margin-bottom: var(--space-sm);
-  padding-bottom: 0.65rem;
+  margin-bottom: var(--space-md);
+  padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--border-color);
   font-size: var(--font-xl);
 }
 
 .content-container h3 {
-  margin-top: 2.5rem;
-  margin-bottom: var(--space-xs);
+  margin-top: 2.25rem;
+  margin-bottom: var(--space-sm);
   font-size: var(--font-lg);
 }
 
@@ -85,12 +85,14 @@
 .content-container li {
   max-width: 75ch;
   color: var(--text-soft);
+  font-size: var(--font-md);
 }
 
 .content-container .lead {
-  color: var(--text-muted);
-  font-size: 1rem;
-  line-height: 1.75;
+  max-width: 66ch;
+  color: var(--text-soft);
+  font-size: 1.08rem;
+  line-height: 1.7;
 }
 
 .content-container ul,
@@ -99,7 +101,7 @@
 }
 
 .content-container li + li {
-  margin-top: 0.4rem;
+  margin-top: 0.5rem;
 }
 
 .content-container .task-list {
@@ -230,6 +232,7 @@
 
 .content-container blockquote {
   padding: var(--space-md);
+  border: 1px solid var(--border-color);
   border-left: 3px solid var(--color-ferrugem);
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
   background: var(--bg-surface);
@@ -266,10 +269,12 @@
   max-width: 100%;
   padding: 3.2rem var(--space-md) var(--space-md);
   overflow-x: auto;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-strong);
   border-radius: var(--radius-md);
   background: var(--bg-code);
-  box-shadow: inset 0 1px rgb(255 255 255 / 3%);
+  box-shadow:
+    inset 0 1px rgb(255 255 255 / 3%),
+    0 12px 30px rgb(0 0 0 / 14%);
 }
 
 .code-toolbar {
@@ -352,7 +357,8 @@
   padding: 0;
   border: 0;
   background: transparent;
-  font-size: var(--font-sm);
+  font-size: 0.84rem;
+  line-height: 1.65;
   white-space: pre;
 }
 
@@ -405,7 +411,7 @@
   border-bottom-right-radius: var(--radius-md);
   border-collapse: separate;
   border-spacing: 0;
-  background: var(--bg-surface);
+  background: color-mix(in srgb, var(--bg-surface) 94%, var(--bg-elevated));
   white-space: nowrap;
 }
 
@@ -487,7 +493,7 @@
   width: 100%;
   height: auto;
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-soft);
 }
 
@@ -523,7 +529,7 @@
   padding: 0;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  background: var(--bg-elevated);
+  background: color-mix(in srgb, var(--bg-elevated) 82%, var(--bg-surface));
   overflow: clip;
 }
 
@@ -588,10 +594,10 @@
   display: grid;
   grid-template-columns: auto 1fr;
   gap: var(--space-sm);
-  padding: var(--space-sm);
+  padding: var(--space-md);
   border: 1px solid color-mix(in srgb, var(--callout-color) 45%, var(--border-color));
   border-left-width: 3px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   background: color-mix(in srgb, var(--callout-color) 8%, var(--bg-surface));
 }
 
@@ -621,6 +627,14 @@
 }
 
 @media (max-width: 520px) {
+  .content-container h1 {
+    font-size: 2rem;
+  }
+
+  .content-container h2 {
+    font-size: 1.35rem;
+  }
+
   .content-container dl {
     grid-template-columns: 1fr;
     gap: var(--space-xs);

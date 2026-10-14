@@ -1,45 +1,50 @@
-<h1>Instalação</h1>
-<p class="lead">Siga estes passos para abrir o tema e criar sua primeira instalação local.</p>
+<h1>Criar seu site</h1>
+<p class="lead">Crie uma instalação local pronta para editar com dois comandos.</p>
 
-<h2 id="pre-requisitos">Pré-requisitos</h2>
+<h2 id="pre-requisitos">1. Confira o necessário</h2>
 <ul>
   <li>Node.js 24 ou mais recente.</li>
-  <li>Um navegador moderno.</li>
+  <li>Um navegador atualizado.</li>
   <li>Um editor de texto, como o VS Code.</li>
 </ul>
 
-<h2>Abrir a demonstração</h2>
-<ol>
-  <li>Abra um terminal na pasta do projeto.</li>
-  <li>Execute o comando abaixo.</li>
-  <li>Abra <code>http://127.0.0.1:4173</code> no navegador.</li>
-</ol>
-<pre data-language="Terminal"><code>node tools/serve.mjs</code></pre>
-<p>Para parar o servidor, volte ao terminal e pressione <kbd>Ctrl</kbd> + <kbd>C</kbd>.</p>
+<h2 id="criar-a-pasta-site">2. Crie a pasta site</h2>
+<p>Abra o terminal na pasta do projeto e execute:</p>
+<pre data-language="Terminal"><code>npm run create-site</code></pre>
+<p>O comando cria esta estrutura sem substituir uma pasta <code>site/</code> existente:</p>
+<pre data-language="Texto"><code>site/
+├── config.js
+├── custom.css
+├── assets/
+└── pages/
+    └── inicio.html</code></pre>
 
-<h2>Criar a pasta local</h2>
-<p>No PowerShell, execute o comando abaixo somente se a pasta <code>site/</code> não existir:</p>
-<pre
-  data-language="PowerShell"
-><code>Copy-Item -LiteralPath .\examples -Destination .\site -Recurse</code></pre>
+<h2 id="abrir-o-site">3. Abra o site</h2>
+<pre data-language="Terminal"><code>npm start</code></pre>
+<p>
+  Abra <code>http://127.0.0.1:4173</code>. Para parar, pressione <kbd>Ctrl</kbd> + <kbd>C</kbd>.
+</p>
 
-<h2>Personalizar a cópia</h2>
+<h2 id="fazer-a-primeira-edicao">4. Faça a primeira edição</h2>
 <ol>
-  <li>Altere o nome do site em <code>site/config.js</code>.</li>
-  <li>Cadastre suas abas e páginas no mesmo arquivo.</li>
-  <li>Escreva cada página dentro de <code>site/pages/</code>.</li>
+  <li>Abra <code>site/config.js</code> para mudar o nome e os menus.</li>
+  <li>Abra <code>site/pages/inicio.html</code>.</li>
+  <li>Troque o título e um parágrafo.</li>
+  <li>Salve o arquivo.</li>
   <li>Recarregue o navegador.</li>
 </ol>
 
-<h2>Entender o node_modules</h2>
-<p>
-  A pasta <code>node_modules/</code> contém apenas ferramentas de desenvolvimento e testes. Ela não
-  faz parte do site publicado. Para apenas abrir o tema, o comando
-  <code>node tools/serve.mjs</code> é suficiente.
-</p>
+<h2 id="proximos-passos">5. Continue aprendendo</h2>
+<ol>
+  <li>Abra <a href="#referencia/api-base">Configurar menus</a>.</li>
+  <li>Depois abra <a href="#guias/exemplos-praticos">Escrever páginas</a>.</li>
+  <li>Copie somente os exemplos de que precisar.</li>
+</ol>
 
-<h2>Evitar dois erros comuns</h2>
-<ul>
-  <li>Não abra o projeto com <code>file://</code>; use o servidor HTTP.</li>
-  <li>Não publique documentos confidenciais em um servidor público.</li>
-</ul>
+<aside class="callout callout-info" aria-label="Informação">
+  <span class="callout-icon" aria-hidden="true">ℹ️</span>
+  <div>
+    <strong class="callout-title">Não use file://</strong>
+    <p>Este tema carrega módulos e páginas por HTTP. Sempre use <code>npm start</code>.</p>
+  </div>
+</aside>
