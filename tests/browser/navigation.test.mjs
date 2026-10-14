@@ -127,13 +127,13 @@ test('rolagem manual atualiza o título da URL sem criar nova entrada no histór
 }) => {
   await page.goto('/#guias/exemplos-praticos');
   const historyLength = await page.evaluate(() => history.length);
-  const target = page.getByRole('heading', { name: 'Tabela', exact: true });
+  const target = page.getByRole('heading', { name: 'Tabelas completas', exact: true });
   await target.evaluate((element) => {
     const main = document.querySelector('main');
     main.dispatchEvent(new WheelEvent('wheel'));
     main.scrollTop = element.offsetTop;
   });
-  await expect(page).toHaveURL(/#guias\/exemplos-praticos\/tabela$/);
+  await expect(page).toHaveURL(/#guias\/exemplos-praticos\/tabelas$/);
   await expect.poll(() => page.evaluate(() => history.length)).toBe(historyLength);
 });
 
@@ -162,12 +162,32 @@ test('o primeiro título volta ao início e múltiplos h1 geram aviso', async ({
 
 test('bloco de código mostra a linguagem e permite copiar', async ({ page }) => {
   await page.goto('/#guias/exemplos-praticos');
+  const blocks = page.locator('pre:has(> code)');
   const block = page.locator('pre[data-language="HTML"]').first();
   await expect(block).toBeVisible();
   await expect(block).toHaveCSS('position', 'relative');
   await expect(block.locator('.code-language')).toHaveText('HTML');
+  await expect(blocks).toHaveCount(20);
+  await expect(page.locator('.copy-code-button')).toHaveCount(20);
   const copyButton = block.locator('.copy-code-button');
   await expect(copyButton).toHaveAccessibleName('Copiar código');
   await copyButton.click();
   await expect(copyButton).toHaveAttribute('data-copied', 'true');
+});
+
+test('lista de tarefas e detalhes são interativos por teclado', async ({ page }) => {
+  await page.goto('/#guias/exemplos-praticos/tarefas');
+
+  const task = page.getByLabel('Revisar o conteúdo');
+  await expect(task).not.toBeChecked();
+  await task.focus();
+  await page.keyboard.press('Space');
+  await expect(task).toBeChecked();
+
+  const details = page.locator('details').filter({ hasText: 'Como preparar uma página?' }).first();
+  const summary = details.locator(':scope > summary');
+  await summary.focus();
+  await page.keyboard.press('Enter');
+  await expect(details).toHaveAttribute('open', '');
+  await expect(details.locator(':scope > details')).toBeVisible();
 });

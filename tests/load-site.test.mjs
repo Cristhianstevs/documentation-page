@@ -209,6 +209,8 @@ test('o catálogo demonstra todos os padrões visuais públicos', async () => {
     assert.match(html, new RegExp(`class="[^"]*callout-${type}`), `faltou o aviso ${type}`);
   }
   assert.match(html, /<img[^>]+alt="[^"]+"/i, 'a imagem precisa de texto alternativo');
+  assert.match(html, /class="[^"]*task-list/i, 'faltou demonstrar a lista de tarefas');
+  assert.match(html, /<input[^>]+type="checkbox"/i, 'faltou demonstrar o checkbox');
 });
 
 test('o tema declara que a instalação local deve ser ignorada', async () => {

@@ -1,150 +1,234 @@
 <h1>Exemplos práticos de HTML</h1>
 <p class="lead">
-  Copie estes exemplos para uma página em <code>site/pages/</code> e troque o conteúdo fictício pelo
-  seu texto.
+  Veja como cada elemento suportado pelo tema aparece na prática. Todo bloco de código tem um botão
+  no canto superior direito para copiar o exemplo e adaptar em <code>site/pages/</code>.
 </p>
 
 <aside class="callout callout-info" aria-label="Informação">
   <span class="callout-icon" aria-hidden="true">ℹ️</span>
   <div>
-    <strong class="callout-title">Regra principal</strong>
+    <strong class="callout-title">O que esta página cobre</strong>
     <p>
-      Use exatamente um <code>h1</code> por página. Organize as seções com <code>h2</code> e as
-      subseções com <code>h3</code>. O índice automático usa esses três níveis.
+      O catálogo reúne os elementos recomendados para conteúdo. Uma página deve ser um fragmento
+      HTML: não inclua <code>html</code>, <code>head</code>, <code>body</code>, estilos ou scripts.
     </p>
   </div>
 </aside>
 
-<h2>Estrutura mínima de uma página</h2>
+<h2 id="pagina-completa">Página completa</h2>
+<p>Este modelo combina os padrões mais usados e é um bom ponto de partida para uma página nova.</p>
 <pre data-language="HTML"><code>&lt;h1&gt;Título da página&lt;/h1&gt;
-&lt;p&gt;Apresentação curta da página.&lt;/p&gt;
+&lt;p class="lead"&gt;Resumo curto do conteúdo.&lt;/p&gt;
 
-&lt;h2 id="primeira-secao"&gt;Primeira seção&lt;/h2&gt;
-&lt;p&gt;Conteúdo da primeira seção.&lt;/p&gt;
+&lt;h2 id="primeiros-passos"&gt;Primeiros passos&lt;/h2&gt;
+&lt;p&gt;Explique o assunto com linguagem direta.&lt;/p&gt;
 
-&lt;h3&gt;Uma subseção&lt;/h3&gt;
-&lt;p&gt;Detalhes do assunto.&lt;/p&gt;</code></pre>
+&lt;h3&gt;Antes de começar&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Confira o primeiro requisito.&lt;/li&gt;
+  &lt;li&gt;Prepare o segundo requisito.&lt;/li&gt;
+&lt;/ul&gt;
 
-<h2>Títulos</h2>
+&lt;aside class="callout callout-info" aria-label="Informação"&gt;
+  &lt;span class="callout-icon" aria-hidden="true"&gt;ℹ️&lt;/span&gt;
+  &lt;div&gt;
+    &lt;strong class="callout-title"&gt;Dica&lt;/strong&gt;
+    &lt;p&gt;Acrescente uma orientação útil.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/aside&gt;</code></pre>
+
+<h2 id="titulos">Títulos e índice automático</h2>
 <p>
-  <code>h1</code> é o título único da página. <code>h2</code> inicia uma seção e
-  <code>h3</code> inicia uma subseção. Os níveis <code>h4</code>, <code>h5</code> e
-  <code>h6</code> podem organizar detalhes mais profundos, mas não aparecem no índice do MVP.
+  Use um único <code>h1</code> para a página, <code>h2</code> para seções e <code>h3</code> para
+  subseções. Esses níveis formam o índice. <code>h4</code> a <code>h6</code> organizam detalhes, mas
+  não entram no índice.
 </p>
-<h3>Exemplo renderizado</h3>
-<h4>Título de quarto nível</h4>
-<h5>Título de quinto nível</h5>
-<h6>Título de sexto nível</h6>
+<h3>Exemplo de subseção</h3>
+<h4>Detalhe de quarto nível</h4>
+<h5>Detalhe de quinto nível</h5>
+<h6>Detalhe de sexto nível</h6>
+<pre data-language="HTML"><code>&lt;h1&gt;Título único da página&lt;/h1&gt;
+&lt;h2 id="id-estavel"&gt;Seção que aparece no índice&lt;/h2&gt;
+&lt;h3&gt;Subseção que aparece no índice&lt;/h3&gt;
+&lt;h4&gt;Detalhe fora do índice&lt;/h4&gt;
+&lt;h5&gt;Detalhe mais profundo&lt;/h5&gt;
+&lt;h6&gt;Último nível de título&lt;/h6&gt;</code></pre>
+<aside class="callout callout-warning" aria-label="Atenção">
+  <span class="callout-icon" aria-hidden="true">⚠️</span>
+  <div>
+    <strong class="callout-title">Preserve links compartilhados</strong>
+    <p>
+      O tema cria IDs quando eles faltam, mas um texto renomeado pode mudar o endereço. Em trechos
+      importantes, declare um <code>id</code> estável e não o altere.
+    </p>
+  </div>
+</aside>
 
-<h2>Texto e significado</h2>
+<h2 id="texto">Parágrafos e texto destacado</h2>
+<p class="lead">A classe <code>lead</code> cria uma introdução com mais destaque.</p>
 <p>
-  Um parágrafo pode conter <strong>informação muito importante</strong>, <em>ênfase de leitura</em>,
-  <mark>um trecho marcado</mark>, uma <abbr title="HyperText Markup Language">abreviação</abbr>,
-  texto <del>removido</del> e texto <ins>adicionado</ins>.
+  Um parágrafo pode ter <strong>grande importância</strong>, <b>destaque visual</b>,
+  <em>ênfase de leitura</em>, <i>uma expressão em outra voz</i>, <mark>um trecho marcado</mark>,
+  <small>uma observação secundária</small>, texto <s>sem validade</s>, conteúdo
+  <del>removido</del> e conteúdo <ins>adicionado</ins>.
 </p>
-<pre data-language="HTML"><code>&lt;p&gt;
-  Um texto com &lt;strong&gt;grande importância&lt;/strong&gt;,
-  &lt;em&gt;ênfase&lt;/em&gt; e &lt;mark&gt;destaque&lt;/mark&gt;.
-&lt;/p&gt;</code></pre>
-
-<h2>Links</h2>
 <p>
-  Use um link normal para outra página. Para apontar para um título, inclua os IDs da aba, página e
-  título no endereço.
+  Também é possível usar <abbr title="HyperText Markup Language">HTML</abbr>, definir o termo
+  <dfn>fragmento HTML</dfn>, escrever H<sub>2</sub>O, elevar 2<sup>3</sup> e indicar uma data como
+  <time datetime="2026-10-14">14 de outubro de 2026</time>.
 </p>
-<pre data-language="HTML"><code>&lt;a href="#guias/instalacao"&gt;Abrir instalação&lt;/a&gt;
-&lt;a href="#guias/instalacao/pre-requisitos"&gt;Ir aos pré-requisitos&lt;/a&gt;</code></pre>
+<pre data-language="HTML"><code>&lt;p class="lead"&gt;Uma introdução em destaque.&lt;/p&gt;
+&lt;p&gt;
+  Texto com &lt;strong&gt;grande importância&lt;/strong&gt;, &lt;em&gt;ênfase&lt;/em&gt;,
+  &lt;mark&gt;marcação&lt;/mark&gt;, &lt;small&gt;observação&lt;/small&gt;,
+  &lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt;,
+  H&lt;sub&gt;2&lt;/sub&gt;O, 2&lt;sup&gt;3&lt;/sup&gt; e
+  &lt;time datetime="2026-10-14"&gt;14 de outubro de 2026&lt;/time&gt;.
+&lt;/p&gt;
+&lt;p&gt;Versão &lt;del&gt;antiga&lt;/del&gt; &lt;ins&gt;nova&lt;/ins&gt;.&lt;/p&gt;</code></pre>
 
-<h2>Listas</h2>
+<h2 id="links">Links</h2>
+<p>
+  <a href="#guias/instalacao">Abra outra página</a> ou vá diretamente aos
+  <a href="#guias/instalacao/pre-requisitos">pré-requisitos</a>. Links externos podem abrir em outra
+  aba, mas precisam proteger a página original.
+</p>
+<pre data-language="HTML"><code>&lt;a href="#guias/instalacao"&gt;Abrir outra página&lt;/a&gt;
+&lt;a href="#guias/instalacao/pre-requisitos"&gt;Ir a um título&lt;/a&gt;
+&lt;a href="https://example.com" target="_blank" rel="noopener noreferrer"&gt;
+  Abrir site externo
+&lt;/a&gt;</code></pre>
+
+<h2 id="listas">Listas</h2>
 <h3>Lista sem ordem</h3>
 <ul>
   <li>Item sem prioridade.</li>
-  <li>Outro item da mesma importância.</li>
+  <li>
+    Item com detalhes.
+    <ul>
+      <li>Subitem relacionado.</li>
+    </ul>
+  </li>
 </ul>
 <pre data-language="HTML"><code>&lt;ul&gt;
   &lt;li&gt;Primeiro item&lt;/li&gt;
-  &lt;li&gt;Segundo item&lt;/li&gt;
+  &lt;li&gt;
+    Item com detalhes
+    &lt;ul&gt;
+      &lt;li&gt;Subitem relacionado&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;</code></pre>
 
 <h3>Passo a passo</h3>
 <ol>
   <li>Abra o arquivo.</li>
-  <li>Faça a alteração.</li>
+  <li>Faça uma mudança pequena.</li>
   <li>Confira o resultado.</li>
 </ol>
 <pre data-language="HTML"><code>&lt;ol&gt;
-  &lt;li&gt;Primeiro passo&lt;/li&gt;
-  &lt;li&gt;Segundo passo&lt;/li&gt;
+  &lt;li&gt;Abra o arquivo.&lt;/li&gt;
+  &lt;li&gt;Faça a alteração.&lt;/li&gt;
+  &lt;li&gt;Confira o resultado.&lt;/li&gt;
 &lt;/ol&gt;</code></pre>
 
-<h2>Termos e definições</h2>
+<h3>Termos e definições</h3>
 <dl>
   <dt>Tema</dt>
   <dd>Parte compartilhada que controla o visual e a navegação.</dd>
   <dt>Instalação</dt>
-  <dd>Conteúdo e configuração próprios de quem usa o tema.</dd>
+  <dd>Configuração e conteúdo próprios de quem usa o tema.</dd>
 </dl>
 <pre data-language="HTML"><code>&lt;dl&gt;
-  &lt;dt&gt;Termo&lt;/dt&gt;
-  &lt;dd&gt;Definição do termo.&lt;/dd&gt;
+  &lt;dt&gt;Tema&lt;/dt&gt;
+  &lt;dd&gt;Parte compartilhada do projeto.&lt;/dd&gt;
+  &lt;dt&gt;Instalação&lt;/dt&gt;
+  &lt;dd&gt;Conteúdo próprio de quem usa o tema.&lt;/dd&gt;
 &lt;/dl&gt;</code></pre>
 
-<h2>Citação</h2>
+<h2 id="citacoes">Citações</h2>
+<p>Uma citação curta fica no texto: <q>clareza é parte da experiência</q>.</p>
 <blockquote>
   <p>Uma orientação importante pode aparecer em forma de citação.</p>
   <footer>— <cite>Fonte fictícia</cite></footer>
 </blockquote>
-<pre data-language="HTML"><code>&lt;blockquote&gt;
-  &lt;p&gt;Texto citado.&lt;/p&gt;
+<pre
+  data-language="HTML"
+><code>&lt;p&gt;A fonte afirma: &lt;q&gt;uma citação curta&lt;/q&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Texto de uma citação mais longa.&lt;/p&gt;
   &lt;footer&gt;— &lt;cite&gt;Nome da fonte&lt;/cite&gt;&lt;/footer&gt;
 &lt;/blockquote&gt;</code></pre>
 
-<h2>Código</h2>
+<h2 id="codigo">Código, teclado e saída</h2>
 <p>
-  Use <code>code</code> dentro do texto e <code>pre</code> com <code>code</code> para blocos. O
-  atributo <code>data-language</code> mostra a linguagem no canto superior.
+  Use <code>code</code> para código no texto, <kbd>Ctrl</kbd> + <kbd>S</kbd> para teclas,
+  <samp>Servidor iniciado</samp> para uma saída e <var>nomeDaPagina</var> para uma variável.
 </p>
-<pre data-language="HTML"><code>&lt;pre data-language="JavaScript"&gt;&lt;code&gt;
-const mensagem = 'Olá';
-&lt;/code&gt;&lt;/pre&gt;</code></pre>
-<p>
-  <code>title="JavaScript"</code> também funciona por compatibilidade, mas
-  <code>data-language</code> é mais claro porque esse valor pertence ao comportamento do tema.
-</p>
+<pre data-language="JavaScript"><code>const mensagem = 'Olá';
+console.log(mensagem);</code></pre>
+<pre data-language="HTML"><code>&lt;p&gt;
+  Execute &lt;code&gt;npm test&lt;/code&gt;, pressione &lt;kbd&gt;Enter&lt;/kbd&gt; e aguarde
+  &lt;samp&gt;tests passed&lt;/samp&gt;. Troque &lt;var&gt;nomeDoArquivo&lt;/var&gt; pelo nome real.
+&lt;/p&gt;
 
-<h2>Tabela</h2>
+&lt;pre data-language="JavaScript"&gt;&lt;code&gt;const mensagem = 'Olá';
+console.log(mensagem);&lt;/code&gt;&lt;/pre&gt;</code></pre>
+<p>O botão copia somente o conteúdo de <code>code</code>, sem o rótulo e sem o próprio botão.</p>
+
+<h2 id="tabelas">Tabelas completas</h2>
+<p>Em telas estreitas, o tema cria rolagem horizontal dentro da própria tabela.</p>
 <table>
   <caption>
     Situação fictícia das páginas
   </caption>
+  <colgroup>
+    <col />
+    <col />
+    <col />
+  </colgroup>
   <thead>
     <tr>
       <th scope="col">Página</th>
       <th scope="col">Estado</th>
+      <th scope="col">Responsável</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th scope="row">Introdução</th>
       <td>Publicada</td>
+      <td>Equipe Alfa</td>
     </tr>
     <tr>
       <th scope="row">Instalação</th>
       <td>Em revisão</td>
+      <td>Equipe Beta</td>
     </tr>
   </tbody>
+  <tfoot>
+    <tr>
+      <th scope="row">Total</th>
+      <td colspan="2">2 páginas</td>
+    </tr>
+  </tfoot>
 </table>
 <pre data-language="HTML"><code>&lt;table&gt;
-  &lt;caption&gt;Título da tabela&lt;/caption&gt;
+  &lt;caption&gt;Situação das páginas&lt;/caption&gt;
+  &lt;colgroup&gt;&lt;col /&gt;&lt;col /&gt;&lt;/colgroup&gt;
   &lt;thead&gt;
-    &lt;tr&gt;&lt;th scope="col"&gt;Nome&lt;/th&gt;&lt;th scope="col"&gt;Estado&lt;/th&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;th scope="col"&gt;Página&lt;/th&gt;&lt;th scope="col"&gt;Estado&lt;/th&gt;&lt;/tr&gt;
   &lt;/thead&gt;
   &lt;tbody&gt;
-    &lt;tr&gt;&lt;th scope="row"&gt;Página A&lt;/th&gt;&lt;td&gt;Publicada&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;th scope="row"&gt;Introdução&lt;/th&gt;&lt;td&gt;Publicada&lt;/td&gt;&lt;/tr&gt;
   &lt;/tbody&gt;
+  &lt;tfoot&gt;
+    &lt;tr&gt;&lt;th scope="row"&gt;Total&lt;/th&gt;&lt;td&gt;1 página&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tfoot&gt;
 &lt;/table&gt;</code></pre>
 
-<h2>Imagem com legenda</h2>
+<h2 id="imagens">Imagem com legenda</h2>
 <figure>
   <img
     src="./examples/assets/documentation-flow.svg"
@@ -152,40 +236,100 @@ const mensagem = 'Olá';
     width="720"
     height="260"
   />
-  <figcaption>Explique a imagem também por texto.</figcaption>
+  <figcaption>Fluxo fictício usado para demonstrar imagem, texto alternativo e legenda.</figcaption>
 </figure>
 <pre data-language="HTML"><code>&lt;figure&gt;
-  &lt;img src=&quot;./site/assets/imagem.png&quot; alt=&quot;Descrição objetiva da imagem&quot; /&gt;
-  &lt;figcaption&gt;Legenda da imagem.&lt;/figcaption&gt;
+  &lt;img
+    src=&quot;./site/assets/imagem.png&quot;
+    alt="Descrição objetiva do que a imagem comunica"
+    width="720"
+    height="400"
+  /&gt;
+  &lt;figcaption&gt;Legenda que complementa a imagem.&lt;/figcaption&gt;
 &lt;/figure&gt;</code></pre>
 
-<h2>Vídeo e áudio</h2>
-<pre data-language="HTML"><code>&lt;video controls preload="metadata"&gt;
-  &lt;source src=&quot;./site/assets/video.mp4&quot; type=&quot;video/mp4&quot; /&gt;
+<h2 id="midia">Vídeo e áudio</h2>
+<p>Guarde os arquivos em <code>site/assets/</code> e ofereça uma descrição ou transcrição.</p>
+<pre
+  data-language="HTML"
+><code>&lt;video controls preload="metadata" poster=&quot;./site/assets/capa-video.jpg&quot;&gt;
+  &lt;source src=&quot;./site/assets/video.mp4&quot; type="video/mp4" /&gt;
   Seu navegador não oferece suporte a vídeo.
 &lt;/video&gt;
+&lt;p class="media-description"&gt;Resumo ou link para a transcrição do vídeo.&lt;/p&gt;
 
 &lt;audio controls preload="metadata"&gt;
-  &lt;source src=&quot;./site/assets/audio.mp3&quot; type=&quot;audio/mpeg&quot; /&gt;
+  &lt;source src=&quot;./site/assets/audio.mp3&quot; type="audio/mpeg" /&gt;
   Seu navegador não oferece suporte a áudio.
-&lt;/audio&gt;</code></pre>
+&lt;/audio&gt;
+&lt;p class="media-description"&gt;Resumo ou link para a transcrição do áudio.&lt;/p&gt;</code></pre>
 
-<h2>Conteúdo expansível</h2>
+<h2 id="detalhes">Conteúdo expansível</h2>
 <details>
-  <summary>Mostrar informação complementar</summary>
-  <p>Coloque aqui um detalhe que não precisa ficar sempre aberto.</p>
+  <summary>Como preparar uma página?</summary>
+  <p>Comece pelo título e por um resumo curto.</p>
+  <details>
+    <summary>Ver uma dica adicional</summary>
+    <p>Use um ID explícito nos títulos que serão compartilhados.</p>
+  </details>
 </details>
 <pre data-language="HTML"><code>&lt;details&gt;
-  &lt;summary&gt;Mostrar detalhes&lt;/summary&gt;
-  &lt;p&gt;Conteúdo complementar.&lt;/p&gt;
+  &lt;summary&gt;Como preparar uma página?&lt;/summary&gt;
+  &lt;p&gt;Comece pelo título e por um resumo curto.&lt;/p&gt;
+  &lt;details&gt;
+    &lt;summary&gt;Ver uma dica adicional&lt;/summary&gt;
+    &lt;p&gt;Os blocos também podem ser aninhados.&lt;/p&gt;
+  &lt;/details&gt;
 &lt;/details&gt;</code></pre>
 
-<h2>Avisos do tema</h2>
+<h2 id="tarefas">Lista de tarefas</h2>
+<p>
+  Use <code>task-list</code> para criar tarefas interativas como no Notion. O item marcado recebe um
+  risco no texto. Neste tema estático, a escolha dura somente até a página ser recarregada.
+</p>
+<ul class="task-list">
+  <li>
+    <label><input type="checkbox" checked /> Criar a estrutura da página</label>
+  </li>
+  <li>
+    <label><input type="checkbox" /> Revisar o conteúdo</label>
+  </li>
+  <li>
+    <label><input type="checkbox" /> Conferir os links</label>
+  </li>
+</ul>
+<pre data-language="HTML"><code>&lt;ul class="task-list"&gt;
+  &lt;li&gt;
+    &lt;label&gt;&lt;input type="checkbox" checked /&gt; Tarefa concluída&lt;/label&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;label&gt;&lt;input type="checkbox" /&gt; Próxima tarefa&lt;/label&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+<h2 id="avisos">Avisos do tema</h2>
+<h3>Informação</h3>
+<aside class="callout callout-info" aria-label="Informação">
+  <span class="callout-icon" aria-hidden="true">ℹ️</span>
+  <div>
+    <strong class="callout-title">Informação</strong>
+    <p>Use para contexto complementar ou uma dica.</p>
+  </div>
+</aside>
+<pre data-language="HTML"><code>&lt;aside class="callout callout-info" aria-label="Informação"&gt;
+  &lt;span class="callout-icon" aria-hidden="true"&gt;ℹ️&lt;/span&gt;
+  &lt;div&gt;
+    &lt;strong class="callout-title"&gt;Informação&lt;/strong&gt;
+    &lt;p&gt;Acrescente um contexto útil.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/aside&gt;</code></pre>
+
+<h3>Atenção</h3>
 <aside class="callout callout-warning" aria-label="Atenção">
   <span class="callout-icon" aria-hidden="true">⚠️</span>
   <div>
     <strong class="callout-title">Atenção</strong>
-    <p>Use um rótulo textual; não dependa apenas da cor ou do ícone.</p>
+    <p>Use quando uma decisão ou etapa exigir cuidado.</p>
   </div>
 </aside>
 <pre data-language="HTML"><code>&lt;aside class="callout callout-warning" aria-label="Atenção"&gt;
@@ -196,12 +340,53 @@ const mensagem = 'Olá';
   &lt;/div&gt;
 &lt;/aside&gt;</code></pre>
 
-<h2>Quebra e separação</h2>
-<p>
-  Use <code>br</code> somente quando uma quebra de linha fizer parte do conteúdo, como em um
-  endereço ou poema. Use <code>hr</code> para indicar uma mudança de assunto.
-</p>
-<pre data-language="HTML"><code>Primeira linha.&lt;br /&gt;
-Segunda linha.
+<h3>Perigo</h3>
+<aside class="callout callout-danger" aria-label="Perigo">
+  <span class="callout-icon" aria-hidden="true">⛔</span>
+  <div>
+    <strong class="callout-title">Perigo</strong>
+    <p>Use para risco de perda de dados, exposição ou interrupção.</p>
+  </div>
+</aside>
+<pre data-language="HTML"><code>&lt;aside class="callout callout-danger" aria-label="Perigo"&gt;
+  &lt;span class="callout-icon" aria-hidden="true"&gt;⛔&lt;/span&gt;
+  &lt;div&gt;
+    &lt;strong class="callout-title"&gt;Perigo&lt;/strong&gt;
+    &lt;p&gt;Descreva o risco e como evitá-lo.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/aside&gt;</code></pre>
 
-&lt;hr /&gt;</code></pre>
+<h2 id="separacao">Quebras e separação</h2>
+<p>
+  Use <code>br</code> quando a quebra fizer parte do conteúdo e <code>hr</code> para uma mudança de
+  assunto.
+</p>
+<p>Rua do Exemplo, 123<br />Bairro Modelo — Cidade Fictícia</p>
+<hr />
+<p>Este parágrafo inicia outro assunto.</p>
+<pre data-language="HTML"><code>&lt;p&gt;
+  Rua do Exemplo, 123&lt;br /&gt;
+  Bairro Modelo — Cidade Fictícia
+&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Este parágrafo inicia outro assunto.&lt;/p&gt;</code></pre>
+
+<h2 id="acessibilidade">Checklist antes de publicar</h2>
+<ul>
+  <li>Use apenas um <code>h1</code> e não pule níveis de título sem necessidade.</li>
+  <li>Descreva imagens pelo significado; use <code>alt=""</code> se forem decorativas.</li>
+  <li>Dê nomes claros aos links em vez de escrever somente “clique aqui”.</li>
+  <li>Use rótulos textuais nos avisos; cor e ícone sozinhos não comunicam tudo.</li>
+  <li>Forneça legenda ou transcrição para áudio e vídeo.</li>
+  <li>Teste links, teclado e tela estreita antes de publicar.</li>
+</ul>
+<pre data-language="HTML"><code>&lt;!-- Imagem informativa --&gt;
+&lt;img src=&quot;./site/assets/fluxo.png&quot; alt="Fluxo de aprovação em três etapas" /&gt;
+
+&lt;!-- Imagem apenas decorativa --&gt;
+&lt;img src=&quot;./site/assets/divisor.png&quot; alt="" /&gt;
+
+&lt;!-- Link com destino compreensível --&gt;
+&lt;a href="#guias/instalacao"&gt;Ler o guia de instalação&lt;/a&gt;</code></pre>

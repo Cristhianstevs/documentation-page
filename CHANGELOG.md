@@ -13,6 +13,10 @@ Registra entregas reais. Trabalho futuro fica no [plano do MVP](docs/PLANO-MVP.m
 - Páginas com mais de um `h1` exibem um aviso claro.
 - Blocos `pre > code` podem mostrar a linguagem com `data-language` ou `title`.
 - Blocos de código ganharam um botão de copiar com retorno visual de sucesso.
+- A página **Exemplos práticos** passou a reunir todos os padrões de conteúdo suportados, com
+  resultado renderizado, orientação de acessibilidade e código copiável em cada exemplo.
+- Listas com `task-list` ganharam checkboxes interativos e indicação visual de tarefa concluída.
+- Blocos `details` ganharam aparência de toggle, foco visível e suporte visual a níveis aninhados.
 - O visual global foi refinado com uma paleta neutra, hierarquia editorial, espaçamentos e componentes consistentes.
 - No desktop, “Nesta página” fica ao lado do controle que recolhe todo o painel; somente o celular mantém a abertura compacta dos links.
 - Tabelas passaram a ter legenda integrada, cabeçalho e rodapé visuais, linhas legíveis e rolagem própria acessível em telas estreitas.

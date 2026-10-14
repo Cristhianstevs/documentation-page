@@ -137,7 +137,13 @@ Isso permite mudar uma cor da instalação sem alterar `css/variables.css`. `con
 
 Em blocos `<pre><code>`, use `data-language="HTML"` para mostrar a linguagem no canto superior. Ao lado dela, o tema cria automaticamente um botão para copiar o código. `title="HTML"` também é aceito por compatibilidade, mas `data-language` é preferível porque descreve diretamente uma informação usada pelo tema.
 
+A página **Guias → Exemplos práticos** reúne uma versão renderizada e um bloco copiável de cada padrão suportado. Ela também inclui um modelo de página completa e um checklist curto de acessibilidade.
+
 Para uma introdução destacada, usar `class="lead"` em um parágrafo. Os avisos públicos são `callout callout-info`, `callout callout-warning` e `callout callout-danger`; cada aviso deve incluir um rótulo textual e pode usar `callout-icon` e `callout-title`. Cor e ícone sozinhos não substituem o texto.
+
+Para uma lista de tarefas interativa, use `class="task-list"` em um `ul` e coloque cada `input type="checkbox"` dentro de um `label`. Itens marcados recebem um risco no texto. Como o tema é estático e não possui banco de dados, o estado muda apenas no navegador atual e volta ao valor escrito no HTML quando a página é recarregada.
+
+O elemento `details` cria um bloco expansível semelhante ao toggle do Notion. O título fica em `summary`, o conteúdo vem depois e outros blocos `details` podem ser aninhados. O navegador já fornece interação por mouse e teclado; não é necessário adicionar JavaScript.
 
 Tabelas e blocos de código largos ganham rolagem horizontal própria. Nas tabelas, use `caption` para explicar os dados, `th scope="col"` para os títulos de coluna e `th scope="row"` para o título de cada linha. Imagens respeitam a largura da leitura. Em telas de até 800 px, o botão “Abrir menu de páginas” controla a lateral, `Esc` a fecha e “Nesta página” se torna recolhível. Ao abrir um link de título, o trecho é posicionado abaixo desse índice fixo. Os antigos botões de tema e configurações foram removidos porque ainda não possuíam função. Login corporativo continua sendo uma etapa separada.
 
