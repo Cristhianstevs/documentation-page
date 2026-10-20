@@ -2,6 +2,10 @@
 
 Criado em 2026-09-27 a partir da [revisão do projeto](DIAGNOSTICO.md) e atualizado em 2026-10-14. Este documento mostra o que foi concluído e o que ainda bloqueia a primeira publicação. Uma caixa marcada representa trabalho concluído com evidência.
 
+> **Escopo preservado:** este plano continua sendo o registro do tema estático `0.1.0`. Editor,
+> Next.js e IA pertencem ao [plano da próxima versão](PLANO-PROXIMA-VERSAO.md) e não alteram as
+> pendências de publicação abaixo.
+
 ## Estado atual
 
 As etapas técnicas do tema público estão concluídas. A instalação possui um gerador seguro, a

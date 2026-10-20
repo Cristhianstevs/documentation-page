@@ -1,5 +1,10 @@
 # Guia de uso
 
+> Este guia descreve a versão estática atual. Editor visual, configurações pela interface e IA ainda
+> não existem. Eles serão entregues em etapas segundo o
+> [plano da próxima versão](PLANO-PROXIMA-VERSAO.md). Até lá, os passos com `config.js` e HTML abaixo
+> continuam corretos.
+
 Este guia ensina a criar e manter uma documentação com o tema. Siga as seções na ordem na primeira
 vez. Depois, use o índice para consultar somente o que precisar.
 

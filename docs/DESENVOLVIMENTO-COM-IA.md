@@ -1,5 +1,9 @@
 # Desenvolver com IA e aprender com o projeto
 
+> Este documento ensina a usar uma IA como apoio ao desenvolvimento. A IA que fará parte do produto
+> é outro assunto: sua arquitetura de escopo, prévia e aprovação está em
+> [Arquitetura da próxima versão](ARQUITETURA.md#9-ia-com-aprovação-obrigatória).
+
 Atualizado em 2026-10-12. As orientações sobre Codex foram conferidas na documentação oficial da OpenAI. Os exemplos de trabalho são recomendações para este repositório.
 
 ## Usar IA sem perder o controle do projeto

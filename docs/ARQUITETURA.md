@@ -1,244 +1,502 @@
-# Arquitetura do tema
+# Arquitetura da próxima versão
 
-Status atualizado em 2026-10-14: a arquitetura do MVP público está implementada. Este documento
-explica as decisões técnicas. Para criar uma documentação, siga o [guia de uso](GUIA-DE-USO.md).
+Status em 2026-10-20: **arquitetura proposta; implementação ainda não iniciada**.
 
-## Resumo
+O tema estático atual continua sendo a versão funcional e validada. A próxima versão migrará para
+Next.js e TypeScript em etapas, sem misturar a migração com a criação do editor ou com a IA. O
+[plano da próxima versão](PLANO-PROXIMA-VERSAO.md) define essa ordem. O
+[plano do MVP atual](PLANO-MVP.md) continua como registro da versão `0.1.0`.
 
-O autor executa `npm run create-site`, edita `site/config.js` e cria arquivos em `site/pages/`. O
-tema valida a configuração, monta os menus, carrega a página escolhida e cria o índice dos títulos.
-Não há framework, banco de dados ou etapa de build.
+## O que existe e o que é proposta
 
-## 1. Separar responsabilidades
+| Área          | Implementado agora                                   | Proposta desta arquitetura                         |
+| ------------- | ---------------------------------------------------- | -------------------------------------------------- |
+| Base          | HTML, CSS, JavaScript, ES Modules e Web Components   | Next.js App Router, React e TypeScript             |
+| Conteúdo      | `site/config.js` e fragmentos em `site/pages/*.html` | `site/site.json`, Markdown e AST validada          |
+| URLs          | `#aba/pagina/titulo`                                 | `/aba/pagina#titulo`, com ponte para links antigos |
+| Autoria       | Edição manual de arquivos                            | Estúdio visual e modo fonte                        |
+| Configurações | Edição de `config.js`                                | Diálogo para site, abas e páginas                  |
+| Tema          | Paleta atual fixa                                    | Botão claro/escuro com preferência persistida      |
+| IA e upload   | Não existem                                          | Importação, `ChangeSet`, diff e confirmação humana |
+| Contas        | Não existem                                          | Continuam fora desta versão                        |
 
-A ideia de tema reutilizável faz sentido. Pense em um livro: o tema é o formato de impressão; a instalação contém os capítulos. Atualizar a tipografia não deveria reescrever um capítulo.
+Nada na coluna “Proposta” deve ser tratado como entregue antes de existir código e teste.
 
-| Parte                | Responsabilidade                                          | Quem mantém                     |
-| -------------------- | --------------------------------------------------------- | ------------------------------- |
-| Tema genérico        | Navegação, URLs, índice, layout, estilos e acessibilidade | Mantenedor deste repositório    |
-| Instalação           | Configuração, páginas, imagens e personalização           | Autor da wiki ou equipe usuária |
-| Ambiente corporativo | Login, autorização, hospedagem, sessões e backups         | Equipe autorizada da empresa    |
+## 1. Resultado pretendido
 
-HTML/CSS/JavaScript e os Web Components atuais são suficientes para o leitor do MVP. Banco de dados e framework não são pré-requisitos. O editor visual futuro será uma expansão de produto: precisará definir armazenamento, revisões, permissões, recuperação e formato do conteúdo.
+O projeto continuará sendo uma base pública e genérica para documentação. Uma pessoa poderá:
 
-## 2. Organização implementada para a separação
+- baixar o projeto e manter seus documentos em uma pasta local;
+- ler a documentação com JavaScript mínimo e URLs estáveis;
+- editar páginas visualmente, sem conhecer HTML;
+- abrir o modo fonte e editar arquivos legíveis quando preferir;
+- criar, renomear, ordenar e remover abas e páginas pela interface;
+- importar documentos e revisar uma proposta gerada por IA;
+- publicar somente o leitor, sem enviar editor, chaves ou ferramentas de importação ao visitante.
+
+Contas, colaboração simultânea, permissões por usuário e integrações corporativas não fazem parte
+desta atualização. São extensões futuras e não devem orientar o primeiro desenho de dados.
+
+## 2. Princípios que não podem ser quebrados
+
+1. **Conteúdo pertence ao autor.** Os arquivos ficam fora do código do tema e podem ser copiados,
+   versionados e lidos sem um serviço proprietário.
+2. **Leitor e editor têm pesos diferentes.** Quem apenas lê não baixa o editor, o chat, parsers de
+   documentos nem bibliotecas de IA.
+3. **IA propõe; código valida; pessoa aprova.** O modelo nunca escreve diretamente nos arquivos.
+4. **Uma fonte de verdade por dado.** A ordem das abas e páginas fica no catálogo; o conteúdo fica
+   no arquivo da página; segredos ficam fora de ambos.
+5. **IDs e URLs são estáveis.** Renomear um rótulo não muda automaticamente um endereço já
+   compartilhado.
+6. **Recursos avançados são progressivos.** O texto básico funciona antes de colunas, embeds,
+   importadores ou IA.
+7. **Desempenho é um requisito medido.** Não basta dizer que o projeto é leve; cada etapa precisa
+   respeitar orçamentos verificáveis.
+8. **Acessibilidade é parte do componente.** Teclado, foco, leitores de tela, contraste e movimento
+   reduzido entram no critério de aceite.
+
+## 3. Decisões de tecnologia
+
+| Área                  | Escolha inicial                                                                         | Motivo                                                                                                            |
+| --------------------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Aplicação             | Next.js com App Router e TypeScript estrito                                             | Rotas por caminho, renderização no servidor, geração estática e separação entre componentes de servidor e cliente |
+| Interface             | React, CSS global por tokens e CSS Modules                                              | Preserva o conhecimento atual de CSS e evita adotar um framework visual inteiro                                   |
+| Componentes complexos | Radix Primitives, importado por componente                                              | Resolve foco e teclado em diálogo, menu, tooltip e popover sem impor aparência                                    |
+| Editor                | Lexical com plugins escolhidos individualmente                                          | Núcleo pequeno, modelo próprio de documento, acessibilidade e foco explícito em desempenho                        |
+| Animação              | CSS para estados simples; Motion com `LazyMotion` somente quando necessário             | Evita JavaScript em transições básicas e adia o custo das animações complexas                                     |
+| Validação             | Zod nas fronteiras de arquivos, formulários e respostas da IA                           | O mesmo contrato valida entrada manual e saída de modelo                                                          |
+| IA                    | AI SDK no servidor, por meio de uma interface de provedor                               | Evita acoplar o domínio a um único fornecedor e oferece saída estruturada                                         |
+| Testes                | Testes unitários para domínio; Testing Library para componentes; Playwright para fluxos | Separa regras rápidas de testes reais de navegador                                                                |
+| Monorepositório       | npm workspaces, sem orquestrador adicional no início                                    | Mantém comandos e dependências compreensíveis                                                                     |
+
+Versões exatas só serão fixadas ao iniciar a migração. Bibliotecas de editor e IA mudam rápido;
+copiar versões deste documento no futuro seria menos seguro que instalar a versão estável e validar
+seus guias e changelogs naquele momento.
+
+A comparação completa está em [Pesquisa de tecnologias](PESQUISA-TECNOLOGIAS.md). Lexical é a
+decisão inicial, mas precisa passar pelo experimento da Etapa 2 antes de receber todos os plugins.
+
+## 4. Separação entre leitor e estúdio
+
+Uma única aplicação com editor e IA tornaria cada página pública mais pesada e impediria uma
+exportação estática limpa. Por isso, a arquitetura-alvo possui duas aplicações que compartilham o
+mesmo domínio:
 
 ```text
-documentacao-page/
-├── index.html                  # estrutura do tema
-├── css/                        # estilos mantidos pelo tema
-├── js/
-│   ├── components/             # header, sidebar e índice
-│   ├── main.js                 # inicialização e navegação atual
-│   └── load-site.js            # seleção e validação da configuração
-├── examples/                   # configuração e páginas fictícias versionadas
-│   ├── config.js
-│   ├── pages/
-│   ├── assets/
-│   ├── starter/                # modelo mínimo usado por npm run create-site
-│   └── custom.css
-├── site/                       # instalação local, ignorada pelo Git do tema
-│   ├── config.js
-│   ├── pages/
-│   ├── assets/
-│   └── custom.css
-├── docs/                       # documentação do desenvolvimento do tema
-├── tools/
-│   ├── create-site.mjs         # cria site/ sem substituir uma instalação
-│   └── serve.mjs               # servidor HTTP local
-├── .gitignore
-├── AGENTS.md
-├── CHANGELOG.md
+documentation-page/
+├── apps/
+│   ├── reader/                 # Next.js; site público e exportável
+│   └── studio/                 # Next.js; autoria local e APIs de escrita
+├── packages/
+│   ├── content/                # esquemas, parser, migrações e repositório de conteúdo
+│   ├── renderer/               # transforma o documento em React/HTML seguro
+│   ├── editor/                 # Lexical e adaptadores; carregado somente no estúdio
+│   ├── ai/                     # planos, prompts, provedores e validação de ChangeSet
+│   ├── importers/              # Markdown, HTML, PDF e DOCX; somente no servidor
+│   └── ui/                     # tokens e componentes compartilhados
+├── site/                       # conteúdo de uma instalação; fora do tema publicado
+├── examples/                   # instalação pública fictícia e versionada
+├── docs/
+├── package.json                # workspaces e comandos principais
 └── README.md
 ```
 
-Na demonstração genérica, o tema carrega `examples/`. Se `site/config.js` existir, carrega `site/`. A inicialização resolve a fonte uma vez e fornece os mesmos dados para todos os componentes. Imports, caminhos das páginas e carregamento de CSS já foram adaptados.
+Não será necessário criar todas essas pastas na primeira mudança. A migração começa com `reader`,
+`content`, `renderer` e `ui`. `studio`, `editor`, `importers` e `ai` entram somente nas etapas em que
+forem usados.
 
-O cadastro diário continua simples: editar `site/config.js` e criar `site/pages/minha-pagina.html`. Imagens são arquivos adicionais de conteúdo, quando necessárias. Alterações de marca podem ficar na configuração e no CSS local.
+### Aplicação `reader`
 
-O comando `npm run create-site` copia `examples/starter/` e cria `site/assets/`. Se `site/` já
-existir, ele encerra sem alterar arquivos. O comando reduz a digitação inicial, mas mantém os quatro
-caminhos do contrato visíveis para o autor.
+- Usa Server Components por padrão.
+- Gera HTML para cada página e envia apenas o JavaScript dos controles interativos.
+- Pode produzir uma exportação estática para hospedagem simples.
+- Não conhece chaves de IA, rotas de escrita nem o código do editor.
+- Mantém tema claro/escuro com script pequeno e sem piscar o tema incorreto.
 
-A área `site/` é uma escolha simples para aprender e usar `pull`. Em ambientes com maior exigência, a configuração de hospedagem pode montar conteúdo de uma pasta externa ao checkout do tema. O serviço empresarial e seus segredos ficam fora da raiz estática pública e fora do repositório genérico.
+### Aplicação `studio`
 
-**Contrato importante:** o tema nunca deve passar a rastrear arquivos em `site/`. O `.gitignore` não bloqueia acesso por navegador, ferramentas de IA, cópias manuais ou publicações. Também não altera arquivos que já estão rastreados. [Comportamento documentado pelo Git](https://git-scm.com/docs/gitignore).
+- Executa localmente em Node.js no primeiro lançamento.
+- Reutiliza o mesmo shell e o mesmo renderizador do leitor.
+- Mostra os botões **Configurações**, **IA** e **Tema** no cabeçalho.
+- Oferece APIs locais para salvar arquivos, importar documentos e chamar provedores de IA.
+- Recusa escrita fora da pasta `site/` resolvida e validada.
 
-O marcador de instalação é `site/config.js`: somente uma resposta HTTP 404 nesse endereço seleciona os exemplos. Um arquivo local inválido ou uma falha de conexão/acesso exibe erro e não ativa a demonstração. O servidor deve entregar arquivos reais e respostas 404 corretas, sem redirecionar essa requisição para `index.html` com status 200. Uma pasta `site/` sem `config.js` ainda não constitui uma instalação ativa.
+No site publicado, o botão de tema continua disponível. Configurações e IA só aparecem quando o
+estúdio está ativo. Esconder os botões no leitor não é um controle de acesso; as rotas de escrita
+simplesmente não existem naquela aplicação.
 
-## 3. Configuração como catálogo único
+## 5. Conteúdo portátil e editável à mão
 
-No MVP estático, o navegador não consegue listar de forma segura todos os arquivos de uma pasta
-publicada. A lista de páginas vem do `config.js`. A regra é simples: **cadastre a página na
-configuração e crie o HTML; o tema monta menus, links e índice**.
-
-Se futuramente quisermos “jogar um arquivo na pasta e pronto”, um script de geração ou backend deverá produzir esse catálogo. Isso é outra etapa, não uma capacidade implícita do navegador.
-
-Contrato implementado:
-
-```js
-export const appSettings = {
-  siteTitle: "Wiki de exemplo",
-  sidebarTitle: "Documentação",
-};
-
-export const docsConfig = [
-  {
-    id: "guias",
-    title: "Guias",
-    pages: [{ id: "instalacao", title: "Instalação", file: "instalacao.html", icon: "🛠️" }],
-  },
-];
-```
-
-`title` é o nome de exibição; `id` é o endereço estável; `file` é onde está o HTML. Essa separação permite trocar “Instalação” por “Como instalar” sem quebrar os links. Para migrar a configuração atual, podemos aceitar inicialmente a ausência de `page.id` e derivá-lo do nome do arquivo, preservando as URLs existentes.
-
-Validar IDs únicos, campos obrigatórios, páginas da aba e nomes de arquivo permitidos. No primeiro MVP, nomes simples `.html` sem caminhos externos ou `..` são suficientes. Um validador local pode detectar arquivo ausente antes da publicação; o navegador também deve tratar a falha.
-
-A versão do tema deve ter origem no tema, separada da identidade de cada instalação. Atualizar o tema não deve exigir trocar manualmente a versão em todo `site/config.js`.
-
-## 4. Contrato de URLs
-
-O MVP usa fragmentos de URL. Essa escolha funciona em hospedagem estática e preserva os links da base inicial.
-
-| Destino | Exemplo proposto                             | Comportamento                                                                     |
-| ------- | -------------------------------------------- | --------------------------------------------------------------------------------- |
-| Início  | `index.html`                                 | Primeira aba com página válida; estado vazio se não houver nenhuma                |
-| Aba     | `index.html#guias`                           | Primeira página da aba; normalizar sem acrescentar uma entrada extra no histórico |
-| Página  | `index.html#guias/instalacao`                | Abrir a página e destacar os menus                                                |
-| Título  | `index.html#guias/instalacao/pre-requisitos` | Carregar a página e ir ao título                                                  |
-
-As quatro formas da tabela estão implementadas. Usar apenas um `#`, porque ele delimita o fragmento inteiro.
-
-“Rastreável” aqui significa que um link consegue reconstruir a seleção e o ponto de leitura. O fragmento não é enviado ao servidor em uma requisição HTTP; indexação por buscadores, auditoria de acessos e analytics são problemas separados. Para uma wiki pública focada em SEO, reavaliar geração estática e URLs por caminho no futuro.
-
-Fluxo implementado:
-
-```mermaid
-flowchart LR
-    A[URL ou clique em link] --> B[Interpretar e validar rota]
-    C[Configuração] --> B
-    B --> D[Buscar HTML da página cadastrada]
-    D --> E[Mostrar conteúdo e atualizar menus]
-    E --> F[Ler títulos e montar índice]
-    F --> G[Ir ao título solicitado]
-```
-
-A navegação coordena essa sequência. A leitura da URL, a resolução no catálogo e a atualização da tela ficam separadas para que cada regra possa ser testada.
-
-Regras de comportamento:
-
-- Links do cabeçalho, lateral e índice têm `href` completo. Copiar link e abrir em nova aba devem funcionar.
-- A URL é a fonte da seleção, inclusive na primeira abertura, F5 e Voltar/Avançar. Estado salvo pelo histórico pode ser auxiliar.
-- Para esse roteamento por fragmento, usar uma estratégia consistente baseada em `hashchange` e uma leitura inicial. `pushState` e `replaceState` não disparam `hashchange`; se usados para normalização, chamar a atualização explicitamente. Evitar dois listeners que carreguem a mesma página em duplicidade. [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Window/hashchange_event).
-- Rota inválida mostra uma mensagem e um caminho de recuperação. Não buscar um arquivo construído diretamente da entrada arbitrária da URL.
-- Título inexistente mantém a página legível e avisa que o trecho não foi encontrado.
-- Trocar apenas de título não deve buscar e reconstruir a mesma página novamente.
-- Uma resposta antiga não pode substituir a última navegação; usar cancelamento ou um identificador de requisição.
-- A URL deve representar também uma tentativa que terminou em erro, permitindo recarregar ou compartilhar esse estado.
-- Atualizar `document.title`, foco e seleção visual de forma coerente. Clicar em títulos gera histórico; rolar manualmente apenas destaca o índice no primeiro MVP.
-
-## 5. Índice automático de títulos
-
-Usar um `h1` como título principal e `h2`/`h3` como subseções. O componente lê apenas os títulos de `#main-content`, não os títulos do cabeçalho ou da lateral. A profundidade pode ser configurável posteriormente.
-
-O índice deve preservar a ordem e os níveis. Preferir listas aninhadas com links e um rótulo como “Nesta página”. IDs explícitos no HTML devem ser preservados; gerar IDs quando estiverem ausentes:
-
-| Título           | ID automático possível        |
-| ---------------- | ----------------------------- |
-| Pré-requisitos   | `pre-requisitos`              |
-| Como começar?    | `como-comecar`                |
-| Exemplo repetido | `exemplo`, depois `exemplo-2` |
-
-Também detectar colisões com IDs já existentes, títulos vazios e nomes que fiquem vazios após normalização. IDs explícitos duplicados devem ser apontados na validação.
-
-**Automático não significa imutável:** se o texto muda, um ID calculado pode mudar. Para um trecho já compartilhado, fixar `id="pre-requisitos"` no HTML e manter esse ID ao renomear o título. IDs de abas e páginas também devem permanecer estáveis. Se uma mudança for inevitável, documentar a migração e considerar aliases antigos.
-
-Em telas largas, um painel `sticky` acompanha a leitura sem cobrir o texto. Em telas pequenas, usar um índice recolhível. Definir qual elemento rola, descontar eventual cabeçalho fixo e respeitar preferências de movimento reduzido. Não depender de um atraso arbitrário para achar o título: montar o índice depois que o HTML estiver inserido.
-
-## 6. Estilos e contrato do HTML
-
-O tema cuida de um único contêiner de leitura. As páginas de exemplo são fragmentos sem `<html>`, `<head>`, scripts ou contêiner duplicado. As instalações devem seguir o mesmo contrato.
-
-`css/content.css` estiliza títulos, parágrafos, links, listas, citações, código, tabelas, imagens e detalhes expansíveis dentro da área de leitura. As classes públicas `lead`, `callout`, `callout-info`, `callout-warning`, `callout-danger`, `callout-icon` e `callout-title` complementam o HTML semântico. A página **Catálogo de estilos** serve de referência e teste visual.
-
-Carregar o CSS da instalação depois do CSS do tema, usando variáveis para personalizações frequentes. Isso reduz conflitos de Git, mas ainda requer compatibilidade: renomear uma classe usada pelo CSS local pode quebrar o visual sem causar conflito textual. Documentar as classes e variáveis consideradas públicas.
-
-## 7. Como receber atualizações sem misturar conteúdo
-
-| Opção                                     | Avaliação para este projeto                                      |
-| ----------------------------------------- | ---------------------------------------------------------------- |
-| Copiar tudo e editar os mesmos arquivos   | Simples inicialmente, difícil de atualizar                       |
-| “Use this template” do GitHub             | Cria outro projeto; não cria um canal automático de atualizações |
-| Clonar o tema e manter instalação isolada | Recomendação para aprender e entregar este MVP                   |
-| Distribuir tema como pacote ou submódulo  | Pode ajudar depois; exige mais domínio de ferramentas            |
-
-Um repositório criado de template começa com histórico próprio, enquanto um fork mantém o histórico do original. O botão de template não implementa a experiência de atualização de temas do WordPress. [GitHub Docs](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
-
-`clone` baixa um repositório; `commit` registra uma revisão local; `push` envia commits; `fetch` recebe referências; `pull` recebe e integra alterações. Receber atualizações não publica os documentos locais.
-
-O fluxo a seguir usa a separação implementada em 2026-09-30, em uma cópia que não altera nem cria commits próprios no tema. Para uma cópia antiga, seguir primeiro a migração no guia de uso:
-
-1. Clonar o repositório genérico preservando seu histórico.
-2. Criar a instalação a partir dos exemplos, dentro de `site/`.
-3. Garantir que conteúdo e backups ficam apenas nos locais autorizados. Se a política proíbe qualquer envio ao GitHub, nem um repositório privado é exceção automática.
-4. Conferir `git ls-files site` (deve ficar vazio) e `git check-ignore -v site/config.js` (deve mostrar a regra). Isso confirma a organização no Git, não a confidencialidade da hospedagem.
-5. Usar uma conta sem permissão de escrita no repositório genérico. Remover o destino local de push ou usar um hook pode prevenir acidentes, mas é contornável e não substitui permissões do servidor.
-6. Manter backup de `site/` e do serviço corporativo fora do checkout, em armazenamento autorizado. Arquivos ignorados não aparecem no histórico do tema.
-
-Para avaliar uma atualização na cópia de testes:
-
-```sh
-git status --short
-git rev-parse HEAD
-git fetch origin
-git diff --stat HEAD origin/main
-```
-
-Guardar a revisão anterior, ler o changelog e a migração. Se houver alteração em arquivo do tema, resolver conscientemente antes de atualizar. Com o tema limpo e sem divergência:
-
-```sh
-git pull --ff-only origin main
-```
-
-`--ff-only` recusa integrar históricos divergentes. Ele não promete compatibilidade visual, não faz backup de `site/` e não torna seguras alterações locais em arquivos rastreados. [Git pull](https://git-scm.com/docs/git-pull).
-
-Validar navegação, links antigos, índice e personalização antes de promover a revisão ao ambiente de uso. Quando houver releases, preferir uma versão testada: avaliar a tag/revisão em um checkout limpo de homologação e registrar exatamente qual foi instalada, em vez de atualizar produção diretamente para qualquer estado de `main`.
-
-Para voltar atrás, reimplantar a revisão anterior e restaurar o conteúdo do backup se tiver ocorrido migração de dados. Não usar `reset --hard` ou `clean` como receita de atualização. Uma migração deve ter backup e reversão documentados.
-
-**Não existe promessa séria de “nunca dar conflito”.** Podemos evitar que duas partes editem o mesmo arquivo e testar compatibilidade. Essa combinação é o que torna as atualizações previsíveis.
-
-## 8. Instalação corporativa e login
-
-Autenticação responde “quem é você?”. Autorização responde “você pode ler este documento?”. A entrega de arquivos deve verificar a permissão no servidor/gateway, incluindo acesso direto a páginas e anexos. [OWASP: autorização](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html).
-
-Fluxo esperado:
+### Estrutura de uma instalação
 
 ```text
-Navegador → servidor/gateway corporativo → valida sessão e permissão
-                                         → entrega documento autorizado
+site/
+├── site.json                   # identidade, abas, páginas e ordem
+├── pages/
+│   ├── inicio.md
+│   └── primeiros-passos.md
+├── assets/
+│   ├── imagens/
+│   ├── audio/
+│   └── video/
+├── custom.css
+└── .revisions/                 # histórico local, ignorado na publicação
 ```
 
-A integração com a API da empresa depende de informações ainda desconhecidas: mecanismo oficial de login/SSO, sessão, expiração, perfis, hospedagem e política de acesso. O amigo deve obter esse contrato com a TI antes de implementar. Preferir a identidade existente da empresa quando disponível. Senhas e segredos não pertencem ao `config.js` enviado ao navegador.
+`site.json` substitui o `config.js` como catálogo. JSON é escolhido porque a interface pode validar
+e salvar o arquivo sem executar código. Um exemplo simplificado:
 
-A homologação deve incluir tentar abrir um HTML e um PDF diretamente, sem sessão, com sessão expirada e após logout. O servidor deve negar acesso. Também avaliar caches e indexadores conforme a política da empresa. Não publicar conteúdo confidencial numa hospedagem estática pública esperando que uma tela de login o proteja.
+```json
+{
+  "schemaVersion": 1,
+  "site": {
+    "title": "Documentação de exemplo",
+    "brand": "DOCS"
+  },
+  "tabs": [
+    {
+      "id": "guias",
+      "title": "Guias",
+      "pages": ["inicio"]
+    }
+  ],
+  "pages": {
+    "inicio": {
+      "title": "Início",
+      "source": "pages/inicio.md"
+    }
+  }
+}
+```
 
-Manter a integração corporativa fora dos componentes genéricos reduz conflitos de atualização. Até esse controle existir e ser validado, testar somente com conteúdo fictício.
+O catálogo define navegação e ordem. O arquivo Markdown define o conteúdo. O nome exibido da página
+fica no catálogo durante a migração para evitar duas fontes de verdade. Metadados editoriais futuros
+podem ser adicionados com um contrato versionado.
 
-## 9. Decisões a registrar antes da primeira distribuição
+### Por que Markdown, e não HTML ou JSON do editor
 
-- Licença e autoria dos exemplos do tema.
-- Forma de hospedagem e base da URL, inclusive uso em subpastas.
-- Política de versões, compatibilidade de configuração, classes e IDs.
-- Quem testa e aprova uma versão em cada instalação.
-- Onde ficam backups e como comprovar uma restauração.
-- Na empresa: responsáveis por conteúdo, revisão periódica e controle de acesso.
+Markdown é legível em qualquer editor, produz diferenças úteis no Git e preserva a autoria manual.
+Recursos comuns usam CommonMark e GFM. Blocos que Markdown não representa, como colunas, callouts,
+data, áudio e embeds, usam diretivas documentadas e não JavaScript arbitrário.
 
-Essas decisões podem ser registradas aqui com data e justificativa. Quando houver muitas, separar registros curtos de decisão; não é necessário criar uma estrutura complexa agora.
+Exemplo conceitual:
 
-### Decisões registradas em 2026-10-09
+```md
+# Como reservar
 
-- **Licença:** MIT para o código e os exemplos fictícios, permitindo reutilização com preservação do aviso de licença.
-- **Versões:** SemVer. Enquanto a API pública ainda amadurece, usar `0.x`; correções incrementam o patch e funcionalidades compatíveis incrementam o minor. Uma quebra de contrato deve ser documentada como migração e incrementar o minor durante `0.x`.
-- **Primeira versão preparada:** `0.1.0`. Ela só será considerada publicada após revisão independente e criação de uma tag/release identificável.
+:::columns
+:::column
+
+## Pelo site
+
+Escolha uma data e confirme.
+:::
+:::column
+
+## Pelo telefone
+
+Tenha o código do hotel em mãos.
+:::
+:::
+```
+
+O formato interno pertence ao projeto. O estado JSON do Lexical existe somente enquanto a página é
+editada. Ao abrir e salvar, adaptadores fazem `Markdown → AST do projeto → Lexical` e o caminho
+inverso. Testes de ida e volta impedem que salvar sem alterações perca conteúdo.
+
+HTML existente continua legível durante a migração. Uma página `.html` é marcada como legado e pode
+ser convertida explicitamente para Markdown, sempre com cópia de segurança e prévia. Não haverá dois
+arquivos editáveis concorrentes para a mesma página.
+
+### AST do projeto
+
+O parser transforma Markdown em uma árvore validada, independente do editor. O leitor renderiza essa
+árvore sem importar Lexical. A IA também precisa devolver operações sobre essa árvore, não HTML.
+
+Os primeiros tipos são: parágrafo, títulos, listas, tarefas, citação, código, tabela, divisor,
+imagem, link, callout e toggle. Colunas, áudio, vídeo, data, arquivo e embed entram depois que os
+tipos básicos estiverem estáveis.
+
+## 6. URLs e compatibilidade
+
+As novas URLs usam caminhos reais:
+
+| Destino | URL                                |
+| ------- | ---------------------------------- |
+| Aba     | `/guias`                           |
+| Página  | `/guias/primeiros-passos`          |
+| Título  | `/guias/primeiros-passos#preparar` |
+
+O `id` de aba e página é estável, minúsculo e com hífen. O texto visível pode mudar sem quebrar o
+link. IDs de título explícitos são preservados; IDs automáticos seguem as regras já validadas no
+tema atual.
+
+Durante a migração, a raiz reconhece o endereço antigo
+`/#guias/primeiros-passos/preparar` e redireciona no cliente para o novo caminho. Uma tabela de
+aliases cobre IDs alterados conscientemente. Antes de remover a ponte, testes devem provar que os
+links antigos publicados não são mais necessários.
+
+## 7. Edição manual
+
+O editor é um Client Component carregado apenas quando a pessoa seleciona **Editar**. A leitura e a
+prévia continuam usando o renderizador comum.
+
+### Primeira entrega do editor
+
+- parágrafos e títulos `h1` a `h3`;
+- negrito, itálico, sublinhado, tachado e links;
+- listas ordenadas, não ordenadas e de tarefas;
+- citação, divisor e bloco de código;
+- desfazer/refazer e atalhos de teclado;
+- menu de comandos com `/`;
+- salvar manual, aviso de alterações pendentes e recuperação de rascunho;
+- alternância entre visual, fonte Markdown e prévia.
+
+Tabelas, colunas, toggles, mídias, datas e embeds não entram antes que salvar, recarregar e desfazer
+este conjunto básico sejam confiáveis.
+
+### Salvamento seguro
+
+1. O cliente envia conteúdo, `pageId` e a revisão que abriu.
+2. O servidor resolve o caminho a partir do catálogo; nunca aceita um caminho livre do cliente.
+3. Zod valida o documento e o tamanho.
+4. Se a revisão mudou, retorna conflito em vez de sobrescrever.
+5. O servidor escreve um arquivo temporário dentro de `site/` e troca pelo destino.
+6. Uma cópia anterior é registrada em `.revisions/`.
+7. O cliente recebe a nova revisão e atualiza o estado de salvo.
+
+O hash do conteúdo pode ser a revisão inicial. Histórico no Git é opcional; a aplicação não deve
+executar `commit` ou `push` automaticamente.
+
+## 8. Configurações de abas e páginas
+
+O botão **Configurações** abre um diálogo com três áreas iniciais:
+
+- **Site:** título, marca, idioma e tema padrão;
+- **Abas:** criar, renomear, ordenar e remover;
+- **Páginas:** criar, renomear, mover, ordenar, duplicar e remover.
+
+Remover não apaga imediatamente. A interface mostra o impacto, exige confirmação e move o arquivo
+para uma lixeira local recuperável. Renomear o título não altera o ID. Alterar um ID é uma ação
+avançada que cria um alias de URL.
+
+As operações usam o mesmo serviço de domínio usado pela IA. Assim, as regras de unicidade, caminho,
+ordem e revisão não são duplicadas em componentes React.
+
+## 9. IA com aprovação obrigatória
+
+### Regra principal
+
+A IA não recebe uma ferramenta `writeFile`. Ela recebe contexto e devolve um `ChangeSet` estruturado.
+O servidor valida esse plano, a interface mostra uma prévia e somente uma confirmação explícita
+aplica a transação.
+
+```text
+Prompt/arquivos
+      ↓
+Extração e normalização segura
+      ↓
+Formulário de intenção obrigatório
+      ↓
+IA gera ChangeSet com schema
+      ↓
+Validação determinística e cálculo do diff
+      ↓
+Prévia: aceitar, editar ou descartar
+      ↓
+Confirmação humana
+      ↓
+Backup + aplicação atômica + relatório
+```
+
+### Formulário obrigatório antes de enviar
+
+O texto “O que vamos fazer hoje?” é seguido por campos que impedem um pedido ambíguo:
+
+| Campo             | Opções iniciais                                                  |
+| ----------------- | ---------------------------------------------------------------- |
+| Abas              | Criar, editar, não alterar ou **IA decide**                      |
+| Destino da aba    | Escolha existente ou nome da nova aba                            |
+| Páginas           | Criar, editar, não alterar ou **IA decide**                      |
+| Destino da página | Uma ou mais páginas existentes, ou nomes das novas páginas       |
+| Conteúdo          | Anexar, inserir em uma seção, substituir seção ou criar rascunho |
+| Preservação       | Trechos e títulos que não podem ser alterados                    |
+| Objetivo          | Tutorial, referência, FAQ, resumo ou outro texto curto           |
+| Público e nível   | Para quem é o documento e quanto conhecimento se espera          |
+| Tom e idioma      | Exemplo: direto, português do Brasil                             |
+| Fontes            | Arquivos anexos e instrução sobre qual fonte prevalece           |
+
+“IA decide” é uma escolha manual e consciente, não ausência de escolha. Mesmo nesse modo, a IA só
+propõe o destino. Criar uma nova aba ou página continua destacado na prévia.
+
+### Contrato do `ChangeSet`
+
+As operações permitidas são pequenas e auditáveis, por exemplo:
+
+```ts
+type ChangeOperation =
+  | { type: "createTab"; tabId: string; title: string; position: number }
+  | { type: "updateTab"; tabId: string; title?: string; position?: number }
+  | { type: "createPage"; tabId: string; pageId: string; title: string; content: DocAst }
+  | { type: "replaceSection"; pageId: string; headingId: string; content: DocAst }
+  | { type: "appendContent"; pageId: string; content: DocAst };
+```
+
+Excluir fica fora da primeira versão da IA. A interface manual pode remover com confirmação e
+lixeira; uma geração probabilística não precisa desse poder.
+
+### Chaves de IA
+
+- Chaves nunca entram em `site.json`, Markdown, Git, logs ou bundle do navegador.
+- Em instalação local, o usuário pode informar uma chave temporária no diálogo. O servidor a mantém
+  somente em memória durante a sessão e nunca a devolve à interface.
+- Para uso recorrente, o caminho recomendado é variável de ambiente ou gerenciador de segredos.
+- Uma instalação remota exige HTTPS, autenticação e autorização antes de habilitar o estúdio.
+- A tela mostra apenas provedor, origem da configuração e os últimos quatro caracteres quando
+  necessário; nunca mostra o valor completo salvo.
+
+O primeiro adaptador usa AI SDK, saída estruturada e schema Zod. Provedores específicos ficam atrás
+de uma interface. Modelo e limites são configuração de implantação, não dados fixos no tema.
+
+## 10. Upload e importação
+
+### Formatos iniciais
+
+| Formato        | Tratamento                                                                          |
+| -------------- | ----------------------------------------------------------------------------------- |
+| `.md` e `.txt` | Parser direto, com detecção de codificação e limite de tamanho                      |
+| `.html`        | Parser para AST permitido; scripts, eventos e URLs perigosas são descartados        |
+| `.docx`        | Conversão no servidor, seguida de sanitização e mapeamento para AST                 |
+| `.pdf`         | Extração de texto; a prévia avisa quando a ordem ou tabelas podem ter sido perdidas |
+
+Planilhas, apresentações, áudio com transcrição e OCR ficam para etapas próprias. Aceitar um arquivo
+não significa prometer fidelidade visual total.
+
+Todo upload tem limite de tamanho, tempo e quantidade; nome de arquivo não define o destino; tipo
+declarado e assinatura são conferidos; conteúdo extraído é tratado como não confiável. Parsers de
+Office/PDF executam somente no servidor e, quando possível, em worker com timeout e limite de
+memória. HTML convertido nunca é inserido diretamente com `dangerouslySetInnerHTML`.
+
+### Figma, Miro e Notion
+
+- **Figma:** primeiro como bloco de embed com URL permitida. Importar nós do arquivo é outro produto
+  e exige API e autorização.
+- **Miro:** primeiro como Live Embed permitido. Editar ou importar quadros exige fluxo próprio.
+- **Notion:** primeiro por arquivo exportado em Markdown/CSV/HTML. Uma conexão ao vivo exige OAuth,
+  seleção de páginas, sincronização e política de conflitos.
+
+Embeds usam uma lista explícita de provedores, `sandbox`, `allow` mínimo e política de conteúdo. Uma
+URL arbitrária não vira iframe automaticamente.
+
+## 11. Desempenho e memória
+
+O leitor é o produto mais acessado e recebe o orçamento mais rígido:
+
+- nenhuma dependência de editor, IA ou importação no grafo inicial do leitor;
+- HTML completo gerado no servidor ou no build;
+- componentes de cliente apenas para navegação móvel, índice e tema;
+- fontes do sistema por padrão; imagens com dimensões e carregamento tardio;
+- destaque de código no build/servidor, sem runtime no navegador;
+- prefetch limitado para não baixar páginas que a pessoa talvez não abra;
+- animações por CSS e respeito a `prefers-reduced-motion`.
+
+Metas iniciais, medidas em CI com uma instalação de referência:
+
+| Cenário                             | Meta                                                        |
+| ----------------------------------- | ----------------------------------------------------------- |
+| Lighthouse mobile do leitor         | desempenho ≥ 95, acessibilidade ≥ 95                        |
+| Core Web Vitals em teste controlado | LCP < 2,0 s, CLS < 0,1 e INP < 200 ms                       |
+| JavaScript inicial de uma página    | até 180 KiB comprimidos, incluindo runtime                  |
+| Troca entre páginas já geradas      | sem tarefa longa acima de 50 ms                             |
+| Editor com 5.000 blocos             | digitação p95 abaixo de 50 ms no computador de referência   |
+| Abrir editor                        | pacote do editor carregado somente após a ação de editar    |
+| Abrir IA/importador                 | dependências carregadas somente ao abrir o respectivo fluxo |
+
+Esses números são orçamentos, não resultados já alcançados. A Etapa 1 mede a base do Next.js; se o
+runtime sozinho inviabilizar o orçamento, devemos ajustar a arquitetura antes de continuar, inclusive
+reavaliando a escolha do framework para o leitor.
+
+## 12. Segurança e privacidade
+
+- Conteúdo público e conteúdo confidencial continuam sendo cenários diferentes.
+- O leitor estático não protege documentos privados.
+- O estúdio local escuta `127.0.0.1` por padrão e não deve ser exposto à rede sem autenticação.
+- Toda operação de arquivo usa IDs validados e caminhos resolvidos dentro de `site/`.
+- Markdown permite somente o conjunto documentado; HTML cru fica desabilitado por padrão.
+- Uploads e respostas da IA são entrada não confiável.
+- Prompts não recebem chaves, arquivos fora do escopo nem conteúdo de outras instalações.
+- Logs registram operação, duração e quantidade, mas removem prompt, documento e segredo por padrão.
+- Dependências de parser exigem auditoria de segurança e versão fixada.
+
+Autenticação futura deve proteger APIs, páginas e anexos no servidor. Adicionar uma tela de login no
+React não é proteção suficiente.
+
+## 13. Erros, concorrência e recuperação
+
+Estados diferentes recebem mensagens diferentes: arquivo inexistente, formato não suportado,
+conteúdo inválido, conflito de revisão, acesso negado, limite excedido, falha de rede, falha do
+provedor e resposta inválida da IA.
+
+Requisições de navegação, importação e IA são canceláveis. Uma resposta antiga não substitui a
+seleção atual. Alterações em vários arquivos usam uma transação lógica: criar backup, validar todos
+os novos arquivos, aplicar e registrar o resultado. Se uma etapa falhar, restaurar o conjunto
+anterior.
+
+A recuperação mínima inclui:
+
+- rascunho local para queda do navegador;
+- revisões no servidor para salvar e operações da IA;
+- lixeira recuperável para páginas removidas;
+- exportação/backup manual da pasta `site/`;
+- relatório claro dos arquivos alterados.
+
+## 14. Testes e observabilidade
+
+### Pirâmide de testes
+
+- **Domínio:** schemas, IDs, rotas, AST, aliases, ChangeSet e conflitos.
+- **Round-trip:** Markdown → AST → editor → AST → Markdown sem perda semântica.
+- **Componentes:** teclado, foco e estados de diálogo, menu e editor.
+- **Integração:** repositório de arquivos em pasta temporária, escrita atômica e recuperação.
+- **Navegador:** leitura, edição, fonte, configurações, importação, prévia da IA e confirmação.
+- **Compatibilidade:** cada página HTML atual abre no leitor novo e mantém sua URL por alias.
+- **Desempenho:** bundle, Lighthouse e documentos grandes com limite de regressão.
+
+Operações de IA registram localmente provedor, modelo configurado, duração, tokens quando
+disponíveis, resultado da validação e aceite/recusa. Não registrar o conteúdo por padrão. O usuário
+deve conseguir inspecionar o `ChangeSet` e o diff sem conhecer a API do provedor.
+
+## 15. Fluxo completo
+
+```mermaid
+flowchart TD
+    A[site.json e Markdown] --> B[Parser e validação]
+    B --> C[AST do projeto]
+    C --> D[Reader: HTML/React]
+    C --> E[Studio: adaptador Lexical]
+    E --> F[Alteração manual]
+    F --> G[AST validada]
+    H[Prompt ou upload] --> I[Extração segura]
+    I --> J[IA gera ChangeSet]
+    J --> K[Validação e diff]
+    K --> L{Pessoa aprova?}
+    L -- não --> M[Descartar]
+    L -- sim --> G
+    G --> N[Markdown e catálogo]
+    N --> O[Backup e escrita atômica]
+    O --> A
+```
+
+## 16. Decisões adiadas conscientemente
+
+- contas e perfil do usuário;
+- colaboração em tempo real e comentários multiusuário;
+- banco de dados remoto;
+- sincronização bidirecional com Notion, Figma ou Miro;
+- marketplace de plugins;
+- busca semântica e RAG sobre toda a documentação;
+- publicação automática, domínio e analytics;
+- permissões corporativas.
+
+Adiar não significa esquecer. Significa impedir que problemas futuros obriguem o projeto atual a
+carregar infraestrutura, memória e complexidade que ainda não produzem valor.

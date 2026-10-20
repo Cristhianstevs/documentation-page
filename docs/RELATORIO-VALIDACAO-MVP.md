@@ -4,6 +4,9 @@
 
 Versão preparada: `0.1.0`
 
+Este relatório não valida a arquitetura futura de Next.js, edição ou IA. Esses recursos ainda não
+foram implementados e seguem um [plano separado](PLANO-PROXIMA-VERSAO.md).
+
 ## História validada
 
 Uma instalação define abas e páginas, o navegador valida a URL, carrega o fragmento HTML, gera o índice de títulos e posiciona o trecho solicitado. Atualizar os arquivos do tema não pode substituir `site/`.

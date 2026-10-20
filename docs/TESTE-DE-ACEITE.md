@@ -3,6 +3,9 @@
 Este roteiro é para uma pessoa que nunca usou o tema. Faça tudo na ordem, sem ajuda. Anote qualquer
 passo que não esteja claro.
 
+Este teste cobre somente o tema estático `0.1.0`. A migração, o editor e a IA terão critérios de
+aceite próprios no [plano da próxima versão](PLANO-PROXIMA-VERSAO.md).
+
 Use somente conteúdo fictício.
 
 ## 1. Preparar

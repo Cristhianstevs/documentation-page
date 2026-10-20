@@ -4,6 +4,10 @@ Revisão em 2026-09-27. Base: commit local `ac23d27` (`Update page loads`), bran
 
 > **Documento histórico:** os problemas abaixo descrevem a versão inicial e já foram tratados no MVP. Para saber o estado atual, leia o [README](../README.md), o [plano](PLANO-MVP.md) e o [relatório de validação](RELATORIO-VALIDACAO-MVP.md). Os caminhos antigos foram mantidos aqui para mostrar a evolução do projeto.
 
+Uma nova revisão arquitetural foi registrada em 2026-10-20 para a evolução com Next.js, editor e
+IA. Ela não reabre estes achados históricos. Consulte a [arquitetura da próxima versão](ARQUITETURA.md)
+e seu [plano separado](PLANO-PROXIMA-VERSAO.md).
+
 ## O que foi verificado
 
 Foram lidos todos os arquivos de código, páginas, README e configurações de editor/formatação rastreados no repositório. Foram conferidos os arquivos referenciados pelo `config.js` e exercitados carregamento, troca de assunto, página ausente, link direto, recarregamento e retorno pelo navegador. O layout foi observado em 1280 × 720 e 390 × 844.

@@ -1,8 +1,26 @@
 # Histórico de alterações
 
-Registra entregas reais. Trabalho futuro fica no [plano do MVP](docs/PLANO-MVP.md).
+Registra entregas reais. O tema atual fica no [plano do MVP](docs/PLANO-MVP.md); a evolução ainda
+não implementada fica no [plano da próxima versão](docs/PLANO-PROXIMA-VERSAO.md).
 
 ## Não lançado
+
+### Arquitetura para editor e IA — 2026-10-20
+
+- Registrada a arquitetura proposta para migrar o leitor para Next.js e TypeScript sem misturar a
+  migração com o editor ou com a IA.
+- Separados o leitor público exportável e o estúdio local de autoria, impedindo que editor, parsers e
+  chaves façam parte do bundle público.
+- Definidos Markdown e um AST do projeto como formato portátil, mantendo HTML atual por adaptador de
+  compatibilidade durante a migração.
+- Comparados Lexical, Tiptap, BlockNote e Plate; Lexical foi escolhido para o primeiro experimento,
+  condicionado a testes de round-trip, acessibilidade e desempenho.
+- Definido o fluxo de IA como `ChangeSet` validado, diff e aprovação humana, sem escrita direta pelo
+  modelo e sem exclusão automática.
+- Criado um plano em etapas para preservar o MVP, migrar o leitor, entregar escrita manual,
+  configurações, blocos avançados, importação e, somente depois, IA.
+- Detalhada a Etapa 0 com evidências, critérios de saída, arquitetura de pastas, responsabilidades e
+  regras de dependência para uma migração reversível.
 
 ### Revisão final de experiência e documentação — 2026-10-14
 

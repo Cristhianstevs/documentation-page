@@ -5,6 +5,12 @@ Tema estático para criar documentação com a estrutura **Abas → Páginas →
 Você escreve arquivos HTML simples. O tema cria os menus, o índice da página, os links diretos e o
 layout para desktop e celular.
 
+> **Estado do projeto:** esta é a versão funcional atual, preparada como `0.1.0`. Uma próxima versão
+> com Next.js, editor visual, configurações pela interface e IA está somente planejada. Leia a
+> [arquitetura proposta](docs/ARQUITETURA.md) e o
+> [plano incremental](docs/PLANO-PROXIMA-VERSAO.md). Nenhum desses recursos futuros está disponível
+> nesta revisão.
+
 ## Começo rápido
 
 ### 1. Instale o necessário
@@ -120,8 +126,11 @@ Não abra o projeto com `file://`. Use sempre `npm start` ou `node tools/serve.m
 | Você quer…                              | Leia                                                      |
 | --------------------------------------- | --------------------------------------------------------- |
 | Aprender todo o fluxo                   | [Guia de uso](docs/GUIA-DE-USO.md)                        |
-| Entender as decisões técnicas           | [Arquitetura](docs/ARQUITETURA.md)                        |
+| Entender a arquitetura futura           | [Arquitetura](docs/ARQUITETURA.md)                        |
 | Conferir o estado do MVP                | [Plano do MVP](docs/PLANO-MVP.md)                         |
+| Conhecer a evolução para editor e IA    | [Plano da próxima versão](docs/PLANO-PROXIMA-VERSAO.md)   |
+| Entender a Etapa 0 e a nova estrutura   | [Fundação da migração](docs/ETAPA-0-FUNDACAO.md)          |
+| Comparar as tecnologias pesquisadas     | [Pesquisa de tecnologias](docs/PESQUISA-TECNOLOGIAS.md)   |
 | Testar uma instalação como novo usuário | [Teste de aceite](docs/TESTE-DE-ACEITE.md)                |
 | Ver o que já foi validado               | [Relatório de validação](docs/RELATORIO-VALIDACAO-MVP.md) |
 | Consultar as mudanças                   | [Changelog](CHANGELOG.md)                                 |
