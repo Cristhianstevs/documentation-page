@@ -1,6 +1,6 @@
 # Etapa 0 — Fundação antes da migração
 
-Status em 2026-10-20: **em andamento, com a linha de base local registrada**.
+Status em 2026-10-20: **concluída**.
 
 A Etapa 0 não instala Next.js, não move o código atual e não cria o editor. Ela registra uma versão
 confiável do projeto antes da reforma. Se algo quebrar na migração, teremos uma referência objetiva
@@ -422,19 +422,20 @@ Cada pasta nasce quando seu recurso começa:
 
 A etapa só pode ser marcada como concluída quando:
 
-- [ ] a revisão `0.1.0` está identificada e recuperável;
-- [ ] `npm run validate` está verde na revisão final;
-- [ ] a CI remota está verde;
+- [x] a revisão `0.1.0` está identificada e recuperável;
+- [x] `npm run validate` está verde na revisão final;
+- [x] a CI remota está verde;
 - [x] o mantenedor testou o projeto em outra máquina e não relatou falhas;
 - [x] a instalação de referência existe e contém apenas dados fictícios;
 - [x] a matriz de compatibilidade liga cada regra a uma evidência;
 - [x] capturas de desktop e celular foram registradas;
 - [x] desempenho, JavaScript e memória possuem uma linha de base local reproduzível;
 - [x] backup e retorno locais são cobertos por teste automatizado;
-- [ ] o mantenedor aprovou o início da Etapa 1.
+- [x] o mantenedor autorizou a conclusão da Etapa 0.
 
-As evidências locais, o Lighthouse e o teste em outra máquina agora existem. O mantenedor autorizou o
-registro final. Ainda faltam confirmar a CI remota, criar a tag e ensaiar a recuperação por ela.
+As evidências locais, o Lighthouse, o teste em outra máquina e a CI remota estão registrados. A tag
+`v0.1.0` preserva o ponto anterior à migração e o procedimento de recuperação foi ensaiado em uma
+cópia separada. A autorização para iniciar a Etapa 1 será pedida como uma decisão separada.
 
 ## 10. Primeira sequência de trabalho
 

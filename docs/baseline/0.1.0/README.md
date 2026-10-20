@@ -5,21 +5,23 @@ Next.js deverá preservar ou melhorar.
 
 ## Estado desta etapa
 
-| Evidência                             | Estado                             |
-| ------------------------------------- | ---------------------------------- |
-| Instalação fictícia de referência     | Concluída                          |
-| Testes locais da instalação           | Concluídos                         |
-| Capturas de desktop e celular         | Concluídas                         |
-| Medição local de tamanho e velocidade | Concluída                          |
-| Lighthouse mobile reproduzível        | Concluído                          |
-| Matriz de compatibilidade             | Concluída                          |
-| CI remota desta revisão               | Sem execução encontrada            |
-| Teste em outra máquina                | Aprovado; ambiente não informado   |
-| Commit e tag finais `v0.1.0`          | Autorizados; ainda não registrados |
+| Evidência                             | Estado                           |
+| ------------------------------------- | -------------------------------- |
+| Instalação fictícia de referência     | Concluída                        |
+| Testes locais da instalação           | Concluídos                       |
+| Capturas de desktop e celular         | Concluídas                       |
+| Medição local de tamanho e velocidade | Concluída                        |
+| Lighthouse mobile reproduzível        | Concluído                        |
+| Matriz de compatibilidade             | Concluída                        |
+| CI remota da linha de base            | Aprovada                         |
+| Teste em outra máquina                | Aprovado; ambiente não informado |
+| Commit da linha de base               | `82e1ed2`                        |
+| Tag final                             | `v0.1.0`                         |
 
-O commit `ea530144d5a88653e5534dffcd53a699a4f02d11` é a revisão remota encontrada durante este
-levantamento. Ele é uma referência provisória, não a tag final da versão. Os arquivos desta linha de
-base ainda precisam ser revisados e registrados em um novo commit.
+O commit `82e1ed2b11c3eeed96ffca9c8331d884cc7103c9` registrou a linha de base. Sua validação remota
+passou na [execução 39516158936](https://github.com/Cristhianstevs/documentation-page/actions/runs/39516158936).
+O fechamento documental posterior pertence à mesma Etapa 0 e a tag `v0.1.0` identifica o resultado
+completo.
 
 ## Ambiente usado
 
@@ -47,7 +49,8 @@ A captura do menu aberto no celular mostra conteúdo cortado no lado esquerdo. N
 silenciosamente nesta etapa, pois o objetivo agora é registrar com honestidade como a versão atual se
 comporta. A correção pode entrar em uma mudança pequena e separada.
 
-## O que ainda impede encerrar a Etapa 0
+## Encerramento
 
-Ainda faltam a CI remota e o registro da revisão final com uma tag recuperável. O mantenedor aprovou
-a conclusão dessas ações, mas a Etapa 1 só estará liberada depois das evidências finais.
+A linha de base local, o Lighthouse, o teste em outra máquina e a CI remota foram concluídos. A tag
+`v0.1.0` torna essa versão recuperável. Começar a Etapa 1 continua sendo uma decisão separada do
+mantenedor.

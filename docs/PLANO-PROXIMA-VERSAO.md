@@ -41,8 +41,8 @@ anterior estiver vermelho.
 O desenho completo, os arquivos de evidência e a arquitetura de pastas estão em
 [Etapa 0 — Fundação antes da migração](ETAPA-0-FUNDACAO.md).
 
-- [ ] Concluir a CI pendente do MVP atual; o teste em outra máquina foi aprovado.
-- [ ] Identificar a revisão que representa `0.1.0` antes da migração.
+- [x] Concluir o teste em outra máquina e a CI do MVP atual.
+- [x] Identificar a revisão recuperável pela tag `v0.1.0` antes da migração.
 - [x] Registrar rotas, capturas e resultados locais como referência.
 - [x] Medir JavaScript transferido e memória aproximada do leitor atual.
 - [x] Medir Lighthouse com limitação reproduzível de rede e processador.

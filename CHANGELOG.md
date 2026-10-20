@@ -13,6 +13,7 @@ não implementada fica no [plano da próxima versão](docs/PLANO-PROXIMA-VERSAO.
 - Adicionado um medidor local de tamanho, velocidade e memória aproximada do leitor.
 - Registrado o Lighthouse mobile reproduzível como ponto de partida da migração.
 - Documentados o contrato de compatibilidade, o procedimento de recuperação e o aceite realizado em outra máquina.
+- Confirmada a validação remota e encerrada a Etapa 0 com uma revisão recuperável pela tag `v0.1.0`.
 
 ### Arquitetura para editor e IA — 2026-10-20
 

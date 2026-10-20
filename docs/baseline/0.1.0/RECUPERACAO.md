@@ -21,8 +21,9 @@ criação e a restauração de backup.
 Usar uma pasta separada torna o retorno recuperável. Não é necessário apagar a versão com problema
 nem executar comandos como `git reset --hard`.
 
-## Pendência
+## Ensaio da Etapa 0
 
-A tag `v0.1.0` ainda não existe. O commit `ea530144d5a88653e5534dffcd53a699a4f02d11` é somente uma
-referência provisória. Depois da revisão, da CI e do aceite externo, o mantenedor deverá autorizar o
-commit e a tag finais; então este procedimento precisa ser ensaiado com essa tag.
+A tag `v0.1.0` identifica a base estática anterior à migração. Para ensaiar a recuperação, o conteúdo
+da tag é extraído em uma pasta temporária, suas dependências fixadas são instaladas e os testes
+nativos são executados nessa cópia. A pasta de trabalho principal não é apagada nem alterada por esse
+ensaio.
