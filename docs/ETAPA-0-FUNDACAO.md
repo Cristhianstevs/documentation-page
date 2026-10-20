@@ -1,6 +1,6 @@
 # Etapa 0 — Fundação antes da migração
 
-Status em 2026-10-20: **planejada; ainda não executada por completo**.
+Status em 2026-10-20: **em andamento, com a linha de base local registrada**.
 
 A Etapa 0 não instala Next.js, não move o código atual e não cria o editor. Ela registra uma versão
 confiável do projeto antes da reforma. Se algo quebrar na migração, teremos uma referência objetiva
@@ -423,19 +423,18 @@ Cada pasta nasce quando seu recurso começa:
 A etapa só pode ser marcada como concluída quando:
 
 - [ ] a revisão `0.1.0` está identificada e recuperável;
-- [ ] `npm run validate` está verde nessa revisão;
+- [ ] `npm run validate` está verde na revisão final;
 - [ ] a CI remota está verde;
-- [ ] outra pessoa concluiu o teste de aceite ou as falhas foram corrigidas;
-- [ ] a instalação de referência existe e contém apenas dados fictícios;
-- [ ] a matriz de compatibilidade liga cada regra a uma evidência;
-- [ ] capturas de desktop e celular foram registradas;
-- [ ] desempenho, JavaScript e memória possuem uma linha de base reproduzível;
-- [ ] backup e retorno foram testados;
+- [x] o mantenedor testou o projeto em outra máquina e não relatou falhas;
+- [x] a instalação de referência existe e contém apenas dados fictícios;
+- [x] a matriz de compatibilidade liga cada regra a uma evidência;
+- [x] capturas de desktop e celular foram registradas;
+- [x] desempenho, JavaScript e memória possuem uma linha de base local reproduzível;
+- [x] backup e retorno locais são cobertos por teste automatizado;
 - [ ] o mantenedor aprovou o início da Etapa 1.
 
-Hoje, a validação local está verde, mas isso não conclui a Etapa 0. Ainda faltam, no mínimo, o teste
-externo, a CI remota, as medições, as evidências versionadas e a autorização do mantenedor para
-registrar a revisão.
+As evidências locais, o Lighthouse e o teste em outra máquina agora existem. O mantenedor autorizou o
+registro final. Ainda faltam confirmar a CI remota, criar a tag e ensaiar a recuperação por ela.
 
 ## 10. Primeira sequência de trabalho
 

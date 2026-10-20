@@ -5,6 +5,15 @@ não implementada fica no [plano da próxima versão](docs/PLANO-PROXIMA-VERSAO.
 
 ## Não lançado
 
+### Fundação mensurável para a migração — 2026-10-20
+
+- Criada uma instalação fictícia e pública para comparar o leitor atual com o futuro leitor Next.js.
+- Adicionados testes para garantir abas, páginas e blocos essenciais dessa instalação.
+- Registradas capturas reproduzíveis de desktop e celular, incluindo um problema já existente no menu móvel.
+- Adicionado um medidor local de tamanho, velocidade e memória aproximada do leitor.
+- Registrado o Lighthouse mobile reproduzível como ponto de partida da migração.
+- Documentados o contrato de compatibilidade, o procedimento de recuperação e o aceite realizado em outra máquina.
+
 ### Arquitetura para editor e IA — 2026-10-20
 
 - Registrada a arquitetura proposta para migrar o leitor para Next.js e TypeScript sem misturar a

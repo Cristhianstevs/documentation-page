@@ -41,11 +41,12 @@ anterior estiver vermelho.
 O desenho completo, os arquivos de evidência e a arquitetura de pastas estão em
 [Etapa 0 — Fundação antes da migração](ETAPA-0-FUNDACAO.md).
 
-- [ ] Concluir o teste externo e a CI pendentes do MVP atual.
+- [ ] Concluir a CI pendente do MVP atual; o teste em outra máquina foi aprovado.
 - [ ] Identificar a revisão que representa `0.1.0` antes da migração.
-- [ ] Registrar rotas, capturas e resultados dos testes atuais como referência.
-- [ ] Medir Lighthouse, JavaScript transferido e memória do leitor atual.
-- [ ] Criar uma instalação fictícia usada por todos os testes de migração.
+- [x] Registrar rotas, capturas e resultados locais como referência.
+- [x] Medir JavaScript transferido e memória aproximada do leitor atual.
+- [x] Medir Lighthouse com limitação reproduzível de rede e processador.
+- [x] Criar uma instalação fictícia para os testes de migração.
 
 **Aceite:** é possível voltar à versão atual, comparar visualmente e executar seus testes sem depender
 do código Next.js.

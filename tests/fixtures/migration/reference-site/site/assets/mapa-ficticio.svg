@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 240" role="img" aria-labelledby="title desc">
+  <title id="title">Mapa fictício</title>
+  <desc id="desc">Três áreas geométricas nas cores azul, verde e laranja.</desc>
+  <rect width="480" height="240" rx="24" fill="#f4f1ea" />
+  <path d="M40 44h120v152H40z" fill="#5b8db8" />
+  <path d="M180 44h120v152H180z" fill="#72a276" />
+  <path d="M320 44h120v152H320z" fill="#d58b55" />
+</svg>
