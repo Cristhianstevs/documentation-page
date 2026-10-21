@@ -1,0 +1,22 @@
+{
+  "name": "@documentation-page/reader",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node ../../tools/prepare-reader-assets.mjs && next build",
+    "dev": "node ../../tools/prepare-reader-assets.mjs && next dev --hostname 127.0.0.1 --port 4174",
+    "typecheck": "node ../../tools/prepare-reader-assets.mjs && tsc --noEmit"
+  },
+  "dependencies": {
+    "@documentation-page/content": "*",
+    "next": "16.4.2",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.1",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "typescript": "5.9.3"
+  }
+}

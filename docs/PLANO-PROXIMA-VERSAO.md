@@ -11,7 +11,7 @@ como funcionalidade entregue.
 
 - [x] Visão, limites, arquitetura e ordem de execução documentados.
 - [x] Bibliotecas candidatas comparadas em fontes oficiais.
-- [ ] Migração para Next.js iniciada.
+- [x] Migração para Next.js iniciada com uma rota estática experimental.
 - [ ] Editor visual implementado.
 - [ ] Configurações pela interface implementadas.
 - [ ] Importação e IA implementadas.
@@ -53,14 +53,14 @@ do código Next.js.
 
 ## Etapa 1 — Migrar somente o leitor
 
-- [ ] Criar npm workspaces apenas com `apps/reader` e os pacotes necessários.
-- [ ] Configurar Next.js App Router e TypeScript estrito.
+- [x] Criar npm workspaces apenas com `apps/reader` e os pacotes necessários.
+- [x] Configurar Next.js App Router e TypeScript estrito.
 - [ ] Reproduzir header, abas, lateral, conteúdo, índice e comportamento móvel.
 - [ ] Implementar rotas `/aba/pagina#titulo` e ponte para os hashes antigos.
-- [ ] Ler inicialmente `config.js` e HTML por um adaptador de compatibilidade.
-- [ ] Manter exemplos fictícios e `site/` separado.
+- [x] Ler inicialmente `config.js` e HTML por um adaptador de compatibilidade.
+- [x] Manter exemplos fictícios e `site/` separado.
 - [ ] Implementar tema claro/escuro sem incluir editor ou IA.
-- [ ] Validar exportação estática do leitor.
+- [x] Validar exportação estática inicial do leitor.
 - [ ] Medir o orçamento de bundle e Core Web Vitals.
 
 **Não entra:** Markdown novo, editor, configurações, upload ou IA.
@@ -73,7 +73,7 @@ medidos e não há regressão sem justificativa.
 
 - [ ] Definir schemas v1 de `site.json`, AST e diretivas Markdown.
 - [ ] Implementar Markdown → AST → renderizador.
-- [ ] Implementar adaptador de HTML legado sem converter arquivos automaticamente.
+- [ ] Integrar o HTML legado ao novo AST sem converter arquivos automaticamente.
 - [ ] Criar conversor explícito com backup e relatório de diferenças.
 - [ ] Prototipar Lexical apenas com parágrafo, título, marcas, lista e código.
 - [ ] Implementar ida e volta AST ↔ Lexical ↔ Markdown.
@@ -178,6 +178,6 @@ somente o guia; uma instalação antiga migra sem perder URLs ou arquivos.
 
 ## Próxima mudança recomendada
 
-Executar somente a **Etapa 0**. Depois, criar um pequeno experimento da Etapa 1 com uma página e uma
-rota, medir o bundle e comparar o HTML gerado. Não mover todo o código nem instalar o editor no mesmo
-pull request.
+Criar o adaptador de compatibilidade que lê a configuração e o HTML atuais sem alterá-los. Depois,
+gerar as páginas da instalação de referência e comparar rotas, HTML e desempenho com a versão
+`v0.1.0`. Não instalar o editor nesse incremento.

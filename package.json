@@ -4,19 +4,26 @@
   "private": true,
   "description": "Tema estático de documentação com navegação por abas, páginas e títulos.",
   "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "baseline:capture": "node tools/capture-baseline.mjs",
     "baseline:lighthouse": "node tools/run-lighthouse.mjs",
     "baseline:measure": "node tools/measure-baseline.mjs",
     "create-site": "node tools/create-site.mjs",
+    "reader:build": "npm run build --workspace @documentation-page/reader",
+    "reader:dev": "npm run dev --workspace @documentation-page/reader",
+    "reader:typecheck": "npm run typecheck --workspace @documentation-page/reader",
     "start": "node tools/serve.mjs",
     "test": "node --test --test-isolation=none tests/*.test.mjs",
     "test:browser": "playwright test",
-    "check:js": "biome check js tests tools examples/config.js playwright.config.mjs",
+    "check:js": "biome check apps js tests tools examples/config.js playwright.config.mjs",
     "check:format": "prettier --check \"**/*.{css,html,md,json,jsonc,yml}\" --ignore-path .gitignore",
     "check": "npm run check:js && npm run check:format",
-    "format": "biome check --write js tests tools examples/config.js playwright.config.mjs && prettier --write \"**/*.{css,html,md,json,jsonc,yml}\" --ignore-path .gitignore",
-    "validate": "npm run check && npm test && npm run test:browser && git diff --check"
+    "format": "biome check --write apps js tests tools examples/config.js playwright.config.mjs && prettier --write \"**/*.{css,html,md,json,jsonc,yml}\" --ignore-path .gitignore",
+    "validate": "npm run check && npm test && npm run reader:typecheck && npm run reader:build && npm run test:browser && git diff --check"
   },
   "engines": {
     "node": ">=24"

@@ -1,5 +1,13 @@
 # Conteúdo e personalização exclusivos desta instalação.
 /site/
 /node_modules/
+/.next/
+/apps/*/.next/
+/apps/*/out/
+/apps/*/next-env.d.ts
+/apps/*/tsconfig.tsbuildinfo
+/apps/*/public/legacy-assets/
+/apps/*/public/legacy-custom.css
+/apps/*/generated/legacy-config.json
 /playwright-report/
 /test-results/

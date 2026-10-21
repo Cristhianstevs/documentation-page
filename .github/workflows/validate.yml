@@ -34,6 +34,9 @@ jobs:
       - name: Executar testes nativos
         run: npm test
 
+      - name: Validar e construir o leitor Next.js
+        run: npm run reader:typecheck && npm run reader:build
+
       - name: Executar testes de navegador
         run: npm run test:browser
 

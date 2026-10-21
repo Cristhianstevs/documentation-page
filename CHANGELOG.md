@@ -5,6 +5,16 @@ não implementada fica no [plano da próxima versão](docs/PLANO-PROXIMA-VERSAO.
 
 ## Não lançado
 
+### Início do leitor Next.js — 2026-10-20
+
+- Criado o workspace `apps/reader` com Next.js, React e TypeScript estrito.
+- Adicionada a primeira rota estática `/fundamentos/inicio/`, sem editor, IA ou código de autoria.
+- Validada a geração de HTML estático por `output: "export"`.
+- Documentados os comandos, os limites do experimento e o próximo incremento de compatibilidade.
+- Criado o pacote de conteúdo que lê e valida `config.js`, páginas HTML, títulos, CSS e assets legados durante o build.
+- Comprovada a geração estática tanto da demonstração quanto da instalação fictícia de migração.
+- Protegido o leitor contra vazamento horizontal de imagens, vídeos, tabelas e código em telas pequenas.
+
 ### Fundação mensurável para a migração — 2026-10-20
 
 - Criada uma instalação fictícia e pública para comparar o leitor atual com o futuro leitor Next.js.
