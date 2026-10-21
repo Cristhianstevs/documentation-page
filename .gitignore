@@ -10,4 +10,5 @@
 /apps/*/public/legacy-custom.css
 /apps/*/generated/legacy-config.json
 /playwright-report/
+/playwright-reader-report/
 /test-results/

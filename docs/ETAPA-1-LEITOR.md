@@ -1,6 +1,6 @@
 # Etapa 1 — Migração do leitor
 
-Status em 2026-10-20: **em andamento, com leitor e adaptador de compatibilidade funcionando**.
+Status em 2026-10-21: **concluída, com ressalva de desempenho documentada**.
 
 O objetivo desta etapa é trocar apenas a parte que apresenta a documentação. O projeto antigo
 continua funcionando normalmente enquanto o novo leitor nasce dentro de `apps/reader/`.
@@ -69,10 +69,16 @@ qualquer momento.
 ## Limites deste incremento
 
 - a demonstração e uma instalação local podem ser geradas, mas ainda usam o formato legado;
-- ainda não há ponte para as URLs antigas com `#`;
-- o comportamento móvel é somente visual, sem botão de menu;
-- tema claro/escuro ainda não foi implementado;
 - editor, configurações, upload e IA continuam fora desta etapa.
+
+O leitor agora gera todas as rotas cadastradas, converte hashes antigos, reescreve links internos
+legados, oferece menu móvel, tema claro/escuro persistente e uma tela de rota inválida. Os fluxos são
+verificados no Chromium em desktop e celular contra a exportação estática.
+
+O [relatório de desempenho](ETAPA-1-DESEMPENHO.md) registra uma regressão: o runtime Next.js/React
+aumentou JavaScript e tempo de bloqueio em relação ao tema `0.1.0`. A etapa é encerrada porque a
+equivalência funcional está comprovada, a exceção está explícita e existe um orçamento automatizado.
+Reduzir esse custo continua prioritário antes de ampliar o JavaScript público.
 
 Esses itens não são defeitos escondidos. São o limite escolhido para manter a mudança pequena e
 permitir uma comparação antes de avançar.

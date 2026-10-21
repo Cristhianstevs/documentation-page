@@ -55,13 +55,13 @@ do código Next.js.
 
 - [x] Criar npm workspaces apenas com `apps/reader` e os pacotes necessários.
 - [x] Configurar Next.js App Router e TypeScript estrito.
-- [ ] Reproduzir header, abas, lateral, conteúdo, índice e comportamento móvel.
-- [ ] Implementar rotas `/aba/pagina#titulo` e ponte para os hashes antigos.
+- [x] Reproduzir header, abas, lateral, conteúdo, índice e comportamento móvel.
+- [x] Implementar rotas `/aba/pagina#titulo` e ponte para os hashes antigos.
 - [x] Ler inicialmente `config.js` e HTML por um adaptador de compatibilidade.
 - [x] Manter exemplos fictícios e `site/` separado.
-- [ ] Implementar tema claro/escuro sem incluir editor ou IA.
+- [x] Implementar tema claro/escuro sem incluir editor ou IA.
 - [x] Validar exportação estática inicial do leitor.
-- [ ] Medir o orçamento de bundle e Core Web Vitals.
+- [x] Medir o orçamento de bundle e Core Web Vitals.
 
 **Não entra:** Markdown novo, editor, configurações, upload ou IA.
 
@@ -178,6 +178,6 @@ somente o guia; uma instalação antiga migra sem perder URLs ou arquivos.
 
 ## Próxima mudança recomendada
 
-Criar o adaptador de compatibilidade que lê a configuração e o HTML atuais sem alterá-los. Depois,
-gerar as páginas da instalação de referência e comparar rotas, HTML e desempenho com a versão
-`v0.1.0`. Não instalar o editor nesse incremento.
+Iniciar a Etapa 2 definindo primeiro os schemas v1 de `site.json`, AST e diretivas Markdown. O
+experimento do editor deve continuar separado do leitor e precisa respeitar a ressalva de desempenho
+registrada na Etapa 1.

@@ -3,8 +3,17 @@ import { stat } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createGzip } from 'node:zlib';
 
-const root = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
+const projectRoot = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
+const rootArgument = process.argv.indexOf('--root');
+const root = path.resolve(
+  projectRoot,
+  rootArgument >= 0 ? process.argv[rootArgument + 1] : projectRoot,
+);
+if (root !== projectRoot && !root.startsWith(`${projectRoot}${path.sep}`)) {
+  throw new Error('A raiz do servidor precisa ficar dentro do projeto.');
+}
 const portArgument = process.argv.indexOf('--port');
 const port = Number(portArgument >= 0 ? process.argv[portArgument + 1] : process.env.PORT || 4173);
 
@@ -21,9 +30,34 @@ const contentTypes = new Map([
   ['.svg', 'image/svg+xml; charset=utf-8'],
 ]);
 
+function sendFile(request, response, filePath, status = 200) {
+  const contentType = contentTypes.get(path.extname(filePath)) ?? 'application/octet-stream';
+  const canCompress = /^(text\/|application\/(javascript|json))/.test(contentType);
+  const useGzip = canCompress && request.headers['accept-encoding']?.includes('gzip');
+  const headers = {
+    'Cache-Control': 'no-store',
+    'Content-Type': contentType,
+  };
+  if (useGzip) {
+    headers['Content-Encoding'] = 'gzip';
+    headers.Vary = 'Accept-Encoding';
+  }
+  response.writeHead(status, headers);
+  if (request.method === 'HEAD') {
+    response.end();
+    return;
+  }
+  const stream = createReadStream(filePath);
+  if (useGzip) stream.pipe(createGzip()).pipe(response);
+  else stream.pipe(response);
+}
+
 function resolveRequestPath(requestUrl) {
   const pathname = decodeURIComponent(new URL(requestUrl, 'http://localhost').pathname);
-  const relativePath = pathname === '/' ? 'index.html' : pathname.replace(/^\/+/, '');
+  const relativePath =
+    pathname === '/'
+      ? 'index.html'
+      : `${pathname.replace(/^\/+/, '')}${pathname.endsWith('/') ? 'index.html' : ''}`;
   const resolvedPath = path.resolve(root, relativePath);
   return resolvedPath === root || resolvedPath.startsWith(`${root}${path.sep}`)
     ? resolvedPath
@@ -49,15 +83,17 @@ const server = createServer(async (request, response) => {
   try {
     const file = await stat(filePath);
     if (!file.isFile()) throw new Error('Não é um arquivo.');
-    response.writeHead(200, {
-      'Cache-Control': 'no-store',
-      'Content-Type': contentTypes.get(path.extname(filePath)) ?? 'application/octet-stream',
-    });
-    if (request.method === 'HEAD') response.end();
-    else createReadStream(filePath).pipe(response);
+    sendFile(request, response, filePath);
   } catch {
-    response.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
-    response.end('Arquivo não encontrado.');
+    const notFoundPath = path.join(root, '404.html');
+    try {
+      const notFound = await stat(notFoundPath);
+      if (!notFound.isFile()) throw new Error('404.html não é um arquivo.');
+      sendFile(request, response, notFoundPath, 404);
+    } catch {
+      response.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+      response.end('Arquivo não encontrado.');
+    }
   }
 });
 

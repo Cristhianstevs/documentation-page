@@ -40,6 +40,9 @@ jobs:
       - name: Executar testes de navegador
         run: npm run test:browser
 
+      - name: Executar testes de navegador do novo leitor
+        run: npm run reader:test:browser
+
       - name: Publicar evidências em caso de falha
         if: failure()
         uses: actions/upload-artifact@v4

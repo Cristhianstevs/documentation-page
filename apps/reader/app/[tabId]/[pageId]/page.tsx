@@ -1,5 +1,6 @@
-import Link from 'next/link';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { ReaderHeader } from '@/app/components/reader-header';
 import { legacySitePromise } from '@/lib/legacy-site';
 
 type PageProperties = {
@@ -13,6 +14,17 @@ export async function generateStaticParams() {
 
 export const dynamicParams = false;
 
+export async function generateMetadata({ params }: PageProperties): Promise<Metadata> {
+  const route = await params;
+  const site = await legacySitePromise;
+  const page = site.tabs
+    .find((tab) => tab.id === route.tabId)
+    ?.pages.find((candidate) => candidate.id === route.pageId);
+  return {
+    title: page ? `${page.title} | ${site.appSettings.siteTitle}` : site.appSettings.siteTitle,
+  };
+}
+
 export default async function DocumentationPage({ params }: PageProperties) {
   const route = await params;
   const site = await legacySitePromise;
@@ -23,35 +35,20 @@ export default async function DocumentationPage({ params }: PageProperties) {
 
   return (
     <div className="reader-shell">
-      <header className="reader-header">
-        <Link className="brand" href="/">
-          {site.appSettings.logoText}
-        </Link>
-        <nav aria-label="Abas da documentação">
-          {site.tabs.map((tab) => (
-            <Link
-              aria-current={tab.id === activeTab.id ? 'page' : undefined}
-              className="tab-link"
-              href={`/${tab.id}/${tab.pages[0].id}/`}
-              key={tab.id}
-            >
-              {tab.title}
-            </Link>
-          ))}
-        </nav>
-      </header>
+      <ReaderHeader activeTab={activeTab} site={site} />
 
-      <aside className="page-sidebar" aria-label="Páginas da aba">
-        <p className="sidebar-label">Nesta aba</p>
+      <aside className="page-sidebar" aria-label="Páginas da aba" id="page-sidebar">
+        <p className="sidebar-label">{site.appSettings.sidebarTitle}</p>
         {activeTab.pages.map((page) => (
-          <Link
+          <a
             aria-current={page.id === activePage.id ? 'page' : undefined}
             className="page-link"
             href={`/${activeTab.id}/${page.id}/`}
             key={page.id}
           >
-            {page.title}
-          </Link>
+            {page.icon ? <span aria-hidden="true">{page.icon}</span> : null}
+            <span>{page.title}</span>
+          </a>
         ))}
       </aside>
 

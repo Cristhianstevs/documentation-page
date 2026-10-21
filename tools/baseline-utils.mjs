@@ -1,8 +1,10 @@
 import { spawn } from 'node:child_process';
 
-export async function withLocalServer(callback, { port = 4180 } = {}) {
+export async function withLocalServer(callback, { port = 4180, root } = {}) {
   const baseURL = `http://127.0.0.1:${port}`;
-  const server = spawn(process.execPath, ['tools/serve.mjs', '--port', String(port)], {
+  const arguments_ = ['tools/serve.mjs', '--port', String(port)];
+  if (root) arguments_.push('--root', root);
+  const server = spawn(process.execPath, arguments_, {
     cwd: process.cwd(),
     stdio: ['ignore', 'pipe', 'pipe'],
   });

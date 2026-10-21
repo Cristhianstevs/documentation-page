@@ -12,7 +12,7 @@ function assertInsideDirectory(directory: string, filePath: string) {
   }
 }
 
-function prepareHtml(html: string) {
+function prepareHtml(html: string, routes: Set<string>) {
   const root = parse(html);
   const headingElements = root.querySelectorAll('h1, h2, h3');
   const headingSet = new Set(headingElements);
@@ -39,6 +39,13 @@ function prepareHtml(html: string) {
       element.setAttribute('src', `/legacy-assets/${source.slice(prefix.length)}`);
     }
   });
+  root.querySelectorAll('a[href]').forEach((element) => {
+    const href = element.getAttribute('href');
+    const match = href?.match(/^#([^/]+)\/([^/]+)(?:\/(.+))?$/);
+    if (!match || !routes.has(`${match[1]}/${match[2]}`)) return;
+    const heading = match[3] ? `#${encodeURIComponent(match[3])}` : '';
+    element.setAttribute('href', `/${match[1]}/${match[2]}/${heading}`);
+  });
 
   return {
     headings: entries as LegacyHeading[],
@@ -56,6 +63,9 @@ export async function readLegacySite(
   const sourceDirectory = path.join(absoluteRoot, source);
   const { appSettings, docsConfig } = validateConfig(configuration);
   const pagesDirectory = path.join(sourceDirectory, 'pages');
+  const routes = new Set(
+    docsConfig.flatMap((tab) => tab.pages.map((page) => `${tab.id}/${page.id}`)),
+  );
 
   const tabs = await Promise.all(
     docsConfig.map(async (tab) => ({
@@ -65,7 +75,7 @@ export async function readLegacySite(
         tab.pages.map(async (page): Promise<LegacyPage> => {
           const pagePath = path.resolve(pagesDirectory, page.file);
           assertInsideDirectory(pagesDirectory, pagePath);
-          const prepared = prepareHtml(await readFile(pagePath, 'utf8'));
+          const prepared = prepareHtml(await readFile(pagePath, 'utf8'), routes);
           return { ...page, ...prepared };
         }),
       ),

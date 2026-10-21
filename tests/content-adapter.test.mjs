@@ -20,3 +20,12 @@ test('o adaptador lê a instalação legada sem alterar seus arquivos', async ()
   );
   assert.match(componentsPage.html, /src="\/legacy-assets\/mapa-ficticio\.svg"/);
 });
+
+test('o adaptador converte links internos legados sem alterar exemplos em código', async () => {
+  const configuration = await import('../examples/config.js');
+  const site = await readLegacySite('.', { configuration, source: 'examples' });
+  const introduction = site.tabs[0].pages[0];
+
+  assert.match(introduction.html, /href="\/guias\/instalacao\/"/);
+  assert.match(introduction.html, /<code>#guias\/instalacao\/criar-a-pasta-site<\/code>/);
+});

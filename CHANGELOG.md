@@ -14,6 +14,13 @@ não implementada fica no [plano da próxima versão](docs/PLANO-PROXIMA-VERSAO.
 - Criado o pacote de conteúdo que lê e valida `config.js`, páginas HTML, títulos, CSS e assets legados durante o build.
 - Comprovada a geração estática tanto da demonstração quanto da instalação fictícia de migração.
 - Protegido o leitor contra vazamento horizontal de imagens, vídeos, tabelas e código em telas pequenas.
+- Concluída a equivalência de navegação com todas as rotas, ponte para hashes antigos e links
+  internos convertidos durante o build.
+- Adicionados menu móvel acessível, tema claro/escuro persistente, metadados por página e recuperação
+  de rota inválida.
+- Adicionados testes do leitor exportado em desktop e celular, medição reproduzível e um orçamento de
+  180 KiB para o conjunto de JavaScript compactado.
+- Registrada a regressão de desempenho do runtime Next.js/React antes de iniciar o editor.
 
 ### Fundação mensurável para a migração — 2026-10-20
 

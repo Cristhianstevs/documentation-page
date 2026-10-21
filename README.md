@@ -6,7 +6,7 @@ Você escreve arquivos HTML simples. O tema cria os menus, o índice da página,
 layout para desktop e celular.
 
 > **Estado do projeto:** a versão estática `0.1.0` continua sendo o produto funcional. A Etapa 1 da
-> migração começou com um leitor Next.js experimental em `apps/reader`; ele ainda não substitui o
+> migração concluiu a equivalência funcional do leitor Next.js em `apps/reader`; ele ainda não substitui o
 > tema atual. Editor visual, configurações pela interface e IA continuam planejados. Leia a
 > [arquitetura proposta](docs/ARQUITETURA.md) e o
 > [plano incremental](docs/PLANO-PROXIMA-VERSAO.md). Nenhum desses recursos futuros está disponível
