@@ -5,6 +5,17 @@ não implementada fica no [plano da próxima versão](docs/PLANO-PROXIMA-VERSAO.
 
 ## Não lançado
 
+### Formato v1 e experimento do editor — 2026-10-21
+
+- Definidos schemas Zod para `site.json` e para o AST portátil do projeto.
+- Implementados parser CommonMark/GFM, diretivas, serialização e renderização HTML segura.
+- O adaptador legado passou a produzir AST sem modificar os arquivos HTML existentes.
+- Adicionado conversor explícito com prévia, backup e relatório de simplificações.
+- Criados o pacote isolado do editor e uma bancada Lexical, sem adicionar Lexical ao leitor.
+- Aprovados round-trip semântico, teclado, desfazer/refazer e documento de 5.000 blocos.
+- A instabilidade do Lexical com 5.000 blocos acionou a comparação prevista; Tiptap foi escolhido
+  para a Etapa 3 por completar o fluxo equivalente de forma mais estável.
+
 ### Início do leitor Next.js — 2026-10-20
 
 - Criado o workspace `apps/reader` com Next.js, React e TypeScript estrito.

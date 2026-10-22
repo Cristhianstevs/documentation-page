@@ -1,6 +1,6 @@
 # Arquitetura da próxima versão
 
-Status em 2026-10-20: **arquitetura proposta; implementação ainda não iniciada**.
+Status em 2026-10-21: **Etapas 0, 1 e 2 implementadas; Etapa 3 ainda não iniciada**.
 
 O tema estático atual continua sendo a versão funcional e validada. A próxima versão migrará para
 Next.js e TypeScript em etapas, sem misturar a migração com a criação do editor ou com a IA. O
@@ -11,12 +11,12 @@ Next.js e TypeScript em etapas, sem misturar a migração com a criação do edi
 
 | Área          | Implementado agora                                   | Proposta desta arquitetura                         |
 | ------------- | ---------------------------------------------------- | -------------------------------------------------- |
-| Base          | HTML, CSS, JavaScript, ES Modules e Web Components   | Next.js App Router, React e TypeScript             |
-| Conteúdo      | `site/config.js` e fragmentos em `site/pages/*.html` | `site/site.json`, Markdown e AST validada          |
-| URLs          | `#aba/pagina/titulo`                                 | `/aba/pagina#titulo`, com ponte para links antigos |
+| Base          | Tema estático e leitor Next.js experimental         | Estúdio local de autoria                         |
+| Conteúdo      | HTML legado e schemas v1 de `site.json`/Markdown/AST  | Salvamento do formato v1 pela interface            |
+| URLs          | `/aba/pagina#titulo`, com ponte para links antigos   | Aliases editáveis pela interface                 |
 | Autoria       | Edição manual de arquivos                            | Estúdio visual e modo fonte                        |
 | Configurações | Edição de `config.js`                                | Diálogo para site, abas e páginas                  |
-| Tema          | Paleta atual fixa                                    | Botão claro/escuro com preferência persistida      |
+| Tema          | Botão claro/escuro com preferência persistida     | Configuração do tema pelo estúdio                |
 | IA e upload   | Não existem                                          | Importação, `ChangeSet`, diff e confirmação humana |
 | Contas        | Não existem                                          | Continuam fora desta versão                        |
 
@@ -62,7 +62,7 @@ desta atualização. São extensões futuras e não devem orientar o primeiro de
 | Aplicação             | Next.js com App Router e TypeScript estrito                                             | Rotas por caminho, renderização no servidor, geração estática e separação entre componentes de servidor e cliente |
 | Interface             | React, CSS global por tokens e CSS Modules                                              | Preserva o conhecimento atual de CSS e evita adotar um framework visual inteiro                                   |
 | Componentes complexos | Radix Primitives, importado por componente                                              | Resolve foco e teclado em diálogo, menu, tooltip e popover sem impor aparência                                    |
-| Editor                | Lexical com plugins escolhidos individualmente                                          | Núcleo pequeno, modelo próprio de documento, acessibilidade e foco explícito em desempenho                        |
+| Editor                | Tiptap com extensões escolhidas individualmente                                       | O comparativo da Etapa 2 foi mais estável com 5.000 blocos; o AST continua independente do editor                       |
 | Animação              | CSS para estados simples; Motion com `LazyMotion` somente quando necessário             | Evita JavaScript em transições básicas e adia o custo das animações complexas                                     |
 | Validação             | Zod nas fronteiras de arquivos, formulários e respostas da IA                           | O mesmo contrato valida entrada manual e saída de modelo                                                          |
 | IA                    | AI SDK no servidor, por meio de uma interface de provedor                               | Evita acoplar o domínio a um único fornecedor e oferece saída estruturada                                         |
@@ -73,8 +73,9 @@ Versões exatas só serão fixadas ao iniciar a migração. Bibliotecas de edito
 copiar versões deste documento no futuro seria menos seguro que instalar a versão estável e validar
 seus guias e changelogs naquele momento.
 
-A comparação completa está em [Pesquisa de tecnologias](PESQUISA-TECNOLOGIAS.md). Lexical é a
-decisão inicial, mas precisa passar pelo experimento da Etapa 2 antes de receber todos os plugins.
+A comparação completa está em [Pesquisa de tecnologias](PESQUISA-TECNOLOGIAS.md). Lexical foi a
+decisão inicial; o experimento da Etapa 2 acionou o gatilho de reversão e escolheu Tiptap para a
+Etapa 3. O formato do projeto permanece independente dos dois editores.
 
 ## 4. Separação entre leitor e estúdio
 

@@ -1,0 +1,111 @@
+:root {
+  color-scheme: dark;
+  --background: #101112;
+  --surface: #1b1d20;
+  --border: #3a3f45;
+  --text: #f5f3ee;
+  --muted: #b2b5bb;
+  --accent: #d5ff70;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+main {
+  width: min(100% - 2rem, 52rem);
+  margin: 0 auto;
+  padding: 4rem 0;
+}
+
+.eyebrow {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.experiment {
+  margin-top: 2rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--surface);
+  padding: 1rem;
+}
+
+.experiment-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+button {
+  border: 0;
+  border-radius: 0.5rem;
+  background: var(--accent);
+  color: #111;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  padding: 0.65rem 0.85rem;
+}
+
+.experiment-actions p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.editor-frame {
+  position: relative;
+}
+
+.editor-input {
+  min-height: 16rem;
+  max-height: 30rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: #121416;
+  padding: 1rem;
+  overflow: auto;
+}
+
+.editor-input > p {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1.6em;
+}
+
+.editor-input:focus {
+  outline: 3px solid color-mix(in srgb, var(--accent) 60%, transparent);
+  outline-offset: 2px;
+}
+
+.editor-placeholder {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  margin: 0;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.editor-bold {
+  font-weight: 700;
+}
+
+.editor-italic {
+  font-style: italic;
+}
+
+.editor-underline {
+  text-decoration: underline;
+}

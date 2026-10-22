@@ -11,4 +11,5 @@
 /apps/*/generated/legacy-config.json
 /playwright-report/
 /playwright-reader-report/
+/playwright-editor-report/
 /test-results/

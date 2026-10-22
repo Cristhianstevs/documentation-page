@@ -3,7 +3,8 @@ import path from 'node:path';
 import { parse } from 'node-html-parser';
 import { validateConfig } from '../../../../js/config-validation.js';
 import { buildHeadingEntries } from '../../../../js/headings.js';
-import type { LegacyHeading, LegacyPage, LegacySite } from './types';
+import { parseLegacyHtml } from './parse-legacy-html.ts';
+import type { LegacyHeading, LegacyPage, LegacySite } from './types.ts';
 
 function assertInsideDirectory(directory: string, filePath: string) {
   const relativePath = path.relative(directory, filePath);
@@ -46,11 +47,14 @@ function prepareHtml(html: string, routes: Set<string>) {
     const heading = match[3] ? `#${encodeURIComponent(match[3])}` : '';
     element.setAttribute('href', `/${match[1]}/${match[2]}/${heading}`);
   });
+  const legacyAst = parseLegacyHtml(root.toString());
 
   return {
+    document: legacyAst.document,
     headings: entries as LegacyHeading[],
     html: root.toString(),
     issues,
+    migrationIssues: legacyAst.issues,
   };
 }
 

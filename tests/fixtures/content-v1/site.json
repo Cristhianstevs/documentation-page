@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "site": {
+    "title": "Guia de hospedagem fictício",
+    "brand": "GUIA",
+    "language": "pt-BR",
+    "defaultTheme": "system"
+  },
+  "tabs": [
+    {
+      "id": "fundamentos",
+      "title": "Fundamentos",
+      "pages": ["inicio"]
+    }
+  ],
+  "pages": {
+    "inicio": {
+      "title": "Início",
+      "source": "pages/inicio.md"
+    }
+  }
+}

@@ -7,7 +7,8 @@ layout para desktop e celular.
 
 > **Estado do projeto:** a versão estática `0.1.0` continua sendo o produto funcional. A Etapa 1 da
 > migração concluiu a equivalência funcional do leitor Next.js em `apps/reader`; ele ainda não substitui o
-> tema atual. Editor visual, configurações pela interface e IA continuam planejados. Leia a
+> tema atual. A Etapa 2 definiu Markdown/AST e escolheu Tiptap após um experimento comparativo; ainda não há
+> salvamento pela interface. Editor visual, configurações pela interface e IA continuam planejados. Leia a
 > [arquitetura proposta](docs/ARQUITETURA.md) e o
 > [plano incremental](docs/PLANO-PROXIMA-VERSAO.md). Nenhum desses recursos futuros está disponível
 > nesta revisão.
@@ -132,6 +133,7 @@ Não abra o projeto com `file://`. Use sempre `npm start` ou `node tools/serve.m
 | Conhecer a evolução para editor e IA    | [Plano da próxima versão](docs/PLANO-PROXIMA-VERSAO.md)   |
 | Entender a Etapa 0 e a nova estrutura   | [Fundação da migração](docs/ETAPA-0-FUNDACAO.md)          |
 | Acompanhar a migração do leitor         | [Etapa 1 — Leitor](docs/ETAPA-1-LEITOR.md)                |
+| Entender o formato e o experimento do editor | [Etapa 2 — Formato e editor](docs/ETAPA-2-FORMATO-EDITOR.md) |
 | Comparar as tecnologias pesquisadas     | [Pesquisa de tecnologias](docs/PESQUISA-TECNOLOGIAS.md)   |
 | Testar uma instalação como novo usuário | [Teste de aceite](docs/TESTE-DE-ACEITE.md)                |
 | Ver o que já foi validado               | [Relatório de validação](docs/RELATORIO-VALIDACAO-MVP.md) |

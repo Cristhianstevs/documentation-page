@@ -1,3 +1,5 @@
+import type { DocumentAst } from '../schema/document.ts';
+
 export type LegacyHeading = {
   id: string;
   level: 1 | 2 | 3;
@@ -5,12 +7,14 @@ export type LegacyHeading = {
 };
 
 export type LegacyPage = {
+  document: DocumentAst;
   file: string;
   headings: LegacyHeading[];
   html: string;
   icon?: string;
   id: string;
   issues: string[];
+  migrationIssues: string[];
   title: string;
 };
 

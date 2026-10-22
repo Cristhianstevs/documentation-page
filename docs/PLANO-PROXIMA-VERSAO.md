@@ -12,7 +12,7 @@ como funcionalidade entregue.
 - [x] Visão, limites, arquitetura e ordem de execução documentados.
 - [x] Bibliotecas candidatas comparadas em fontes oficiais.
 - [x] Migração para Next.js iniciada com uma rota estática experimental.
-- [ ] Editor visual implementado.
+- [ ] Editor visual implementado. O experimento Lexical da Etapa 2 foi aprovado; o produto entra na Etapa 3.
 - [ ] Configurações pela interface implementadas.
 - [ ] Importação e IA implementadas.
 
@@ -71,14 +71,14 @@ medidos e não há regressão sem justificativa.
 
 ## Etapa 2 — Formato de conteúdo e experimento do editor
 
-- [ ] Definir schemas v1 de `site.json`, AST e diretivas Markdown.
-- [ ] Implementar Markdown → AST → renderizador.
-- [ ] Integrar o HTML legado ao novo AST sem converter arquivos automaticamente.
-- [ ] Criar conversor explícito com backup e relatório de diferenças.
-- [ ] Prototipar Lexical apenas com parágrafo, título, marcas, lista e código.
-- [ ] Implementar ida e volta AST ↔ Lexical ↔ Markdown.
-- [ ] Testar documento de 5.000 blocos, teclado e perda semântica.
-- [ ] Comparar Tiptap somente se Lexical falhar nos critérios registrados.
+- [x] Definir schemas v1 de `site.json`, AST e diretivas Markdown.
+- [x] Implementar Markdown → AST → renderizador.
+- [x] Integrar o HTML legado ao novo AST sem converter arquivos automaticamente.
+- [x] Criar conversor explícito com backup e relatório de diferenças.
+- [x] Prototipar Lexical apenas com parágrafo, título, marcas, lista e código.
+- [x] Implementar ida e volta AST ↔ Lexical ↔ Markdown.
+- [x] Testar documento de 5.000 blocos, teclado e perda semântica.
+- [x] Comparar Tiptap após a falha de estabilidade do Lexical; Tiptap foi escolhido para a Etapa 3.
 
 **Aceite:** salvar um documento sem editar não altera seu significado; o leitor continua sem Lexical;
 o experimento atende aos orçamentos ou produz evidência para trocar de editor.
@@ -178,6 +178,5 @@ somente o guia; uma instalação antiga migra sem perder URLs ou arquivos.
 
 ## Próxima mudança recomendada
 
-Iniciar a Etapa 2 definindo primeiro os schemas v1 de `site.json`, AST e diretivas Markdown. O
-experimento do editor deve continuar separado do leitor e precisa respeitar a ressalva de desempenho
-registrada na Etapa 1.
+Iniciar a Etapa 3 criando `apps/studio` com runtime Node local. A primeira entrega deve abrir e salvar
+uma página Markdown com escrita atômica, backup e conflito otimista, sem incluir importação ou IA.
