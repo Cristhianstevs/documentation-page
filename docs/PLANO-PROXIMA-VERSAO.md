@@ -12,7 +12,7 @@ como funcionalidade entregue.
 - [x] Visão, limites, arquitetura e ordem de execução documentados.
 - [x] Bibliotecas candidatas comparadas em fontes oficiais.
 - [x] Migração para Next.js iniciada com uma rota estática experimental.
-- [ ] Editor visual implementado. O experimento Lexical da Etapa 2 foi aprovado; o produto entra na Etapa 3.
+- [ ] Editor visual implementado. A Etapa 2 escolheu Tiptap no experimento comparativo; o produto entra na Etapa 3.
 - [ ] Configurações pela interface implementadas.
 - [ ] Importação e IA implementadas.
 
@@ -80,7 +80,7 @@ medidos e não há regressão sem justificativa.
 - [x] Testar documento de 5.000 blocos, teclado e perda semântica.
 - [x] Comparar Tiptap após a falha de estabilidade do Lexical; Tiptap foi escolhido para a Etapa 3.
 
-**Aceite:** salvar um documento sem editar não altera seu significado; o leitor continua sem Lexical;
+**Aceite:** salvar um documento sem editar não altera seu significado; o leitor continua sem código de editor;
 o experimento atende aos orçamentos ou produz evidência para trocar de editor.
 
 ## Etapa 3 — Escrita manual

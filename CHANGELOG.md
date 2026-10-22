@@ -5,7 +5,7 @@ não implementada fica no [plano da próxima versão](docs/PLANO-PROXIMA-VERSAO.
 
 ## Não lançado
 
-### Formato v1 e experimento do editor — 2026-10-21
+### Formato v1 e experimento do editor — 2026-10-22
 
 - Definidos schemas Zod para `site.json` e para o AST portátil do projeto.
 - Implementados parser CommonMark/GFM, diretivas, serialização e renderização HTML segura.

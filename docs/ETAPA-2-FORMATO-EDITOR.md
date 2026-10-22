@@ -1,8 +1,8 @@
 # Etapa 2 — Formato de conteúdo e experimento do editor
 
-Status em 2026-10-21: **concluída**.
+Status em 2026-10-22: **concluída**.
 
-Esta etapa definiu o formato portátil do projeto e testou o Lexical em uma bancada isolada. Ela não
+Esta etapa definiu o formato portátil do projeto e comparou Lexical e Tiptap em uma bancada isolada. Ela não
 entrega salvamento pela interface nem transforma o laboratório em produto. Essas funções pertencem
 à Etapa 3.
 
@@ -56,7 +56,7 @@ O modo `--apply` recusa sobrescrever o Markdown, copia o HTML original para `.re
 quantidade de blocos, títulos e simplificações. O catálogo não é alterado automaticamente; a pessoa
 revisa a prévia antes de trocar a fonte da página.
 
-## Experimento Lexical
+## Experimento comparativo
 
 `apps/editor-lab` é uma bancada separada. Os protótipos cobrem parágrafo, título, marcas, lista e
 código, com desfazer/refazer e teclado real no Chromium. O pacote `packages/editor` preserva o
@@ -66,10 +66,11 @@ comparação. O leitor não possui dependência de nenhum editor.
 Resultados observados nesta máquina:
 
 - round-trip de 5.000 parágrafos em teste de domínio abaixo do limite de 5 segundos;
-- Lexical carregou 5.000 blocos em 167 ms, mas uma rodada não concluiu `Ctrl+End` em 30 segundos;
-- Tiptap carregou os mesmos blocos em 84 ms e concluiu o cenário completo em 7,4 segundos;
-- após posicionamento direto equivalente, as medianas de p95 foram 26,3 ms no Lexical e 28,5 ms no
-  Tiptap, ambas abaixo do orçamento de 50 ms;
+- Lexical carregou 5.000 blocos em 109 ms, mas uma rodada anterior não concluiu `Ctrl+End` em 30
+  segundos; a rodada final completa levou 29,6 segundos;
+- Tiptap carregou os mesmos blocos em 50 ms e concluiu o cenário completo em 4,7 segundos;
+- após posicionamento direto equivalente, as medianas de p95 foram 14,70 ms no Lexical e 14,90 ms
+  no Tiptap, ambas abaixo do orçamento de 50 ms;
 - desfazer e refazer aprovados por teste de teclado;
 - Markdown → AST → Lexical → AST preserva o subconjunto suportado;
 - Markdown → AST → Markdown preserva o documento v1 testado.

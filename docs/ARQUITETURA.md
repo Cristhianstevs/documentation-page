@@ -1,6 +1,6 @@
 # Arquitetura da próxima versão
 
-Status em 2026-10-21: **Etapas 0, 1 e 2 implementadas; Etapa 3 ainda não iniciada**.
+Status em 2026-10-22: **Etapas 0, 1 e 2 implementadas; Etapa 3 ainda não iniciada**.
 
 O tema estático atual continua sendo a versão funcional e validada. A próxima versão migrará para
 Next.js e TypeScript em etapas, sem misturar a migração com a criação do editor ou com a IA. O
@@ -11,12 +11,12 @@ Next.js e TypeScript em etapas, sem misturar a migração com a criação do edi
 
 | Área          | Implementado agora                                   | Proposta desta arquitetura                         |
 | ------------- | ---------------------------------------------------- | -------------------------------------------------- |
-| Base          | Tema estático e leitor Next.js experimental         | Estúdio local de autoria                         |
-| Conteúdo      | HTML legado e schemas v1 de `site.json`/Markdown/AST  | Salvamento do formato v1 pela interface            |
-| URLs          | `/aba/pagina#titulo`, com ponte para links antigos   | Aliases editáveis pela interface                 |
+| Base          | Tema estático e leitor Next.js experimental          | Estúdio local de autoria                           |
+| Conteúdo      | HTML legado e schemas v1 de `site.json`/Markdown/AST | Salvamento do formato v1 pela interface            |
+| URLs          | `/aba/pagina#titulo`, com ponte para links antigos   | Aliases editáveis pela interface                   |
 | Autoria       | Edição manual de arquivos                            | Estúdio visual e modo fonte                        |
 | Configurações | Edição de `config.js`                                | Diálogo para site, abas e páginas                  |
-| Tema          | Botão claro/escuro com preferência persistida     | Configuração do tema pelo estúdio                |
+| Tema          | Botão claro/escuro com preferência persistida        | Configuração do tema pelo estúdio                  |
 | IA e upload   | Não existem                                          | Importação, `ChangeSet`, diff e confirmação humana |
 | Contas        | Não existem                                          | Continuam fora desta versão                        |
 
@@ -62,7 +62,7 @@ desta atualização. São extensões futuras e não devem orientar o primeiro de
 | Aplicação             | Next.js com App Router e TypeScript estrito                                             | Rotas por caminho, renderização no servidor, geração estática e separação entre componentes de servidor e cliente |
 | Interface             | React, CSS global por tokens e CSS Modules                                              | Preserva o conhecimento atual de CSS e evita adotar um framework visual inteiro                                   |
 | Componentes complexos | Radix Primitives, importado por componente                                              | Resolve foco e teclado em diálogo, menu, tooltip e popover sem impor aparência                                    |
-| Editor                | Tiptap com extensões escolhidas individualmente                                       | O comparativo da Etapa 2 foi mais estável com 5.000 blocos; o AST continua independente do editor                       |
+| Editor                | Tiptap com extensões escolhidas individualmente                                         | O comparativo da Etapa 2 foi mais estável com 5.000 blocos; o AST continua independente do editor                 |
 | Animação              | CSS para estados simples; Motion com `LazyMotion` somente quando necessário             | Evita JavaScript em transições básicas e adia o custo das animações complexas                                     |
 | Validação             | Zod nas fronteiras de arquivos, formulários e respostas da IA                           | O mesmo contrato valida entrada manual e saída de modelo                                                          |
 | IA                    | AI SDK no servidor, por meio de uma interface de provedor                               | Evita acoplar o domínio a um único fornecedor e oferece saída estruturada                                         |
@@ -91,7 +91,7 @@ documentation-page/
 ├── packages/
 │   ├── content/                # esquemas, parser, migrações e repositório de conteúdo
 │   ├── renderer/               # transforma o documento em React/HTML seguro
-│   ├── editor/                 # Lexical e adaptadores; carregado somente no estúdio
+│   ├── editor/                 # editor e adaptadores; carregado somente no estúdio
 │   ├── ai/                     # planos, prompts, provedores e validação de ChangeSet
 │   ├── importers/              # Markdown, HTML, PDF e DOCX; somente no servidor
 │   └── ui/                     # tokens e componentes compartilhados
@@ -201,8 +201,8 @@ Tenha o código do hotel em mãos.
 :::
 ```
 
-O formato interno pertence ao projeto. O estado JSON do Lexical existe somente enquanto a página é
-editada. Ao abrir e salvar, adaptadores fazem `Markdown → AST do projeto → Lexical` e o caminho
+O formato interno pertence ao projeto. O estado do Tiptap existe somente enquanto a página é
+editada. Ao abrir e salvar, adaptadores fazem `Markdown → AST do projeto → Tiptap` e o caminho
 inverso. Testes de ida e volta impedem que salvar sem alterações perca conteúdo.
 
 HTML existente continua legível durante a migração. Uma página `.html` é marcada como legado e pode
@@ -212,7 +212,7 @@ arquivos editáveis concorrentes para a mesma página.
 ### AST do projeto
 
 O parser transforma Markdown em uma árvore validada, independente do editor. O leitor renderiza essa
-árvore sem importar Lexical. A IA também precisa devolver operações sobre essa árvore, não HTML.
+árvore sem importar código do editor. A IA também precisa devolver operações sobre essa árvore, não HTML.
 
 Os primeiros tipos são: parágrafo, títulos, listas, tarefas, citação, código, tabela, divisor,
 imagem, link, callout e toggle. Colunas, áudio, vídeo, data, arquivo e embed entram depois que os
@@ -474,7 +474,7 @@ flowchart TD
     A[site.json e Markdown] --> B[Parser e validação]
     B --> C[AST do projeto]
     C --> D[Reader: HTML/React]
-    C --> E[Studio: adaptador Lexical]
+    C --> E[Studio: adaptador Tiptap]
     E --> F[Alteração manual]
     F --> G[AST validada]
     H[Prompt ou upload] --> I[Extração segura]

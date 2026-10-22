@@ -1,7 +1,7 @@
 # Pesquisa de tecnologias para editor, interface e IA
 
 Pesquisa realizada em 2026-10-20 nas documentações e repositórios oficiais, com experimento local
-concluído em 2026-10-21. Este documento registra tanto a hipótese inicial quanto a decisão medida.
+concluído em 2026-10-22. Este documento registra tanto a hipótese inicial quanto a decisão medida.
 
 ## Critérios
 
@@ -20,12 +20,12 @@ bundle, a memória e o acoplamento justamente onde o projeto quer ser pequeno.
 
 ## Editor de texto
 
-| Opção                                                             | Pontos fortes                                                                                                                                          | Limites para este projeto                                                                                                             | Decisão                                                                     |
-| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| [Lexical](https://lexical.dev/docs/intro)                         | Núcleo pequeno sem dependências, plugins opcionais, modelo imutável, React oficial, HTML/Markdown/JSON e foco declarado em acessibilidade e desempenho | A interface e blocos como colunas precisam ser construídos; a navegação no documento de 5.000 blocos ficou instável no experimento                   | Hipótese inicial preservada como experimento; não usar na Etapa 3       |
-| [Tiptap](https://tiptap.dev/docs/editor/getting-started/overview) | API madura sobre ProseMirror, modular, headless, muitas extensões e núcleo MIT                                                                         | Alguns recursos avançados, como comentários e histórico, pertencem à oferta paga; é fácil instalar mais extensões do que o necessário | **Escolhido para a Etapa 3** após a comparação de 5.000 blocos       |
-| [BlockNote](https://www.blocknotejs.org/docs)                     | Experiência de blocos próxima de editores conhecidos, tabelas, embeds e boa configuração inicial                                                       | Traz mais opinião e interface pronta; núcleo usa MPL 2.0; menor controle sobre o peso inicial                                         | Bom para protótipo, não é a base recomendada para o produto leve            |
-| [Plate](https://platejs.org/docs)                                 | Grande conjunto de plugins, UI copiável, IA e recursos avançados                                                                                       | Superfície ampla e mais decisões prontas; a própria documentação mostra custos relevantes em documentos de 10 mil blocos              | Referência de funcionalidades; não adotar antes de benchmark comparável     |
+| Opção                                                             | Pontos fortes                                                                                                                                          | Limites para este projeto                                                                                                             | Decisão                                                                 |
+| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| [Lexical](https://lexical.dev/docs/intro)                         | Núcleo pequeno sem dependências, plugins opcionais, modelo imutável, React oficial, HTML/Markdown/JSON e foco declarado em acessibilidade e desempenho | A interface e blocos como colunas precisam ser construídos; a navegação no documento de 5.000 blocos ficou instável no experimento    | Hipótese inicial preservada como experimento; não usar na Etapa 3       |
+| [Tiptap](https://tiptap.dev/docs/editor/getting-started/overview) | API madura sobre ProseMirror, modular, headless, muitas extensões e núcleo MIT                                                                         | Alguns recursos avançados, como comentários e histórico, pertencem à oferta paga; é fácil instalar mais extensões do que o necessário | **Escolhido para a Etapa 3** após a comparação de 5.000 blocos          |
+| [BlockNote](https://www.blocknotejs.org/docs)                     | Experiência de blocos próxima de editores conhecidos, tabelas, embeds e boa configuração inicial                                                       | Traz mais opinião e interface pronta; núcleo usa MPL 2.0; menor controle sobre o peso inicial                                         | Bom para protótipo, não é a base recomendada para o produto leve        |
+| [Plate](https://platejs.org/docs)                                 | Grande conjunto de plugins, UI copiável, IA e recursos avançados                                                                                       | Superfície ampla e mais decisões prontas; a própria documentação mostra custos relevantes em documentos de 10 mil blocos              | Referência de funcionalidades; não adotar antes de benchmark comparável |
 
 Nenhum editor será enviado ao leitor. O leitor renderiza a AST do projeto no servidor; Tiptap será
 carregado somente pelo estúdio. Lexical e Tiptap permanecem juntos apenas na bancada comparativa da
@@ -35,7 +35,7 @@ Etapa 2 e não entram no bundle público.
 
 | Recurso                                | Estratégia inicial                                                                         |
 | -------------------------------------- | ------------------------------------------------------------------------------------------ |
-| Títulos, parágrafos e listas           | Extensões Tiptap escolhidas individualmente, mapeadas para CommonMark/GFM                   |
+| Títulos, parágrafos e listas           | Extensões Tiptap escolhidas individualmente, mapeadas para CommonMark/GFM                  |
 | Negrito, itálico, sublinhado e tachado | Marcas inline do editor e Markdown quando houver representação                             |
 | Tabelas                                | Plugin de tabela após o núcleo de edição; serialização GFM                                 |
 | Código                                 | Bloco próprio; destaque no servidor/build para não carregar o highlighter no leitor        |
@@ -169,7 +169,7 @@ que realmente precisarem deles. O experimento avaliou:
 
 Lexical preservou o subconjunto semântico e funcionou no documento curto, mas uma rodada excedeu o
 p95 de 50 ms e outra não concluiu `Ctrl+End` em 30 segundos com 5.000 blocos. A comparação Tiptap foi
-acionada. Na rodada final equivalente, Lexical carregou os blocos em 167 ms e levou 41,3 s no cenário
-completo; Tiptap carregou em 84 ms e concluiu o cenário em 7,4 s. As medianas de p95 medidas após
-posicionamento direto foram 26,3 ms e 28,5 ms, respectivamente. A estabilidade do fluxo completo,
+acionada. Na rodada final equivalente, Lexical carregou os blocos em 109 ms e levou 29,6 s no cenário
+completo; Tiptap carregou em 50 ms e concluiu o cenário em 4,7 s. As medianas de p95 medidas após
+posicionamento direto foram 14,70 ms e 14,90 ms, respectivamente. A estabilidade do fluxo completo,
 não uma diferença isolada de 2,2 ms, fundamenta a escolha do Tiptap.
