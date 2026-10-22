@@ -1,5 +1,9 @@
-import type { DocumentAst, DocumentBlock, DocumentInline } from '@documentation-page/content';
-import { validateDocument } from '@documentation-page/content';
+import type {
+  DocumentAst,
+  DocumentBlock,
+  DocumentInline,
+} from '@documentation-page/content/document';
+import { validateDocument } from '@documentation-page/content/document';
 
 const escapeHtml = (value: string) =>
   value

@@ -13,6 +13,7 @@
     "baseline:lighthouse": "node tools/run-lighthouse.mjs",
     "baseline:measure": "node tools/measure-baseline.mjs",
     "create-site": "node tools/create-site.mjs",
+    "create-studio-site": "node tools/create-studio-site.mjs",
     "reader:build": "npm run build --workspace @documentation-page/reader",
     "reader:dev": "npm run dev --workspace @documentation-page/reader",
     "reader:measure": "node tools/measure-reader.mjs",
@@ -21,6 +22,10 @@
     "editor-lab:build": "npm run build --workspace @documentation-page/editor-lab",
     "editor-lab:typecheck": "npm run typecheck --workspace @documentation-page/editor-lab",
     "editor-lab:test:browser": "playwright test --config playwright.editor-lab.config.mjs",
+    "studio:build": "npm run build --workspace @documentation-page/studio",
+    "studio:dev": "npm run dev --workspace @documentation-page/studio",
+    "studio:typecheck": "npm run typecheck --workspace @documentation-page/studio",
+    "studio:test:browser": "playwright test --config playwright.studio.config.mjs",
     "convert:legacy-page": "node tools/convert-legacy-page.mjs",
     "reader:typecheck": "npm run typecheck --workspace @documentation-page/reader",
     "reader:test:browser": "playwright test --config playwright.reader.config.mjs",
@@ -31,7 +36,7 @@
     "check:format": "prettier --check \"**/*.{css,html,md,json,jsonc,yml}\" --ignore-path .gitignore",
     "check": "npm run check:js && npm run check:format",
     "format": "biome check --write apps js tests tools examples/config.js playwright.config.mjs && prettier --write \"**/*.{css,html,md,json,jsonc,yml}\" --ignore-path .gitignore",
-    "validate": "npm run check && npm test && npm run reader:typecheck && npm run reader:build && npm run editor-lab:typecheck && npm run editor-lab:build && npm run test:browser && npm run reader:test:browser && npm run editor-lab:test:browser && git diff --check"
+    "validate": "npm run check && npm test && npm run reader:typecheck && npm run reader:build && npm run editor-lab:typecheck && npm run editor-lab:build && npm run studio:typecheck && npm run studio:build && npm run test:browser && npm run reader:test:browser && npm run editor-lab:test:browser && npm run studio:test:browser && git diff --check"
   },
   "engines": {
     "node": ">=24"

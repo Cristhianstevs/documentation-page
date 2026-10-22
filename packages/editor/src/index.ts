@@ -181,3 +181,9 @@ export function readDocumentFromEditor(editor: LexicalEditor): DocumentAst {
 export function roundTripDocument(input: DocumentAst): DocumentAst {
   return readDocumentFromEditor(createEditorFromDocument(input));
 }
+
+export {
+  documentToTiptap,
+  tiptapToDocument,
+  UnsupportedEditorContentError,
+} from './tiptap.ts';

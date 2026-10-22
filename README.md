@@ -7,8 +7,8 @@ layout para desktop e celular.
 
 > **Estado do projeto:** a versão estática `0.1.0` continua sendo o produto funcional. A Etapa 1 da
 > migração concluiu a equivalência funcional do leitor Next.js em `apps/reader`; ele ainda não substitui o
-> tema atual. A Etapa 2 definiu Markdown/AST e escolheu Tiptap após um experimento comparativo; ainda não há
-> salvamento pela interface. Editor visual, configurações pela interface e IA continuam planejados. Leia a
+> tema atual. A Etapa 2 definiu Markdown/AST e escolheu Tiptap; a Etapa 3 entregou edição e salvamento
+> local de páginas Markdown em `apps/studio`. Configurações pela interface e IA continuam planejadas. Leia a
 > [arquitetura proposta](docs/ARQUITETURA.md) e o
 > [plano incremental](docs/PLANO-PROXIMA-VERSAO.md). Nenhum desses recursos futuros está disponível
 > nesta revisão.
@@ -123,6 +123,19 @@ npm run validate
 
 Não abra o projeto com `file://`. Use sempre `npm start` ou `node tools/serve.mjs`.
 
+## Experimentar o estúdio Markdown
+
+Para criar uma instalação v1 nova e abrir o editor local:
+
+```sh
+npm run create-studio-site
+npm run studio:dev
+```
+
+Abra `http://127.0.0.1:4176`. O comando de criação não substitui uma pasta `site/` existente. O
+estúdio edita somente páginas Markdown cadastradas no `site.json`; páginas HTML precisam passar pelo
+conversor explícito da Etapa 2.
+
 ## Documentação
 
 | Você quer…                                   | Leia                                                         |
@@ -134,6 +147,7 @@ Não abra o projeto com `file://`. Use sempre `npm start` ou `node tools/serve.m
 | Entender a Etapa 0 e a nova estrutura        | [Fundação da migração](docs/ETAPA-0-FUNDACAO.md)             |
 | Acompanhar a migração do leitor              | [Etapa 1 — Leitor](docs/ETAPA-1-LEITOR.md)                   |
 | Entender o formato e o experimento do editor | [Etapa 2 — Formato e editor](docs/ETAPA-2-FORMATO-EDITOR.md) |
+| Usar o editor e o salvamento local           | [Etapa 3 — Escrita manual](docs/ETAPA-3-ESCRITA-MANUAL.md)   |
 | Comparar as tecnologias pesquisadas          | [Pesquisa de tecnologias](docs/PESQUISA-TECNOLOGIAS.md)      |
 | Testar uma instalação como novo usuário      | [Teste de aceite](docs/TESTE-DE-ACEITE.md)                   |
 | Ver o que já foi validado                    | [Relatório de validação](docs/RELATORIO-VALIDACAO-MVP.md)    |

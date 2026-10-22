@@ -5,6 +5,16 @@ não implementada fica no [plano da próxima versão](docs/PLANO-PROXIMA-VERSAO.
 
 ## Não lançado
 
+### Estúdio de escrita manual — 2026-10-22
+
+- Criado `apps/studio`, separado do leitor e servido apenas no runtime Node local.
+- Tiptap é carregado sob demanda depois da ação **Editar**, com visual, Markdown e prévia.
+- Adicionados barra de formatação, menu `/`, links, listas de tarefas e atalhos de edição.
+- Implementados rascunho local, aviso de alterações pendentes e recuperação explícita.
+- O salvamento valida página e Markdown, detecta conflitos de revisão, cria backup em `.revisions/`
+  e troca o arquivo por um temporário exclusivo.
+- Adicionados testes de domínio e navegador para backup, conflito, round-trip, edição e celular.
+
 ### Formato v1 e experimento do editor — 2026-10-22
 
 - Definidos schemas Zod para `site.json` e para o AST portátil do projeto.

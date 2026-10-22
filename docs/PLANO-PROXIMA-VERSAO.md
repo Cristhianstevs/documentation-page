@@ -12,7 +12,7 @@ como funcionalidade entregue.
 - [x] Visão, limites, arquitetura e ordem de execução documentados.
 - [x] Bibliotecas candidatas comparadas em fontes oficiais.
 - [x] Migração para Next.js iniciada com uma rota estática experimental.
-- [ ] Editor visual implementado. A Etapa 2 escolheu Tiptap no experimento comparativo; o produto entra na Etapa 3.
+- [x] Editor visual básico implementado no estúdio local com Tiptap.
 - [ ] Configurações pela interface implementadas.
 - [ ] Importação e IA implementadas.
 
@@ -85,13 +85,13 @@ o experimento atende aos orçamentos ou produz evidência para trocar de editor.
 
 ## Etapa 3 — Escrita manual
 
-- [ ] Criar `apps/studio` com runtime Node local.
-- [ ] Carregar o editor somente ao clicar em **Editar**.
-- [ ] Entregar visual, fonte Markdown e prévia.
-- [ ] Adicionar barra, menu `/`, atalhos, desfazer/refazer e links.
-- [ ] Adicionar salvar, rascunho local, revisão e conflito otimista.
-- [ ] Implementar escrita atômica, backup em `.revisions/` e recuperação.
-- [ ] Cobrir teclado, foco, celular e aviso de alteração não salva.
+- [x] Criar `apps/studio` com runtime Node local.
+- [x] Carregar o editor somente ao clicar em **Editar**.
+- [x] Entregar visual, fonte Markdown e prévia.
+- [x] Adicionar barra, menu `/`, atalhos, desfazer/refazer e links.
+- [x] Adicionar salvar, rascunho local, revisão e conflito otimista.
+- [x] Implementar escrita atômica, backup em `.revisions/` e recuperação.
+- [x] Cobrir teclado, foco, celular e aviso de alteração não salva.
 
 **Aceite:** uma pessoa cria e edita uma página sem tocar em HTML, outra pessoa pode editar o mesmo
 arquivo Markdown manualmente, e salvar/recarregar não perde conteúdo.
@@ -178,5 +178,5 @@ somente o guia; uma instalação antiga migra sem perder URLs ou arquivos.
 
 ## Próxima mudança recomendada
 
-Iniciar a Etapa 3 criando `apps/studio` com runtime Node local. A primeira entrega deve abrir e salvar
-uma página Markdown com escrita atômica, backup e conflito otimista, sem incluir importação ou IA.
+Iniciar a Etapa 4 com o diálogo de configurações e operações pequenas sobre abas e páginas. O
+repositório deve reutilizar validação, revisão otimista, backup e escrita segura da Etapa 3.

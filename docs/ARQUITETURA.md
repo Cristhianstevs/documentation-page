@@ -1,6 +1,6 @@
 # Arquitetura da próxima versão
 
-Status em 2026-10-22: **Etapas 0, 1 e 2 implementadas; Etapa 3 ainda não iniciada**.
+Status em 2026-10-22: **Etapas 0, 1, 2 e 3 implementadas; Etapa 4 ainda não iniciada**.
 
 O tema estático atual continua sendo a versão funcional e validada. A próxima versão migrará para
 Next.js e TypeScript em etapas, sem misturar a migração com a criação do editor ou com a IA. O

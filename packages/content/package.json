@@ -4,7 +4,11 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./document": "./src/schema/document.ts",
+    "./markdown": "./src/markdown/index.ts",
+    "./repository": "./src/repository/site-repository.ts",
+    "./site": "./src/schema/site.ts"
   },
   "dependencies": {
     "node-html-parser": "9.0.4",

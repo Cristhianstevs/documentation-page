@@ -3,13 +3,17 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "exports": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tiptap": "./src/tiptap.ts"
+  },
   "dependencies": {
     "@documentation-page/content": "*",
     "@lexical/code": "0.52.0",
     "@lexical/headless": "0.52.0",
     "@lexical/list": "0.52.0",
     "@lexical/rich-text": "0.52.0",
+    "@tiptap/core": "3.32.0",
     "lexical": "0.52.0"
   }
 }

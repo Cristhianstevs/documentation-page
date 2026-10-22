@@ -10,6 +10,13 @@ export { parseMarkdown } from './markdown/parse-markdown.ts';
 export { serializeMarkdown } from './markdown/serialize-markdown.ts';
 export type { ConversionReport } from './migration/convert-legacy-page.ts';
 export { convertLegacyPage } from './migration/convert-legacy-page.ts';
+export type { EditablePage, RepositoryErrorCode } from './repository/site-repository.ts';
+export {
+  readEditablePage,
+  readSiteCatalog,
+  RepositoryError,
+  saveEditablePage,
+} from './repository/site-repository.ts';
 export type {
   DocumentAst,
   DocumentBlock,
