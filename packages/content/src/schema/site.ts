@@ -16,6 +16,12 @@ export const siteSchema = z
       z.object({ id: idSchema, title: z.string().trim().min(1), pages: z.array(idSchema) }),
     ),
     pages: z.record(idSchema, z.object({ title: z.string().trim().min(1), source: sourceSchema })),
+    aliases: z
+      .object({
+        tabs: z.record(idSchema, idSchema).default({}),
+        pages: z.record(idSchema, idSchema).default({}),
+      })
+      .default({ tabs: {}, pages: {} }),
   })
   .superRefine((site, context) => {
     const tabIds = new Set<string>();
@@ -53,6 +59,38 @@ export const siteSchema = z
           code: 'custom',
           path: ['pages', pageId],
           message: 'Página fora das abas.',
+        });
+      }
+    }
+    for (const [source, target] of Object.entries(site.aliases.tabs)) {
+      if (tabIds.has(source)) {
+        context.addIssue({
+          code: 'custom',
+          path: ['aliases', 'tabs', source],
+          message: 'Um alias de aba não pode usar um ID ativo.',
+        });
+      }
+      if (!tabIds.has(target)) {
+        context.addIssue({
+          code: 'custom',
+          path: ['aliases', 'tabs', source],
+          message: `Destino de alias inexistente: ${target}.`,
+        });
+      }
+    }
+    for (const [source, target] of Object.entries(site.aliases.pages)) {
+      if (site.pages[source]) {
+        context.addIssue({
+          code: 'custom',
+          path: ['aliases', 'pages', source],
+          message: 'Um alias de página não pode usar um ID ativo.',
+        });
+      }
+      if (!site.pages[target]) {
+        context.addIssue({
+          code: 'custom',
+          path: ['aliases', 'pages', source],
+          message: `Destino de alias inexistente: ${target}.`,
         });
       }
     }

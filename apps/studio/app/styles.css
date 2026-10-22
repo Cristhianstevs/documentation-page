@@ -59,6 +59,10 @@ button:disabled {
   margin: 0.2rem 0 0;
   color: #c9d2e3;
 }
+.header-actions {
+  display: flex;
+  gap: 0.5rem;
+}
 .brand {
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -245,6 +249,140 @@ h1 {
   color: #a72727;
 }
 
+.settings-dialog {
+  width: min(64rem, calc(100% - 2rem));
+  max-height: calc(100vh - 2rem);
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #c9d2e3;
+  border-radius: 0.9rem;
+  color: #172033;
+  background: #f8f9fc;
+}
+.settings-dialog::backdrop {
+  background: rgb(10 18 35 / 60%);
+}
+.settings-header,
+.settings-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: white;
+}
+.settings-header {
+  justify-content: space-between;
+  border-bottom: 1px solid #dce2ec;
+}
+.settings-header h2 {
+  margin: 0;
+}
+.settings-header > button {
+  min-width: 2.5rem;
+  font-size: 1.5rem;
+}
+.settings-content {
+  max-height: calc(100vh - 11rem);
+  overflow-y: auto;
+  padding: 1rem 1.25rem;
+}
+.settings-content section {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border: 1px solid #dce2ec;
+  border-radius: 0.75rem;
+  background: white;
+}
+.settings-content h3 {
+  margin-top: 0;
+}
+.settings-form,
+.create-row,
+.settings-card form,
+.row-actions,
+.trash-row {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.settings-form label,
+.create-row label,
+.settings-card label {
+  display: grid;
+  flex: 1 1 10rem;
+  gap: 0.25rem;
+  color: #4c586d;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.settings-form input,
+.settings-form select,
+.create-row input,
+.create-row select,
+.settings-card input,
+.settings-card select {
+  min-width: 0;
+  min-height: 2.5rem;
+  padding: 0.45rem 0.55rem;
+  border: 1px solid #b8c2d4;
+  border-radius: 0.45rem;
+  color: #172033;
+  background: white;
+}
+.settings-list {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+.settings-card {
+  padding: 0.85rem;
+  border: 1px solid #dce2ec;
+  border-radius: 0.6rem;
+  background: #fbfcff;
+}
+.settings-card details {
+  margin-top: 0.75rem;
+}
+.settings-card summary {
+  cursor: pointer;
+  color: #3454d1;
+}
+.row-actions {
+  margin-top: 0.55rem;
+}
+.inline-label {
+  display: flex !important;
+  align-items: center;
+  flex: 0 1 auto !important;
+  grid-template-columns: auto 1fr;
+}
+.card-label,
+.hint,
+.warning {
+  margin: 0 0 0.6rem;
+}
+.hint {
+  color: #5a6578;
+  font-size: 0.85rem;
+}
+.warning {
+  color: #994c00;
+}
+.trash-row {
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #e7ebf2;
+}
+.settings-footer {
+  border-top: 1px solid #dce2ec;
+}
+.settings-footer .status {
+  flex: 1;
+  margin: 0;
+}
+
 @media (max-width: 42rem) {
   .studio-header,
   .workspace-heading,
@@ -272,6 +410,23 @@ h1 {
   }
   .mode-tabs button {
     flex: 1 0 auto;
+  }
+  .header-actions,
+  .settings-form,
+  .create-row,
+  .settings-card form,
+  .row-actions,
+  .trash-row,
+  .settings-footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .settings-dialog {
+    width: calc(100% - 0.5rem);
+    max-height: calc(100vh - 0.5rem);
+  }
+  .settings-content {
+    max-height: calc(100vh - 14rem);
   }
 }
 

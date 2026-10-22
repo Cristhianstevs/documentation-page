@@ -5,6 +5,15 @@ não implementada fica no [plano da próxima versão](docs/PLANO-PROXIMA-VERSAO.
 
 ## Não lançado
 
+### Configurações de site, abas e páginas — 2026-10-22
+
+- Adicionado diálogo local para identidade do site, abas, páginas e lixeira recuperável.
+- Implementadas operações validadas para criar, renomear, ordenar, mover, duplicar, remover e
+  restaurar conteúdo sem aceitar caminhos arbitrários do navegador.
+- Mudanças avançadas de ID exigem confirmação, renomeiam o arquivo e registram aliases estáveis.
+- O catálogo usa revisão otimista, backup, temporário exclusivo e rollback das operações de arquivo.
+- Cobertos catálogo vazio/inválido, duplicidades, conflito, aliases, lixeira, teclado e celular.
+
 ### Estúdio de escrita manual — 2026-10-22
 
 - Criado `apps/studio`, separado do leitor e servido apenas no runtime Node local.

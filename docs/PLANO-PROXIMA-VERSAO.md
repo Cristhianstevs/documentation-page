@@ -13,11 +13,11 @@ como funcionalidade entregue.
 - [x] Bibliotecas candidatas comparadas em fontes oficiais.
 - [x] Migração para Next.js iniciada com uma rota estática experimental.
 - [x] Editor visual básico implementado no estúdio local com Tiptap.
-- [ ] Configurações pela interface implementadas.
+- [x] Configurações de site, abas e páginas implementadas no estúdio local.
 - [ ] Importação e IA implementadas.
 
-O HTML/CSS/JavaScript atual continua sendo o produto funcional. Não há botão de edição,
-configurações, tema ou IA nesta revisão.
+O HTML/CSS/JavaScript atual continua sendo o produto público funcional. Leitor e estúdio Next.js
+permanecem na migração incremental; importação e IA ainda não existem.
 
 ## Ordem e dependências
 
@@ -98,12 +98,12 @@ arquivo Markdown manualmente, e salvar/recarregar não perde conteúdo.
 
 ## Etapa 4 — Configurações sem editar `config.js`
 
-- [ ] Criar diálogo **Configurações** com site, abas e páginas.
-- [ ] Criar, renomear, reordenar e mover abas/páginas.
-- [ ] Gerar IDs estáveis e alertar antes de alterá-los.
-- [ ] Remover para lixeira recuperável, nunca apagar silenciosamente.
-- [ ] Criar aliases quando uma URL precisar mudar.
-- [ ] Validar catálogo vazio, duplicado, inválido e conflito de revisão.
+- [x] Criar diálogo **Configurações** com site, abas e páginas.
+- [x] Criar, renomear, reordenar e mover abas/páginas.
+- [x] Gerar IDs estáveis e alertar antes de alterá-los.
+- [x] Remover para lixeira recuperável, nunca apagar silenciosamente.
+- [x] Criar aliases quando uma URL precisar mudar.
+- [x] Validar catálogo vazio, duplicado, inválido e conflito de revisão.
 
 **Aceite:** o fluxo do teste de aceite que hoje edita `config.js` pode ser concluído pela interface,
 sem perder a possibilidade de edição manual de `site.json`.
@@ -178,5 +178,5 @@ somente o guia; uma instalação antiga migra sem perder URLs ou arquivos.
 
 ## Próxima mudança recomendada
 
-Iniciar a Etapa 4 com o diálogo de configurações e operações pequenas sobre abas e páginas. O
-repositório deve reutilizar validação, revisão otimista, backup e escrita segura da Etapa 3.
+Iniciar a Etapa 5 pelo lote A: tabela, callout, toggle e divisor. Cada bloco precisa de round-trip,
+teclado, leitura móvel e comprovação de que não aumenta o JavaScript inicial do leitor.

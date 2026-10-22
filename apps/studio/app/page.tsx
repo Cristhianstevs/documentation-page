@@ -1,4 +1,5 @@
-import { RepositoryError, readSiteCatalog } from '@documentation-page/content/repository';
+import { readCatalogState } from '@documentation-page/content/catalog-repository';
+import { RepositoryError } from '@documentation-page/content/repository';
 import { siteRoot } from '@/lib/site-root';
 import { StudioClient } from './studio-client';
 
@@ -6,15 +7,8 @@ export const dynamic = 'force-dynamic';
 
 export default async function StudioPage() {
   try {
-    const catalog = await readSiteCatalog(siteRoot());
-    const pages = catalog.tabs.flatMap((tab) =>
-      tab.pages.map((pageId) => ({
-        id: pageId,
-        title: catalog.pages[pageId].title,
-        tab: tab.title,
-      })),
-    );
-    return <StudioClient brand={catalog.site.brand} pages={pages} title={catalog.site.title} />;
+    const { catalog, revision } = await readCatalogState(siteRoot());
+    return <StudioClient initialCatalog={catalog} initialRevision={revision} />;
   } catch (error) {
     const message =
       error instanceof RepositoryError

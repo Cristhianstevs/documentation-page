@@ -14,6 +14,7 @@ export type RepositoryErrorCode =
   | 'document-not-found'
   | 'document-too-large'
   | 'invalid-document'
+  | 'invalid-operation'
   | 'revision-conflict';
 
 export class RepositoryError extends Error {

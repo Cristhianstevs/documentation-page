@@ -1,6 +1,6 @@
 # Arquitetura da próxima versão
 
-Status em 2026-10-22: **Etapas 0, 1, 2 e 3 implementadas; Etapa 4 ainda não iniciada**.
+Status em 2026-10-22: **Etapas 0 a 4 implementadas; Etapa 5 ainda não iniciada**.
 
 O tema estático atual continua sendo a versão funcional e validada. A próxima versão migrará para
 Next.js e TypeScript em etapas, sem misturar a migração com a criação do editor ou com a IA. O
@@ -9,18 +9,18 @@ Next.js e TypeScript em etapas, sem misturar a migração com a criação do edi
 
 ## O que existe e o que é proposta
 
-| Área          | Implementado agora                                   | Proposta desta arquitetura                         |
-| ------------- | ---------------------------------------------------- | -------------------------------------------------- |
-| Base          | Tema estático e leitor Next.js experimental          | Estúdio local de autoria                           |
-| Conteúdo      | HTML legado e schemas v1 de `site.json`/Markdown/AST | Salvamento do formato v1 pela interface            |
-| URLs          | `/aba/pagina#titulo`, com ponte para links antigos   | Aliases editáveis pela interface                   |
-| Autoria       | Edição manual de arquivos                            | Estúdio visual e modo fonte                        |
-| Configurações | Edição de `config.js`                                | Diálogo para site, abas e páginas                  |
-| Tema          | Botão claro/escuro com preferência persistida        | Configuração do tema pelo estúdio                  |
-| IA e upload   | Não existem                                          | Importação, `ChangeSet`, diff e confirmação humana |
-| Contas        | Não existem                                          | Continuam fora desta versão                        |
+| Área          | Implementado agora                                     | Proposta restante                                  |
+| ------------- | ------------------------------------------------------ | -------------------------------------------------- |
+| Base          | Tema estático, leitor Next.js e estúdio local          | Distribuição integrada                             |
+| Conteúdo      | HTML legado, Markdown/AST e salvamento seguro          | Blocos avançados e mídia                           |
+| URLs          | Rotas estáveis, ponte legada e aliases no catálogo     | Consumo dos aliases pelo leitor Markdown           |
+| Autoria       | Estúdio visual, fonte Markdown, prévia e rascunho      | Blocos avançados e importação                      |
+| Configurações | Diálogo para site, abas, páginas e lixeira recuperável | Configurações dos recursos das próximas etapas     |
+| Tema          | Preferência no leitor e tema padrão configurável       | Personalização visual ampliada                     |
+| IA e upload   | Não existem                                            | Importação, `ChangeSet`, diff e confirmação humana |
+| Contas        | Não existem                                            | Continuam fora desta versão                        |
 
-Nada na coluna “Proposta” deve ser tratado como entregue antes de existir código e teste.
+Nada na coluna “Proposta restante” deve ser tratado como entregue antes de existir código e teste.
 
 ## 1. Resultado pretendido
 

@@ -4,7 +4,7 @@ Status em 2026-10-22: **concluída para páginas Markdown existentes**.
 
 Esta etapa criou um estúdio local separado do leitor. Ele abre páginas cadastradas no `site.json`,
 carrega Tiptap somente após a ação **Editar** e salva Markdown com validação, revisão otimista e
-backup. Criar, remover ou reordenar abas e páginas pela interface continua sendo a Etapa 4.
+backup. A criação, remoção e ordenação de abas e páginas foi adicionada depois, na Etapa 4.
 
 ## Começar com uma instalação nova
 
@@ -64,7 +64,7 @@ edição/salvamento no Chromium, rascunho, fonte/prévia e largura móvel.
 
 ## Limites restantes
 
-- criação e organização de abas/páginas pela interface entram na Etapa 4;
+- criação e organização de abas/páginas pela interface foram entregues na Etapa 4;
 - tabelas, callouts, toggles e mídia visual entram na Etapa 5;
 - o backup é recuperável como arquivo; uma interface para navegar revisões ainda não existe;
 - não há colaboração simultânea, autenticação ou publicação automática;
