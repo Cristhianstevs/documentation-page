@@ -81,7 +81,7 @@ function blockToTiptap(block: DocumentBlock): JSONContent {
       })),
     };
   }
-  throw new UnsupportedEditorContentError(block.type);
+  return { type: 'advancedBlock', attrs: { block: JSON.stringify(block) } };
 }
 
 export function documentToTiptap(input: DocumentAst): JSONContent {
@@ -149,6 +149,13 @@ function blockFromTiptap(node: JSONContent): DocumentBlock[] {
         })),
       },
     ];
+  }
+  if (node.type === 'advancedBlock') {
+    try {
+      return [JSON.parse(String(node.attrs?.block ?? '{}')) as DocumentBlock];
+    } catch {
+      throw new UnsupportedEditorContentError('avançado inválido');
+    }
   }
   return (node.content ?? []).flatMap(blockFromTiptap);
 }

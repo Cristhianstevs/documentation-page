@@ -1,9 +1,17 @@
 # Histórico de alterações
 
-Registra entregas reais. O tema atual fica no [plano do MVP](docs/PLANO-MVP.md); a evolução ainda
-não implementada fica no [plano da próxima versão](docs/PLANO-PROXIMA-VERSAO.md).
+Registra entregas reais. O tema atual fica no [plano do MVP](docs/03-PLANO-MVP.md); a evolução ainda
+não implementada fica no [plano da próxima versão](docs/08-PLANO-PROXIMA-VERSAO.md).
 
 ## Não lançado
+
+### Adicionado — Etapa 5
+
+- Formato v1 ampliado com colunas, arquivo, vídeo, áudio, data e embeds permitidos de Figma/Miro.
+- Inserção de tabela, aviso, expansível, divisor, colunas, data, código com linguagem e mídia no estúdio.
+- Upload local validado para `site/assets/`, com limite de 25 MB e nomes gerados pelo servidor.
+- Round-trip dos blocos avançados pelo Tiptap e renderização responsiva sem dependência no leitor.
+- Documentação numerada por ordem de leitura e catálogo completo de configurações dos blocos.
 
 ### Configurações de site, abas e páginas — 2026-10-22
 
@@ -187,7 +195,7 @@ A preparação da primeira release continua pendente. Esta entrada não represen
 - Proposta de separação entre tema e instalações, contrato de URLs e processo de atualização.
 - Guia de uso do código atual e orientação sobre Codex, VS Code e desenvolvimento com IA.
 - Instruções de projeto em `AGENTS.md`.
-- README reorganizado e notas anteriores preservadas em `docs/NOTAS-INICIAIS.md`.
+- README reorganizado e notas anteriores preservadas em `docs/17-NOTAS-INICIAIS.md`.
 
 Esta entrega altera documentação. O roteador, o índice de títulos, a separação de conteúdo e os estilos propostos ainda não foram implementados.
 

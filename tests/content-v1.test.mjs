@@ -42,6 +42,25 @@ Revise antes de publicar.
 :::toggle{title="Mais detalhes"}
 Conteúdo recolhível.
 :::
+
+::::columns
+:::column
+Primeira coluna.
+:::
+:::column
+Segunda coluna.
+:::
+::::
+
+::file{src="/assets/manual.pdf" label="Manual" description="PDF acessível"}
+
+::video{src="/assets/demo.mp4" title="Demonstração" caption="Fluxo completo"}
+
+::audio{src="/assets/guia.mp3" title="Guia em áudio"}
+
+::date{value="2026-10-22" label="22 de outubro de 2026"}
+
+::embed{provider="figma" url="https://www.figma.com/file/exemplo" title="Protótipo"}
 `;
 
 test('schemas v1 validam catálogo, caminhos e referências', () => {
@@ -89,12 +108,21 @@ test('Markdown v1 cobre GFM, diretivas e renderiza HTML seguro', () => {
     'image',
     'callout',
     'toggle',
+    'columns',
+    'file',
+    'video',
+    'audio',
+    'date',
+    'embed',
   ]) {
     assert.equal(types.has(type), true, `Bloco ausente: ${type}`);
   }
   const html = renderDocumentToHtml(document);
   assert.match(html, /<h1 id="guia">Guia<\/h1>/);
   assert.match(html, /class="callout warning"/);
+  assert.match(html, /class="content-columns"/);
+  assert.match(html, /<time datetime="2026-10-22">/);
+  assert.match(html, /sandbox="allow-scripts allow-same-origin allow-popups"/);
   assert.doesNotMatch(html, /javascript:/i);
   validateDocument(document);
 });

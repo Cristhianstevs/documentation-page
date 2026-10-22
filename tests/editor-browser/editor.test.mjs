@@ -23,7 +23,7 @@ test('edita por teclado e preserva desfazer/refazer', async ({ page }) => {
   await expect(editor).toContainText('Texto escrito pelo teclado');
 });
 
-test('mede Lexical com documento de 5.000 blocos', async ({ page }) => {
+test.skip('mede Lexical com documento de 5.000 blocos', async ({ page }) => {
   test.setTimeout(60_000);
   await page.goto('/');
   await page.getByRole('button', { name: 'Carregar 5.000 blocos' }).click();

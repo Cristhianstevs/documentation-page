@@ -29,6 +29,17 @@ function indent(value: string, prefix: string) {
     .join('\n');
 }
 
+function attribute(value: string) {
+  return value.replaceAll('\\', '\\\\').replaceAll('"', '\\"');
+}
+
+function attributes(values: Record<string, string | undefined>) {
+  return Object.entries(values)
+    .filter((entry): entry is [string, string] => entry[1] !== undefined)
+    .map(([key, value]) => `${key}="${attribute(value)}"`)
+    .join(' ');
+}
+
 function block(node: DocumentBlock): string {
   if (node.type === 'paragraph') return inlineContent(node.children);
   if (node.type === 'heading') return `${'#'.repeat(node.level)} ${inlineContent(node.children)}`;
@@ -60,12 +71,36 @@ function block(node: DocumentBlock): string {
     return rows.join('\n');
   }
   if (node.type === 'callout') {
-    const attributes = [`tone=${node.tone}`, node.title ? `title="${node.title}"` : '']
+    const directiveAttributes = [
+      `tone=${node.tone}`,
+      node.title ? `title="${attribute(node.title)}"` : '',
+    ]
       .filter(Boolean)
       .join(' ');
-    return `:::callout{${attributes}}\n${node.children.map(block).join('\n\n')}\n:::`;
+    return `:::callout{${directiveAttributes}}\n${node.children.map(block).join('\n\n')}\n:::`;
   }
-  return `:::toggle{title="${node.title}"}\n${node.children.map(block).join('\n\n')}\n:::`;
+  if (node.type === 'toggle') {
+    return `:::toggle{title="${attribute(node.title)}"}\n${node.children.map(block).join('\n\n')}\n:::`;
+  }
+  if (node.type === 'columns') {
+    const columns = node.columns
+      .map((column) => `:::column\n${column.map(block).join('\n\n')}\n:::`)
+      .join('\n');
+    return `::::columns\n${columns}\n::::`;
+  }
+  if (node.type === 'file') {
+    return `::file{${attributes({ src: node.src, label: node.label, description: node.description })}}`;
+  }
+  if (node.type === 'video') {
+    return `::video{${attributes({ src: node.src, title: node.title, caption: node.caption })}}`;
+  }
+  if (node.type === 'audio') {
+    return `::audio{${attributes({ src: node.src, title: node.title })}}`;
+  }
+  if (node.type === 'date') {
+    return `::date{${attributes({ value: node.value, label: node.label })}}`;
+  }
+  return `::embed{${attributes({ provider: node.provider, url: node.url, title: node.title })}}`;
 }
 
 export function serializeMarkdown(input: DocumentAst): string {

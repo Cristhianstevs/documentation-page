@@ -1,11 +1,11 @@
 # Arquitetura da próxima versão
 
-Status em 2026-10-22: **Etapas 0 a 4 implementadas; Etapa 5 ainda não iniciada**.
+Status em 2026-10-22: **Etapas 0 a 5 implementadas; Etapa 6 ainda não iniciada**.
 
 O tema estático atual continua sendo a versão funcional e validada. A próxima versão migrará para
 Next.js e TypeScript em etapas, sem misturar a migração com a criação do editor ou com a IA. O
-[plano da próxima versão](PLANO-PROXIMA-VERSAO.md) define essa ordem. O
-[plano do MVP atual](PLANO-MVP.md) continua como registro da versão `0.1.0`.
+[plano da próxima versão](08-PLANO-PROXIMA-VERSAO.md) define essa ordem. O
+[plano do MVP atual](03-PLANO-MVP.md) continua como registro da versão `0.1.0`.
 
 ## O que existe e o que é proposta
 
@@ -73,7 +73,7 @@ Versões exatas só serão fixadas ao iniciar a migração. Bibliotecas de edito
 copiar versões deste documento no futuro seria menos seguro que instalar a versão estável e validar
 seus guias e changelogs naquele momento.
 
-A comparação completa está em [Pesquisa de tecnologias](PESQUISA-TECNOLOGIAS.md). Lexical foi a
+A comparação completa está em [Pesquisa de tecnologias](07-PESQUISA-TECNOLOGIAS.md). Lexical foi a
 decisão inicial; o experimento da Etapa 2 acionou o gatilho de reversão e escolheu Tiptap para a
 Etapa 3. O formato do projeto permanece independente dos dois editores.
 
@@ -185,7 +185,7 @@ Exemplo conceitual:
 ```md
 # Como reservar
 
-:::columns
+::::columns
 :::column
 
 ## Pelo site
@@ -198,7 +198,7 @@ Escolha uma data e confirme.
 
 Tenha o código do hotel em mãos.
 :::
-:::
+::::
 ```
 
 O formato interno pertence ao projeto. O estado do Tiptap existe somente enquanto a página é

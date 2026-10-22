@@ -1,9 +1,9 @@
 # Plano para concluir o MVP
 
-Criado em 2026-09-27 a partir da [revisão do projeto](DIAGNOSTICO.md) e atualizado em 2026-10-14. Este documento mostra o que foi concluído e o que ainda bloqueia a primeira publicação. Uma caixa marcada representa trabalho concluído com evidência.
+Criado em 2026-09-27 a partir da [revisão do projeto](02-DIAGNOSTICO.md) e atualizado em 2026-10-14. Este documento mostra o que foi concluído e o que ainda bloqueia a primeira publicação. Uma caixa marcada representa trabalho concluído com evidência.
 
 > **Escopo preservado:** este plano continua sendo o registro do tema estático `0.1.0`. Editor,
-> Next.js e IA pertencem ao [plano da próxima versão](PLANO-PROXIMA-VERSAO.md) e não alteram as
+> Next.js e IA pertencem ao [plano da próxima versão](08-PLANO-PROXIMA-VERSAO.md) e não alteram as
 > pendências de publicação abaixo.
 
 ## Estado atual
@@ -151,8 +151,8 @@ Concluída em 2026-10-07. Evidências: 33 testes nativos, incluindo a estrutura 
 Progresso em 2026-10-14: o fluxo de entrada foi reduzido a `npm run create-site` e `npm start`. A
 demonstração, o guia e o teste de aceite seguem a mesma ordem. As instalações fictícias `pesca` e
 `culinaria` continuam protegidas pelos testes de atualização e restauração. Os números da validação
-mais recente estão no [relatório do MVP](RELATORIO-VALIDACAO-MVP.md). Restam executar o
-[teste de aceite](TESTE-DE-ACEITE.md) por uma segunda pessoa, confirmar a CI remota e publicar a
+mais recente estão no [relatório do MVP](05-RELATORIO-VALIDACAO-MVP.md). Restam executar o
+[teste de aceite](04-TESTE-DE-ACEITE.md) por uma segunda pessoa, confirmar a CI remota e publicar a
 versão preparada.
 
 **Aceite:** uma pessoa seguindo o guia consegue instalar, cadastrar conteúdo, receber a atualização e recuperar a versão anterior. Sem referência quebrada na demonstração e sem regressão nos fluxos críticos.
@@ -209,7 +209,7 @@ Não precisamos prever hoje cada extensão possível. Primeiro entregar uma base
 ## Próximas ações
 
 1. Entregar uma cópia limpa para uma segunda pessoa.
-2. Pedir que ela siga o [teste de aceite](TESTE-DE-ACEITE.md) sem ajuda.
+2. Pedir que ela siga o [teste de aceite](04-TESTE-DE-ACEITE.md) sem ajuda.
 3. Registrar dúvidas e corrigir somente problemas comprovados.
 4. Confirmar uma execução verde da CI.
 5. Criar a tag e publicar `v0.1.0`.

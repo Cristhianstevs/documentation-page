@@ -2,7 +2,7 @@
 
 > Este guia descreve a versão estática atual. Editor visual, configurações pela interface e IA ainda
 > não existem. Eles serão entregues em etapas segundo o
-> [plano da próxima versão](PLANO-PROXIMA-VERSAO.md). Até lá, os passos com `config.js` e HTML abaixo
+> [plano da próxima versão](08-PLANO-PROXIMA-VERSAO.md). Até lá, os passos com `config.js` e HTML abaixo
 > continuam corretos.
 
 Este guia ensina a criar e manter uma documentação com o tema. Siga as seções na ordem na primeira
@@ -261,7 +261,7 @@ receber atualizações futuras.
 - [ ] Nenhum dado privado foi colocado numa hospedagem pública.
 - [ ] A pasta `site/` possui backup.
 
-Use também o [teste de aceite](TESTE-DE-ACEITE.md).
+Use também o [teste de aceite](04-TESTE-DE-ACEITE.md).
 
 ## 14. Atualizar o tema
 

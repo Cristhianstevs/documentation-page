@@ -75,7 +75,7 @@ O leitor agora gera todas as rotas cadastradas, converte hashes antigos, reescre
 legados, oferece menu móvel, tema claro/escuro persistente e uma tela de rota inválida. Os fluxos são
 verificados no Chromium em desktop e celular contra a exportação estática.
 
-O [relatório de desempenho](ETAPA-1-DESEMPENHO.md) registra uma regressão: o runtime Next.js/React
+O [relatório de desempenho](11-ETAPA-1-DESEMPENHO.md) registra uma regressão: o runtime Next.js/React
 aumentou JavaScript e tempo de bloqueio em relação ao tema `0.1.0`. A etapa é encerrada porque a
 equivalência funcional está comprovada, a exceção está explícita e existe um orçamento automatizado.
 Reduzir esse custo continua prioritário antes de ampliar o JavaScript público.

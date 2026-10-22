@@ -5,7 +5,7 @@
 Versão preparada: `0.1.0`
 
 Este relatório não valida a arquitetura futura de Next.js, edição ou IA. Esses recursos ainda não
-foram implementados e seguem um [plano separado](PLANO-PROXIMA-VERSAO.md).
+foram implementados e seguem um [plano separado](08-PLANO-PROXIMA-VERSAO.md).
 
 ## História validada
 
@@ -50,6 +50,6 @@ as abas e os controles continuam acessíveis e não foi observado corte horizont
 
 ## Pendências externas
 
-- Uma segunda pessoa ainda precisa seguir o [teste de aceite](TESTE-DE-ACEITE.md) sem ajuda e registrar dúvidas ou falhas. Automação não substitui essa avaliação de clareza.
+- Uma segunda pessoa ainda precisa seguir o [teste de aceite](04-TESTE-DE-ACEITE.md) sem ajuda e registrar dúvidas ou falhas. Automação não substitui essa avaliação de clareza.
 - A versão `0.1.0` está preparada, mas não publicada. Criar commit, tag e release é uma ação externa do mantenedor.
 - O workflow de CI só terá evidência remota depois que estes arquivos forem enviados ao repositório.

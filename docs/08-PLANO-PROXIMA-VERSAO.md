@@ -1,8 +1,8 @@
 # Plano da próxima versão: editor e IA
 
 Criado em 2026-10-20. Este plano começa somente após a base `0.1.0` atual estar preservada em uma
-revisão identificável. A [arquitetura](ARQUITETURA.md) define os contratos e a
-[pesquisa de tecnologias](PESQUISA-TECNOLOGIAS.md) explica as escolhas.
+revisão identificável. A [arquitetura](06-ARQUITETURA.md) define os contratos e a
+[pesquisa de tecnologias](07-PESQUISA-TECNOLOGIAS.md) explica as escolhas.
 
 Uma caixa marcada significa que existe implementação e evidência. Arquitetura aprovada não conta
 como funcionalidade entregue.
@@ -39,7 +39,7 @@ anterior estiver vermelho.
 ## Etapa 0 — Preservar e medir a base atual
 
 O desenho completo, os arquivos de evidência e a arquitetura de pastas estão em
-[Etapa 0 — Fundação antes da migração](ETAPA-0-FUNDACAO.md).
+[Etapa 0 — Fundação antes da migração](09-ETAPA-0-FUNDACAO.md).
 
 - [x] Concluir o teste em outra máquina e a CI do MVP atual.
 - [x] Identificar a revisão recuperável pela tag `v0.1.0` antes da migração.
@@ -112,11 +112,11 @@ sem perder a possibilidade de edição manual de `site.json`.
 
 Entregar em lotes, cada um com serialização, teclado, leitura móvel e teste de round-trip:
 
-- [ ] Lote A: tabela, callout, toggle e divisor.
-- [ ] Lote B: colunas responsivas e reordenação acessível.
-- [ ] Lote C: imagens e arquivos locais com texto alternativo.
-- [ ] Lote D: vídeo, áudio, data e bloco de código com linguagem.
-- [ ] Lote E: embeds permitidos de Figma e Miro.
+- [x] Lote A: tabela, callout, toggle e divisor.
+- [x] Lote B: colunas responsivas e reordenação acessível.
+- [x] Lote C: imagens e arquivos locais com texto alternativo.
+- [x] Lote D: vídeo, áudio, data e bloco de código com linguagem.
+- [x] Lote E: embeds permitidos de Figma e Miro.
 
 **Aceite:** nenhum lote aumenta o JavaScript inicial do leitor; conteúdo continua compreensível sem
 animação e em tela estreita.
@@ -178,5 +178,5 @@ somente o guia; uma instalação antiga migra sem perder URLs ou arquivos.
 
 ## Próxima mudança recomendada
 
-Iniciar a Etapa 5 pelo lote A: tabela, callout, toggle e divisor. Cada bloco precisa de round-trip,
-teclado, leitura móvel e comprovação de que não aumenta o JavaScript inicial do leitor.
+Iniciar a Etapa 6 pelo pipeline comum de upload e pela importação de Markdown e texto. A prévia deve
+ser editável e nenhuma importação pode sobrescrever uma página sem confirmação.

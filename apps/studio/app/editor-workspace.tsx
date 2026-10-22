@@ -1,8 +1,11 @@
 'use client';
 
+import type { DocumentBlock } from '@documentation-page/content/document';
 import { parseMarkdown, serializeMarkdown } from '@documentation-page/content/markdown';
+import { AdvancedBlock } from '@documentation-page/editor/advanced-block';
 import { documentToTiptap, tiptapToDocument } from '@documentation-page/editor/tiptap';
 import { renderDocumentToHtml } from '@documentation-page/renderer';
+import CodeBlock from '@tiptap/extension-code-block';
 import Link from '@tiptap/extension-link';
 import TaskItem from '@tiptap/extension-task-item';
 import TaskList from '@tiptap/extension-task-list';
@@ -16,11 +19,17 @@ type Mode = 'visual' | 'source' | 'preview';
 const DRAFT_VERSION = 1;
 
 const extensions = [
-  StarterKit.configure({ link: false, underline: false }),
+  StarterKit.configure({ codeBlock: false, link: false, underline: false }),
+  CodeBlock.extend({
+    addAttributes() {
+      return { language: { default: null } };
+    },
+  }),
   Link.configure({ openOnClick: false, autolink: true }),
   Underline,
   TaskList,
   TaskItem.configure({ nested: true }),
+  AdvancedBlock,
 ];
 
 export default function EditorWorkspace({
@@ -37,6 +46,7 @@ export default function EditorWorkspace({
   const [status, setStatus] = useState('Abrindo página…');
   const [draft, setDraft] = useState<string | null>(null);
   const [slashOpen, setSlashOpen] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const loaded = useRef(false);
 
   const editor = useEditor({
@@ -193,6 +203,132 @@ export default function EditorWorkspace({
     else editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
   }
 
+  function insertAdvanced(block: DocumentBlock) {
+    editor
+      ?.chain()
+      .focus()
+      .insertContent({ type: 'advancedBlock', attrs: { block: JSON.stringify(block) } })
+      .run();
+    setSlashOpen(false);
+  }
+
+  const ask = (label: string, initial = '') => window.prompt(label, initial)?.trim();
+  const paragraph = (value: string): DocumentBlock => ({
+    type: 'paragraph',
+    children: [{ type: 'text', value, marks: [] }],
+  });
+
+  function insertConfigured(type: string) {
+    if (type === 'table') {
+      const rowCount = Math.max(2, Math.min(20, Number(ask('Quantidade de linhas', '3')) || 3));
+      const columnCount = Math.max(2, Math.min(8, Number(ask('Quantidade de colunas', '2')) || 2));
+      insertAdvanced({
+        type: 'table',
+        align: Array(columnCount).fill(null),
+        rows: Array.from({ length: rowCount }, (_, row) =>
+          Array.from({ length: columnCount }, (_, column) => [
+            {
+              type: 'text',
+              value: row === 0 ? `Coluna ${column + 1}` : '',
+              marks: [],
+            },
+          ]),
+        ),
+      });
+    } else if (type === 'callout') {
+      const tone = ask('Tom: info, warning ou danger', 'info');
+      if (!tone) return;
+      insertAdvanced({
+        type: 'callout',
+        tone: tone === 'warning' || tone === 'danger' ? tone : 'info',
+        title: ask('Título do aviso (opcional)'),
+        children: [paragraph('Escreva o aviso.')],
+      });
+    } else if (type === 'toggle') {
+      insertAdvanced({
+        type: 'toggle',
+        title: ask('Título', 'Mais detalhes') || 'Mais detalhes',
+        children: [paragraph('Escreva os detalhes.')],
+      });
+    } else if (type === 'columns') {
+      const count = Math.max(
+        2,
+        Math.min(4, Number(ask('Quantidade de colunas (2 a 4)', '2')) || 2),
+      );
+      insertAdvanced({
+        type: 'columns',
+        columns: Array.from({ length: count }, (_, index) => [paragraph(`Coluna ${index + 1}`)]),
+      });
+    } else if (type === 'date') {
+      const value = ask('Data no formato AAAA-MM-DD', new Date().toISOString().slice(0, 10));
+      if (value) insertAdvanced({ type: 'date', value, label: ask('Texto exibido (opcional)') });
+    } else if (type === 'embed') {
+      const provider = ask('Provedor: figma ou miro', 'figma');
+      const url = ask('URL HTTPS do embed');
+      if (url && (provider === 'figma' || provider === 'miro')) {
+        insertAdvanced({
+          type: 'embed',
+          provider,
+          url,
+          title: ask('Título acessível (opcional)'),
+        });
+      }
+    } else if (type === 'divider') {
+      insertAdvanced({ type: 'thematicBreak' });
+    } else if (type === 'code') {
+      const language = ask('Linguagem do código (opcional)');
+      editor
+        ?.chain()
+        .focus()
+        .toggleCodeBlock()
+        .updateAttributes('codeBlock', { language: language || null })
+        .run();
+      setSlashOpen(false);
+    }
+  }
+
+  async function uploadAsset(file: File) {
+    setUploading(true);
+    setStatus('Enviando arquivo local…');
+    try {
+      const form = new FormData();
+      form.set('file', file);
+      const response = await fetch('/api/assets', { method: 'POST', body: form });
+      const result = (await response.json()) as { src?: string; kind?: string; error?: string };
+      if (!response.ok || !result.src) throw new Error(result.error ?? 'Falha no envio.');
+      if (result.kind === 'image') {
+        const alt = ask('Texto alternativo da imagem');
+        if (alt === undefined) return;
+        insertAdvanced({ type: 'image', src: result.src, alt, title: ask('Título (opcional)') });
+      } else if (result.kind === 'audio') {
+        insertAdvanced({
+          type: 'audio',
+          src: result.src,
+          title: ask('Título do áudio (opcional)'),
+        });
+      } else if (result.kind === 'video') {
+        insertAdvanced({
+          type: 'video',
+          src: result.src,
+          title: ask('Título do vídeo (opcional)'),
+          caption: ask('Legenda (opcional)'),
+        });
+      } else {
+        insertAdvanced({
+          type: 'file',
+          src: result.src,
+          label: ask('Rótulo do arquivo', file.name) || file.name,
+          description: ask('Descrição (opcional)'),
+        });
+      }
+      setStatus('Arquivo enviado e bloco inserido.');
+    } catch (error) {
+      setStatus(error instanceof Error ? error.message : 'Não foi possível enviar o arquivo.');
+    } finally {
+      setUploading(false);
+    }
+  }
+
   if (!page)
     return (
       <p aria-live="polite" className="loading">
@@ -314,14 +450,43 @@ export default function EditorWorkspace({
               </button>
               <button
                 onClick={() => {
-                  editor?.chain().focus().toggleCodeBlock().run();
-                  setSlashOpen(false);
+                  insertConfigured('code');
                 }}
                 role="menuitem"
                 type="button"
               >
                 Código
               </button>
+              {[
+                ['table', 'Tabela'],
+                ['callout', 'Aviso'],
+                ['toggle', 'Expansível'],
+                ['divider', 'Divisor'],
+                ['columns', 'Colunas'],
+                ['date', 'Data'],
+                ['embed', 'Embed Figma/Miro'],
+              ].map(([type, label]) => (
+                <button
+                  key={type}
+                  onClick={() => insertConfigured(type)}
+                  role="menuitem"
+                  type="button"
+                >
+                  {label}
+                </button>
+              ))}
+              <label className="upload-control">
+                {uploading ? 'Enviando…' : 'Imagem, áudio, vídeo ou arquivo'}
+                <input
+                  disabled={uploading}
+                  onChange={(event) => {
+                    const file = event.target.files?.[0];
+                    if (file) void uploadAsset(file);
+                    event.currentTarget.value = '';
+                  }}
+                  type="file"
+                />
+              </label>
             </div>
           ) : null}
           <div className="editor-frame">

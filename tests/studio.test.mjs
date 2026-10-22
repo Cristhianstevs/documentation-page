@@ -84,6 +84,31 @@ test('AST faz ida e volta pelo adaptador Tiptap do conjunto editável', () => {
   assert.deepEqual(tiptapToDocument(documentToTiptap(document)), document);
 });
 
+test('blocos avançados fazem ida e volta pelo adaptador Tiptap', () => {
+  const document = parseMarkdown(`# Recursos
+
+| Nome | Estado |
+| --- | --- |
+| Guia | Pronto |
+
+:::callout{tone=warning title="Atenção"}
+Revise.
+:::
+
+::::columns
+:::column
+Uma.
+:::
+:::column
+Duas.
+:::
+::::
+
+::date{value="2026-10-22" label="Publicação"}
+`);
+  assert.deepEqual(tiptapToDocument(documentToTiptap(document)), document);
+});
+
 test('catálogo cria, ordena, move, duplica, cria alias e restaura página', async (context) => {
   const root = await installation();
   context.after(() => rm(root, { recursive: true, force: true }));

@@ -5,7 +5,8 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./tiptap": "./src/tiptap.ts"
+    "./tiptap": "./src/tiptap.ts",
+    "./advanced-block": "./src/advanced-block.ts"
   },
   "dependencies": {
     "@documentation-page/content": "*",

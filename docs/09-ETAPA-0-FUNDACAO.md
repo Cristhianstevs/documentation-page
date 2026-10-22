@@ -170,7 +170,7 @@ documentation-page/
 │   │       ├── DESEMPENHO.md          # números e forma de medição
 │   │       ├── RECUPERACAO.md         # como voltar para a base segura
 │   │       └── ACEITE-EXTERNO.md      # resultado de quem testou sem ajuda
-│   └── ETAPA-0-FUNDACAO.md            # este plano
+│   └── 09-ETAPA-0-FUNDACAO.md            # este plano
 ├── tests/
 │   ├── baselines/
 │   │   └── 0.1.0/

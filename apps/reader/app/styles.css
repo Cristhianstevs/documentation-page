@@ -265,6 +265,30 @@ a {
   padding: 1rem 1.2rem;
 }
 
+.content-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
+  gap: 1rem;
+}
+.content-columns > section,
+.file-card,
+.audio-block {
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+}
+.file-card {
+  display: grid;
+}
+.audio-block audio,
+.embed-block iframe {
+  width: 100%;
+}
+.embed-block iframe {
+  min-height: 24rem;
+  border: 1px solid var(--border);
+}
+
 .content-warning {
   border: 1px solid #d69e2e;
   border-radius: 0.6rem;

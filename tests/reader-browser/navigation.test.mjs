@@ -18,7 +18,9 @@ test('navega entre abas e páginas com links reais', async ({ page }) => {
   await page.getByRole('link', { name: 'Referência', exact: true }).click();
   await expect(page).toHaveURL(/\/referencia\/core-concepts\/$/, { timeout: 15_000 });
   if (test.info().project.name.includes('mobile')) {
+    await expect(page.locator('.theme-toggle')).toHaveAttribute('aria-label', /Usar tema/);
     await page.locator('.menu-toggle').click();
+    await expect(page.locator('.menu-toggle')).toHaveAttribute('aria-expanded', 'true');
   }
   await page.getByRole('link', { name: 'Configurar menus' }).click();
   await expect(page).toHaveURL(/\/referencia\/api-base\/$/, { timeout: 15_000 });

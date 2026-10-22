@@ -2,11 +2,11 @@
 
 Revisão em 2026-09-27. Base: commit local `ac23d27` (`Update page loads`), branch `main`, sem alterações locais no início da revisão.
 
-> **Documento histórico:** os problemas abaixo descrevem a versão inicial e já foram tratados no MVP. Para saber o estado atual, leia o [README](../README.md), o [plano](PLANO-MVP.md) e o [relatório de validação](RELATORIO-VALIDACAO-MVP.md). Os caminhos antigos foram mantidos aqui para mostrar a evolução do projeto.
+> **Documento histórico:** os problemas abaixo descrevem a versão inicial e já foram tratados no MVP. Para saber o estado atual, leia o [README](../README.md), o [plano](03-PLANO-MVP.md) e o [relatório de validação](05-RELATORIO-VALIDACAO-MVP.md). Os caminhos antigos foram mantidos aqui para mostrar a evolução do projeto.
 
 Uma nova revisão arquitetural foi registrada em 2026-10-20 para a evolução com Next.js, editor e
-IA. Ela não reabre estes achados históricos. Consulte a [arquitetura da próxima versão](ARQUITETURA.md)
-e seu [plano separado](PLANO-PROXIMA-VERSAO.md).
+IA. Ela não reabre estes achados históricos. Consulte a [arquitetura da próxima versão](06-ARQUITETURA.md)
+e seu [plano separado](08-PLANO-PROXIMA-VERSAO.md).
 
 ## O que foi verificado
 
@@ -34,7 +34,7 @@ P1: impede uma função central ou o uso corporativo pretendido. P2: deve ser re
 
 `js/config.js`, `pages/*.html` e `css/customization/custom.css` estão rastreados no Git do tema. Se cada instalação editar esses arquivos e o tema também os alterar, atualizações podem exigir mesclagem ou ser bloqueadas. A pasta de personalização, por si só, não cria isolamento.
 
-**Próximo passo:** definir uma área local exclusiva da instalação e exemplos públicos separados. Ver [arquitetura](ARQUITETURA.md).
+**Próximo passo:** definir uma área local exclusiva da instalação e exemplos públicos separados. Ver [arquitetura](06-ARQUITETURA.md).
 
 ### P1 — Trocar de aba deixa a tela e o endereço inconsistentes
 
@@ -56,7 +56,7 @@ Em `js/script.js:99`, o retorno depende de `event.state`. Uma entrada inicial ab
 
 Não existe autenticação ou autorização no projeto. Um servidor estático comum entrega `pages/arquivo.html` diretamente, independentemente da interface. Uma tela de login isolada não corrige isso.
 
-Esse é um bloqueio para a futura instalação confidencial, não um defeito em um tema público de demonstração. O controle deve ocorrer no servidor ou gateway que entrega páginas, configuração com metadados internos, PDFs, imagens e APIs. Ver o fluxo corporativo na [arquitetura](ARQUITETURA.md).
+Esse é um bloqueio para a futura instalação confidencial, não um defeito em um tema público de demonstração. O controle deve ocorrer no servidor ou gateway que entrega páginas, configuração com metadados internos, PDFs, imagens e APIs. Ver o fluxo corporativo na [arquitetura](06-ARQUITETURA.md).
 
 ### P2 — Quatro das seis páginas cadastradas não têm conteúdo utilizável
 
@@ -124,4 +124,4 @@ Todo erro no bloco de carregamento vira “Erro 404”, inclusive falha de rede 
 
 ## Resultado da verificação
 
-O fluxo básico de seleção e carregamento funciona, mas o MVP ainda não satisfaz URLs completas, índice de títulos, leitura móvel nem atualização isolada das instalações. A revisão não exige uma reescrita: os componentes existentes e a configuração podem ser aproveitados nas etapas do [plano](PLANO-MVP.md).
+O fluxo básico de seleção e carregamento funciona, mas o MVP ainda não satisfaz URLs completas, índice de títulos, leitura móvel nem atualização isolada das instalações. A revisão não exige uma reescrita: os componentes existentes e a configuração podem ser aproveitados nas etapas do [plano](03-PLANO-MVP.md).

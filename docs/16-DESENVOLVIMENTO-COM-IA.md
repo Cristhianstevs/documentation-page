@@ -2,7 +2,7 @@
 
 > Este documento ensina a usar uma IA como apoio ao desenvolvimento. A IA que fará parte do produto
 > é outro assunto: sua arquitetura de escopo, prévia e aprovação está em
-> [Arquitetura da próxima versão](ARQUITETURA.md#9-ia-com-aprovação-obrigatória).
+> [Arquitetura da próxima versão](06-ARQUITETURA.md#9-ia-com-aprovação-obrigatória).
 
 Atualizado em 2026-10-12. As orientações sobre Codex foram conferidas na documentação oficial da OpenAI. Os exemplos de trabalho são recomendações para este repositório.
 
@@ -30,16 +30,16 @@ O site deste projeto não usa a API da OpenAI. Usar Codex para ajudar a program�
 
 ## O papel de cada arquivo
 
-| Arquivo/local         | Serve para                                                             |
-| --------------------- | ---------------------------------------------------------------------- |
-| `README.md`           | Apresentar o projeto e apontar por onde começar                        |
-| `AGENTS.md`           | Instruir o agente sobre contexto, padrões e verificações deste projeto |
-| `docs/PLANO-MVP.md`   | Guardar etapas futuras e critérios de conclusão                        |
-| `docs/ARQUITETURA.md` | Explicar decisões e seus motivos                                       |
-| `docs/GUIA-DE-USO.md` | Ensinar o que o usuário do tema já consegue fazer                      |
-| `CHANGELOG.md`        | Registrar o que foi efetivamente entregue                              |
-| `.vscode/`            | Compartilhar preferências do editor sem dados pessoais                 |
-| `.codex/config.toml`  | Configuração opcional do Codex específica do projeto                   |
+| Arquivo/local            | Serve para                                                             |
+| ------------------------ | ---------------------------------------------------------------------- |
+| `README.md`              | Apresentar o projeto e apontar por onde começar                        |
+| `AGENTS.md`              | Instruir o agente sobre contexto, padrões e verificações deste projeto |
+| `docs/03-PLANO-MVP.md`   | Guardar etapas futuras e critérios de conclusão                        |
+| `docs/06-ARQUITETURA.md` | Explicar decisões e seus motivos                                       |
+| `docs/01-GUIA-DE-USO.md` | Ensinar o que o usuário do tema já consegue fazer                      |
+| `CHANGELOG.md`           | Registrar o que foi efetivamente entregue                              |
+| `.vscode/`               | Compartilhar preferências do editor sem dados pessoais                 |
+| `.codex/config.toml`     | Configuração opcional do Codex específica do projeto                   |
 
 Não é necessário criar uma pasta chamada `ia`. Para este tamanho de projeto, `AGENTS.md` curto e documentação bem organizada são suficientes. Uma skill reutilizável faz sentido quando surgir um procedimento recorrente; não é preciso começar construindo um sistema de agentes.
 

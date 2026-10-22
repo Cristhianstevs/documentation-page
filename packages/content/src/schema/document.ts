@@ -34,7 +34,13 @@ type Block =
   | { type: 'thematicBreak' }
   | { type: 'image'; src: string; alt: string; title?: string }
   | { type: 'callout'; tone: 'info' | 'warning' | 'danger'; title?: string; children: Block[] }
-  | { type: 'toggle'; title: string; children: Block[] };
+  | { type: 'toggle'; title: string; children: Block[] }
+  | { type: 'columns'; columns: Block[][] }
+  | { type: 'file'; src: string; label: string; description?: string }
+  | { type: 'video'; src: string; title?: string; caption?: string }
+  | { type: 'audio'; src: string; title?: string }
+  | { type: 'date'; value: string; label?: string }
+  | { type: 'embed'; provider: 'figma' | 'miro'; url: string; title?: string };
 
 type ListItem = { checked?: boolean; children: Block[] };
 
@@ -83,6 +89,34 @@ const blockSchema: z.ZodType<Block> = z.lazy(() =>
       type: z.literal('toggle'),
       title: z.string().min(1),
       children: z.array(blockSchema),
+    }),
+    z.object({
+      type: z.literal('columns'),
+      columns: z.array(z.array(blockSchema)).min(2).max(4),
+    }),
+    z.object({
+      type: z.literal('file'),
+      src: z.string().min(1),
+      label: z.string().min(1),
+      description: z.string().optional(),
+    }),
+    z.object({
+      type: z.literal('video'),
+      src: z.string().min(1),
+      title: z.string().optional(),
+      caption: z.string().optional(),
+    }),
+    z.object({
+      type: z.literal('audio'),
+      src: z.string().min(1),
+      title: z.string().optional(),
+    }),
+    z.object({ type: z.literal('date'), value: z.iso.date(), label: z.string().optional() }),
+    z.object({
+      type: z.literal('embed'),
+      provider: z.enum(['figma', 'miro']),
+      url: z.url(),
+      title: z.string().optional(),
     }),
   ]),
 );

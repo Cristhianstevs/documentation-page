@@ -79,7 +79,9 @@ function blocks(nodes: MdNode[] = []): DocumentBlock[] {
     }
     if (node.type === 'list') {
       const sourceItems = node.children ?? [];
-      const taskList = sourceItems.some((item) => item.checked !== null && item.checked !== undefined);
+      const taskList = sourceItems.some(
+        (item) => item.checked !== null && item.checked !== undefined,
+      );
       return [
         {
           type: 'list',
@@ -137,6 +139,56 @@ function blocks(nodes: MdNode[] = []): DocumentBlock[] {
           children: blocks(node.children),
         },
       ];
+    }
+    if (node.type === 'containerDirective' && node.name === 'columns') {
+      const columns = (node.children ?? [])
+        .filter((child) => child.type === 'containerDirective' && child.name === 'column')
+        .map((column) => blocks(column.children));
+      if (columns.length >= 2 && columns.length <= 4) return [{ type: 'columns', columns }];
+      return blocks(node.children);
+    }
+    if (node.type === 'leafDirective') {
+      const attributes = node.attributes ?? {};
+      if (node.name === 'file' && attributes.src && attributes.label) {
+        return [
+          {
+            type: 'file',
+            src: attributes.src,
+            label: attributes.label,
+            description: attributes.description ?? undefined,
+          },
+        ];
+      }
+      if (node.name === 'video' && attributes.src) {
+        return [
+          {
+            type: 'video',
+            src: attributes.src,
+            title: attributes.title ?? undefined,
+            caption: attributes.caption ?? undefined,
+          },
+        ];
+      }
+      if (node.name === 'audio' && attributes.src) {
+        return [{ type: 'audio', src: attributes.src, title: attributes.title ?? undefined }];
+      }
+      if (node.name === 'date' && attributes.value) {
+        return [{ type: 'date', value: attributes.value, label: attributes.label ?? undefined }];
+      }
+      if (
+        node.name === 'embed' &&
+        (attributes.provider === 'figma' || attributes.provider === 'miro') &&
+        attributes.url
+      ) {
+        return [
+          {
+            type: 'embed',
+            provider: attributes.provider,
+            url: attributes.url,
+            title: attributes.title ?? undefined,
+          },
+        ];
+      }
     }
     return blocks(node.children);
   });

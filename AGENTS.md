@@ -11,8 +11,8 @@
 ## Antes de alterar
 
 - Ler o README e os documentos relacionados à tarefa em `docs/`.
-- Consultar `docs/DIAGNOSTICO.md` para a revisão inicial e `docs/PLANO-MVP.md` para prioridades.
-- Distinguir código existente de propostas em `docs/ARQUITETURA.md`. A separação entre `examples/` e `site/`, as URLs de títulos e o índice já estão implementados. A publicação da primeira versão e o piloto corporativo continuam separados.
+- Consultar `docs/02-DIAGNOSTICO.md` para a revisão inicial e `docs/03-PLANO-MVP.md` para prioridades.
+- Distinguir código existente de propostas em `docs/06-ARQUITETURA.md`. A separação entre `examples/` e `site/`, as URLs de títulos e o índice já estão implementados. A publicação da primeira versão e o piloto corporativo continuam separados.
 - Conferir `git status` e preservar alterações do usuário.
 
 ## Arquitetura e código

@@ -2,10 +2,10 @@
 
 Registro do README anterior, preservado em 2026-09-27 para manter o histórico de aprendizado.
 
-> **Não siga este arquivo como tutorial.** Ele contém nomes, caminhos e comportamentos antigos. Para usar o projeto hoje, siga somente o [README](../README.md) e o [guia de uso](GUIA-DE-USO.md). Este texto existe para mostrar o que mudou durante o aprendizado.
+> **Não siga este arquivo como tutorial.** Ele contém nomes, caminhos e comportamentos antigos. Para usar o projeto hoje, siga somente o [README](../README.md) e o [guia de uso](01-GUIA-DE-USO.md). Este texto existe para mostrar o que mudou durante o aprendizado.
 
 A evolução futura para Next.js também não é descrita aqui. Ela está na
-[arquitetura da próxima versão](ARQUITETURA.md).
+[arquitetura da próxima versão](06-ARQUITETURA.md).
 
 ---
 

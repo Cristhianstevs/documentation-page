@@ -19,6 +19,18 @@ function safeUrl(value: string) {
   return escapeHtml(normalized);
 }
 
+function safeEmbedUrl(provider: 'figma' | 'miro', value: string) {
+  try {
+    const url = new URL(value);
+    const allowed =
+      provider === 'figma' ? ['figma.com', 'www.figma.com'] : ['miro.com', 'www.miro.com'];
+    if (url.protocol !== 'https:' || !allowed.includes(url.hostname)) return undefined;
+    return escapeHtml(url.toString());
+  } catch {
+    return undefined;
+  }
+}
+
 function renderInline(node: DocumentInline): string {
   if (node.type === 'link') {
     const title = node.title ? ` title="${escapeHtml(node.title)}"` : '';
@@ -97,9 +109,40 @@ function renderBlock(node: DocumentBlock, headingIds: Set<string>): string {
       .map((child) => renderBlock(child, headingIds))
       .join('')}</aside>`;
   }
-  return `<details><summary>${escapeHtml(node.title)}</summary>${node.children
-    .map((child) => renderBlock(child, headingIds))
-    .join('')}</details>`;
+  if (node.type === 'toggle') {
+    return `<details><summary>${escapeHtml(node.title)}</summary>${node.children
+      .map((child) => renderBlock(child, headingIds))
+      .join('')}</details>`;
+  }
+  if (node.type === 'columns') {
+    return `<div class="content-columns">${node.columns
+      .map(
+        (column) =>
+          `<section>${column.map((child) => renderBlock(child, headingIds)).join('')}</section>`,
+      )
+      .join('')}</div>`;
+  }
+  if (node.type === 'file') {
+    const description = node.description ? `<small>${escapeHtml(node.description)}</small>` : '';
+    return `<a class="file-card" href="${safeUrl(node.src)}" download><strong>${escapeHtml(node.label)}</strong>${description}</a>`;
+  }
+  if (node.type === 'video') {
+    const title = node.title ? ` title="${escapeHtml(node.title)}"` : '';
+    const caption = node.caption ? `<figcaption>${escapeHtml(node.caption)}</figcaption>` : '';
+    return `<figure><video controls preload="metadata" src="${safeUrl(node.src)}"${title}></video>${caption}</figure>`;
+  }
+  if (node.type === 'audio') {
+    const title = node.title ? `<strong>${escapeHtml(node.title)}</strong>` : '';
+    return `<figure class="audio-block">${title}<audio controls preload="metadata" src="${safeUrl(node.src)}"></audio></figure>`;
+  }
+  if (node.type === 'date') {
+    return `<time datetime="${escapeHtml(node.value)}">${escapeHtml(node.label ?? node.value)}</time>`;
+  }
+  const embedUrl = safeEmbedUrl(node.provider, node.url);
+  if (!embedUrl)
+    return `<p class="embed-fallback">Embed ${escapeHtml(node.provider)} inválido.</p>`;
+  const title = escapeHtml(node.title ?? `Conteúdo do ${node.provider}`);
+  return `<figure class="embed-block"><iframe src="${embedUrl}" title="${title}" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups" referrerpolicy="no-referrer"></iframe><figcaption><a href="${embedUrl}">${title}</a></figcaption></figure>`;
 }
 
 export function renderDocumentToHtml(input: DocumentAst): string {

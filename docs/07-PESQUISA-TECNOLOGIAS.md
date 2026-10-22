@@ -168,7 +168,8 @@ que realmente precisarem deles. O experimento avaliou:
 5. bundle do leitor dentro do orçamento definido na arquitetura.
 
 Lexical preservou o subconjunto semântico e funcionou no documento curto, mas uma rodada excedeu o
-p95 de 50 ms e outra não concluiu `Ctrl+End` em 30 segundos com 5.000 blocos. A comparação Tiptap foi
+p95 de 50 ms e outra não concluiu `Ctrl+End` em 30 segundos com 5.000 blocos. O benchmark automatizado
+do Lexical foi arquivado depois da escolha do Tiptap e não bloqueia mais a validação corrente. A comparação Tiptap foi
 acionada. Na rodada final equivalente, Lexical carregou os blocos em 109 ms e levou 29,6 s no cenário
 completo; Tiptap carregou em 50 ms e concluiu o cenário em 4,7 s. As medianas de p95 medidas após
 posicionamento direto foram 14,70 ms e 14,90 ms, respectivamente. A estabilidade do fluxo completo,

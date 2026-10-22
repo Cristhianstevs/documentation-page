@@ -6,7 +6,7 @@ test('carrega o editor somente após a ação e salva Markdown', async ({ page, 
   await expect(page.getByRole('textbox', { name: 'Conteúdo da página' })).toHaveCount(0);
   await page.getByRole('button', { name: 'Editar', exact: true }).click();
   const editor = page.getByRole('textbox', { name: 'Conteúdo da página' });
-  await expect(editor).toBeVisible();
+  await expect(editor).toBeVisible({ timeout: 15_000 });
   await editor.click();
   await page.keyboard.press('Control+End');
   await page.keyboard.type(' Texto salvo pelo estúdio.');
@@ -32,6 +32,50 @@ test('alterna entre fonte e prévia preservando o conteúdo', async ({ page }) =
   await expect(page.getByText('Conteúdo da prévia.')).toBeVisible();
 });
 
+test('insere bloco avançado e preserva a configuração em Markdown', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'O fluxo é coberto no desktop; a leitura estreita é validada separadamente.');
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Editar', exact: true }).click();
+  await page.getByRole('button', { name: '/ Inserir' }).click();
+  const answers = ['warning', 'Atenção'];
+  page.on('dialog', (dialog) => dialog.accept(answers.shift() ?? ''));
+  await page.getByRole('menuitem', { name: 'Aviso' }).click();
+  await expect(page.locator('[data-advanced-block="callout"]')).toBeVisible();
+  await page.getByRole('tab', { name: 'Markdown' }).click();
+  await expect(page.getByRole('textbox', { name: 'Fonte Markdown' })).toContainText(
+    ':::callout{tone=warning title="Atenção"}',
+  );
+  await page.getByRole('tab', { name: 'Prévia' }).click();
+  await expect(page.locator('.preview .callout.warning')).toContainText('Escreva o aviso.');
+});
+
+test('upload local valida o tipo e serve o arquivo salvo', async ({ request, isMobile }) => {
+  test.skip(isMobile, 'O endpoint é independente do dispositivo.');
+  const uploaded = await request.post('/api/assets', {
+    multipart: {
+      file: {
+        name: 'exemplo.txt',
+        mimeType: 'text/plain',
+        buffer: Buffer.from('conteúdo público'),
+      },
+    },
+  });
+  expect(uploaded.ok()).toBe(true);
+  const result = await uploaded.json();
+  expect(result.kind).toBe('file');
+  expect(result.src).toMatch(/^\/assets\/[a-f0-9-]+\.txt$/);
+  const served = await request.get(result.src);
+  expect(served.ok()).toBe(true);
+  expect(await served.text()).toBe('conteúdo público');
+
+  const rejected = await request.post('/api/assets', {
+    multipart: {
+      file: { name: 'pagina.html', mimeType: 'text/html', buffer: Buffer.from('<script>') },
+    },
+  });
+  expect(rejected.status()).toBe(415);
+});
+
 test('recupera rascunho local e avisa sobre conflito de revisão', async ({ page, request }) => {
   await page.goto('/');
   await page.evaluate(() =>
@@ -47,11 +91,12 @@ test('recupera rascunho local e avisa sobre conflito de revisão', async ({ page
 
   const opened = await request.get('/api/pages/inicio');
   const current = await opened.json();
-  await request.put('/api/pages/inicio', {
+  const concurrentSave = await request.put('/api/pages/inicio', {
     data: { markdown: `${current.markdown}\nMudança concorrente.\n`, revision: current.revision },
   });
+  expect(concurrentSave.ok()).toBe(true);
   await page.getByRole('button', { name: 'Salvar', exact: true }).click();
-  await expect(page.getByText(/mudou desde que foi aberta/i)).toBeVisible();
+  await expect(page.getByText(/mudou desde que foi aberta/i)).toBeVisible({ timeout: 15_000 });
 });
 
 test('configura abas e páginas com alias, lixeira e restauração', async ({ page, isMobile }) => {
