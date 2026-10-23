@@ -6,6 +6,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./document": "./src/schema/document.ts",
+    "./legacy-html": "./src/legacy/parse-legacy-html.ts",
     "./markdown": "./src/markdown/index.ts",
     "./catalog-repository": "./src/repository/catalog-repository.ts",
     "./repository": "./src/repository/site-repository.ts",

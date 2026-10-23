@@ -17,7 +17,8 @@ como funcionalidade entregue.
 - [ ] Importação e IA implementadas.
 
 O HTML/CSS/JavaScript atual continua sendo o produto público funcional. Leitor e estúdio Next.js
-permanecem na migração incremental; importação e IA ainda não existem.
+permanecem na migração incremental; a importação documental está implementada, enquanto a IA ainda
+não existe.
 
 ## Ordem e dependências
 
@@ -123,17 +124,27 @@ animação e em tela estreita.
 
 ## Etapa 6 — Importação segura
 
-- [ ] Criar pipeline comum de upload, limites, timeout e cancelamento.
-- [ ] Importar Markdown e texto.
-- [ ] Importar HTML permitido para AST, sem inserir HTML bruto.
-- [ ] Importar DOCX no servidor e mostrar avisos de conversão.
-- [ ] Extrair PDF e avisar sobre perda de ordem/tabelas.
-- [ ] Importar exportação do Notion em arquivo, sem OAuth.
-- [ ] Mostrar prévia editável antes de criar qualquer página.
-- [ ] Testar arquivo grande, corrompido, tipo falso e conteúdo malicioso.
+- [x] Criar pipeline comum de upload, limites, timeout e cancelamento.
+- [x] Importar Markdown e texto.
+- [x] Importar HTML permitido para AST, sem inserir HTML bruto.
+- [x] Importar DOCX no servidor e mostrar avisos de conversão.
+- [x] Extrair PDF e avisar sobre perda de ordem/tabelas.
+- [x] Importar exportação do Notion em arquivo, sem OAuth.
+- [x] Mostrar prévia editável antes de criar qualquer página.
+- [x] Testar arquivo grande, corrompido, tipo falso e conteúdo malicioso.
 
 **Aceite:** upload nunca define sozinho o caminho ou sobrescreve uma página; a pessoa vê o conteúdo
 normalizado e escolhe o destino antes de salvar.
+
+Progresso em 2026-10-22: o primeiro lote aceita Markdown e texto de até 1 MiB, valida tipo e
+conteúdo e mostra uma prévia editável antes de qualquer escrita. A pessoa escolhe criar uma página
+ou substituir uma página cadastrada; somente a confirmação aplica a mudança, com revisão, backup e
+rollback do catálogo. Consulte a
+[documentação da Etapa 6](18-ETAPA-6-IMPORTACAO.md).
+
+Concluída em 2026-10-23: HTML passa pelo AST permitido; DOCX é convertido no servidor com
+Mammoth; PDF usa PDF.js para extrair texto; ZIP do Notion seleciona um documento compatível sem
+OAuth. Todos mantêm prévia, avisos, escolha de destino e confirmação antes da escrita.
 
 ## Etapa 7 — IA com controle humano
 

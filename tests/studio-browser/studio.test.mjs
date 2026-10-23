@@ -1,5 +1,96 @@
 import { expect, test } from '@playwright/test';
 
+test('revisa a importação e confirma a criação da página', async ({ page, isMobile }) => {
+  const importedTitle = isMobile ? 'Guia importado mobile' : 'Guia importado desktop';
+  const importedId = isMobile ? 'guia-importado-mobile' : 'guia-importado-desktop';
+  await page.request.post('/api/imports/preview', {
+    multipart: {
+      file: { name: 'aquecimento.txt', mimeType: 'text/plain', buffer: Buffer.from('Aquecimento') },
+    },
+  });
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Importar' }).click();
+  await page.locator('input[type="file"]').setInputFiles({
+    name: 'guia.md',
+    mimeType: 'text/markdown',
+    buffer: Buffer.from(`# ${importedTitle}\n\nConteúdo fictício.`),
+  });
+
+  await expect(
+    page.getByText('Prévia pronta. Nenhum arquivo da instalação foi alterado.'),
+  ).toBeVisible({ timeout: 15_000 });
+  const source = page.getByLabel('Markdown normalizado e editável');
+  await expect(source).toContainText(`# ${importedTitle}`);
+  await expect(page.getByRole('heading', { name: importedTitle })).toBeVisible();
+  await source.fill('# Guia revisado\n\nPrévia alterada pela pessoa.');
+  await expect(page.getByRole('heading', { name: 'Guia revisado' })).toBeVisible();
+  await page.getByRole('button', { name: 'Confirmar e criar página' }).click();
+  await expect(page.getByRole('dialog', { name: 'Revisar arquivo' })).toHaveCount(0, {
+    timeout: 15_000,
+  });
+  await expect(page.getByRole('heading', { name: importedTitle })).toBeVisible();
+
+  const created = await page.request.get(`/api/pages/${importedId}`);
+  expect(created.ok()).toBe(true);
+  expect((await created.json()).markdown).toContain('Prévia alterada pela pessoa.');
+
+  if (isMobile) {
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+      true,
+    );
+  }
+});
+
+test('substitui uma página importada somente depois da confirmação', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'A criação já cobre o diálogo no celular; este caso valida a outra ação.');
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Importar' }).click();
+  await page.locator('input[type="file"]').setInputFiles({
+    name: 'substituicao.txt',
+    mimeType: 'text/plain',
+    buffer: Buffer.from('Conteúdo substituto confirmado.'),
+  });
+  await page.getByLabel('Substituir uma página existente').check();
+  await page.getByRole('button', { name: 'Confirmar e substituir página' }).click();
+  await expect(page.getByRole('dialog', { name: 'Revisar arquivo' })).toHaveCount(0, {
+    timeout: 15_000,
+  });
+
+  const replaced = await page.request.get('/api/pages/inicio');
+  expect(replaced.ok()).toBe(true);
+  expect((await replaced.json()).markdown).toContain('Conteúdo substituto confirmado.');
+});
+
+test('API de importação normaliza HTML malicioso e recusa tipo falso', async ({
+  request,
+  isMobile,
+}) => {
+  test.skip(isMobile, 'O endpoint é independente do dispositivo.');
+  const html = await request.post('/api/imports/preview', {
+    multipart: {
+      file: {
+        name: 'pagina.html',
+        mimeType: 'text/html',
+        buffer: Buffer.from(
+          '<h1>Página segura</h1><script>alert(1)</script><a href="javascript:alert(2)">Link</a>',
+        ),
+      },
+    },
+  });
+  expect(html.ok()).toBe(true);
+  const preview = await html.json();
+  expect(preview.markdown).toContain('Página segura');
+  expect(preview.markdown).not.toMatch(/javascript:|alert\(/i);
+  expect(preview.warnings.join(' ')).toContain('script');
+
+  const fake = await request.post('/api/imports/preview', {
+    multipart: {
+      file: { name: 'falso.pdf', mimeType: 'application/pdf', buffer: Buffer.from('texto') },
+    },
+  });
+  expect(fake.status()).toBe(422);
+});
+
 test('carrega o editor somente após a ação e salva Markdown', async ({ page, isMobile }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Início' })).toBeVisible();

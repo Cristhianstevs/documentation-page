@@ -121,8 +121,17 @@ test('catálogo cria, ordena, move, duplica, cria alias e restaura página', asy
 
   await apply({ type: 'createTab', id: 'referencia', title: 'Referência' });
   await apply({ type: 'moveTab', tabId: 'referencia', index: 0 });
-  await apply({ type: 'createPage', tabId: 'referencia', id: 'api', title: 'API' });
-  assert.match(await readFile(join(root, 'pages', 'api.md'), 'utf8'), /^# API/);
+  await apply({
+    type: 'createPage',
+    tabId: 'referencia',
+    id: 'api',
+    title: 'API',
+    markdown: '# API importada\n\nConteúdo revisado antes da criação.\n',
+  });
+  assert.equal(
+    await readFile(join(root, 'pages', 'api.md'), 'utf8'),
+    '# API importada\n\nConteúdo revisado antes da criação.\n',
+  );
   await apply({ type: 'renamePage', pageId: 'api', title: 'API pública' });
   await apply({ type: 'renamePageId', pageId: 'api', nextId: 'api-publica' });
   assert.equal(state.catalog.aliases.pages.api, 'api-publica');

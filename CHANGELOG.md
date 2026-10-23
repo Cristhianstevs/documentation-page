@@ -5,6 +5,22 @@ não implementada fica no [plano da próxima versão](docs/08-PLANO-PROXIMA-VERS
 
 ## Não lançado
 
+### Importação segura — 2026-10-23
+
+- Criado um pacote de importadores separado do leitor público.
+- Adicionado pipeline de prévia para Markdown e texto com limite de 1 MiB, validação de tipo,
+  recusa de conteúdo binário e suporte a cancelamento.
+- O estúdio ganhou a ação **Importar**, com Markdown editável, prévia segura, escolha de destino e
+  confirmação explícita para criar ou substituir uma página.
+- Criação e substituição reutilizam revisão, backup, escrita atômica e rollback dos repositórios
+  existentes; o nome do arquivo enviado nunca define o caminho de destino.
+- Adicionados testes para normalização, simplificação de texto, tipo falso, arquivo grande e
+  cancelamento.
+- Concluída a etapa com HTML permitido, DOCX via Mammoth, extração de PDF via PDF.js e exportação
+  ZIP do Notion sem OAuth.
+- Arquivos compactados receberam limites de entradas e tamanho expandido; conteúdo ativo e URLs
+  perigosas do HTML são descartados antes da serialização.
+
 ### Adicionado — Etapa 5
 
 - Formato v1 ampliado com colunas, arquivo, vídeo, áudio, data e embeds permitidos de Figma/Miro.

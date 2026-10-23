@@ -9,8 +9,9 @@ layout para desktop e celular.
 > migração concluiu a equivalência funcional do leitor Next.js em `apps/reader`; ele ainda não substitui o
 > tema atual. A Etapa 2 definiu Markdown/AST e escolheu Tiptap; a Etapa 3 entregou edição e salvamento
 > local de páginas Markdown em `apps/studio`; a Etapa 4 adicionou configurações de site, abas e
-> páginas pela interface; a Etapa 5 adicionou blocos avançados e mídia. Importação e IA continuam
-> planejadas. Leia a
+> páginas pela interface; a Etapa 5 adicionou blocos avançados e mídia; a Etapa 6 iniciou a
+> Etapa 6 concluiu a importação segura de Markdown, texto, HTML, DOCX, PDF e ZIP do Notion, com
+> prévia, escolha de destino, confirmação e backup. IA continua planejada. Leia a
 > [arquitetura proposta](docs/06-ARQUITETURA.md) e o
 > [plano incremental](docs/08-PLANO-PROXIMA-VERSAO.md). Nenhum desses recursos futuros está disponível
 > nesta revisão.
@@ -152,6 +153,7 @@ conversor explícito da Etapa 2.
 | Usar o editor e o salvamento local           | [Etapa 3 — Escrita manual](docs/13-ETAPA-3-ESCRITA-MANUAL.md)   |
 | Configurar site, abas e páginas              | [Etapa 4 — Configurações](docs/14-ETAPA-4-CONFIGURACOES.md)     |
 | Consultar blocos avançados e mídia           | [Etapa 5 — Blocos e mídia](docs/15-ETAPA-5-BLOCOS-E-MIDIA.md)   |
+| Acompanhar a importação segura               | [Etapa 6 — Importação](docs/18-ETAPA-6-IMPORTACAO.md)           |
 | Comparar as tecnologias pesquisadas          | [Pesquisa de tecnologias](docs/07-PESQUISA-TECNOLOGIAS.md)      |
 | Testar uma instalação como novo usuário      | [Teste de aceite](docs/04-TESTE-DE-ACEITE.md)                   |
 | Ver o que já foi validado                    | [Relatório de validação](docs/05-RELATORIO-VALIDACAO-MVP.md)    |

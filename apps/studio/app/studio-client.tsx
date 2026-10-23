@@ -10,6 +10,11 @@ const EditorWorkspace = dynamic(() => import('./editor-workspace'), {
   ssr: false,
 });
 
+const ImportDialog = dynamic(
+  () => import('./import-dialog').then((module) => module.ImportDialog),
+  { ssr: false },
+);
+
 function pageOptions(catalog: SiteCatalog) {
   return catalog.tabs.flatMap((tab) =>
     tab.pages.map((pageId) => ({
@@ -30,6 +35,7 @@ export function StudioClient({
   const [catalog, setCatalog] = useState(initialCatalog);
   const [revision, setRevision] = useState(initialRevision);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [importOpen, setImportOpen] = useState(false);
   const pages = pageOptions(catalog);
   const [pageId, setPageId] = useState(pages[0]?.id ?? '');
   const [editing, setEditing] = useState(false);
@@ -47,6 +53,9 @@ export function StudioClient({
           <p>{catalog.site.title}</p>
         </div>
         <div className="header-actions">
+          <button onClick={() => setImportOpen(true)} type="button">
+            Importar
+          </button>
           <button onClick={() => setSettingsOpen(true)} type="button">
             Configurações
           </button>
@@ -105,6 +114,21 @@ export function StudioClient({
         onClose={() => setSettingsOpen(false)}
         open={settingsOpen}
       />
+      {importOpen ? (
+        <ImportDialog
+          catalog={catalog}
+          catalogRevision={revision}
+          onApplied={(nextCatalog, nextRevision, nextPageId) => {
+            setCatalog(nextCatalog);
+            setRevision(nextRevision);
+            setPageId(nextPageId);
+            setEditing(false);
+            setDirty(false);
+            setImportOpen(false);
+          }}
+          onClose={() => setImportOpen(false)}
+        />
+      ) : null}
     </main>
   );
 }

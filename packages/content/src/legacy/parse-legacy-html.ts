@@ -22,6 +22,11 @@ function text(value: string, marks: DocumentText['marks'] = []): DocumentText[] 
   return value ? [{ type: 'text', value, marks }] : [];
 }
 
+function allowedUrl(value: string) {
+  const normalized = value.trim();
+  return /^(?:https?:|mailto:|\/|\.?\.\/|#)/i.test(normalized) ? normalized : undefined;
+}
+
 function inlineNodes(nodes: HtmlNode[], marks: DocumentText['marks'] = []): DocumentInline[] {
   return nodes.flatMap((node): DocumentInline[] => {
     if (node.nodeType === 3) return text(node.textContent, marks);
@@ -38,10 +43,12 @@ function inlineNodes(nodes: HtmlNode[], marks: DocumentText['marks'] = []): Docu
       const children = inlineNodes(node.childNodes, marks).flatMap((child) =>
         child.type === 'text' ? [child] : child.children,
       );
+      const url = allowedUrl(node.getAttribute?.('href') ?? '');
+      if (!url) return children;
       return [
         {
           type: 'link',
-          url: node.getAttribute?.('href') ?? '',
+          url,
           title: node.getAttribute?.('title'),
           children,
         },
@@ -106,10 +113,15 @@ function elementBlocks(node: HtmlNode, issues: string[]): DocumentBlock[] {
   }
   if (tag === 'hr') return [{ type: 'thematicBreak' }];
   if (tag === 'img') {
+    const src = allowedUrl(node.getAttribute?.('src') ?? '');
+    if (!src) {
+      issues.push('Imagem com endereço inseguro ou ausente descartada.');
+      return [];
+    }
     return [
       {
         type: 'image',
-        src: node.getAttribute?.('src') ?? '',
+        src,
         alt: node.getAttribute?.('alt') ?? '',
         title: node.getAttribute?.('title'),
       },

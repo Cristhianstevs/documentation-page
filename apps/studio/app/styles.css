@@ -314,6 +314,87 @@ h1 {
   color: #172033;
   background: #f8f9fc;
 }
+
+.import-dialog {
+  width: min(70rem, calc(100vw - 2rem));
+}
+
+.import-file {
+  display: grid;
+  gap: 0.45rem;
+  font-weight: 700;
+}
+
+.import-file input {
+  font: inherit;
+}
+
+.import-summary,
+.import-warning {
+  margin: 0;
+}
+
+.import-warning {
+  border-left: 0.25rem solid var(--warning, #b7791f);
+  padding-left: 0.75rem;
+}
+
+.import-review {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.import-review label {
+  display: grid;
+  gap: 0.45rem;
+  font-weight: 700;
+}
+
+.import-review textarea {
+  min-height: 22rem;
+  resize: vertical;
+}
+
+.import-destination,
+.import-fields,
+.import-existing {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.import-destination label {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.import-fields {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.import-fields label,
+.import-existing {
+  font-weight: 700;
+}
+
+.import-fields input,
+.import-fields select,
+.import-existing select {
+  display: block;
+  margin-top: 0.4rem;
+  width: 100%;
+}
+
+@media (max-width: 760px) {
+  .import-review {
+    grid-template-columns: 1fr;
+  }
+
+  .import-fields {
+    grid-template-columns: 1fr;
+  }
+}
 .settings-dialog::backdrop {
   background: rgb(10 18 35 / 60%);
 }
